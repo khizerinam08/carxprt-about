@@ -11,7 +11,7 @@ export const FAQ: Topic[] = [
       { q: "Can I just describe the car I want instead of using filters?", a: "Yes — that's the main way people use CarXprt. Type or say something like \"hybrid SUV with third row, under $45K, within 50 miles\" and we'll pull matching listings. You can keep refining in plain language: \"actually make it AWD,\" \"drop the sunroof.\"" },
       { q: "Can I search by voice?", a: "Yes. Tap the mic anywhere on the site and talk. Voice works for searching, comparing, and even navigating — \"show me my saved cars,\" \"take me to offers.\"" },
       { q: "Can I compare cars side by side?", a: "Yes. Pick up to three and we'll break down price, cost of ownership, reliability, and the trade-offs that actually matter — not just a spec table you have to interpret yourself." },
-      { q: "How do I know if a listing is priced fairly?", a: "Every car gets a dynamic fair-price check against similar cars for sale in your area, and Plus adds a full ownership cost breakdown — insurance, fuel, maintenance, depreciation — so you're comparing the real number, not the sticker." },
+      { q: "How do I know if a listing is priced fairly?", a: "Every car gets a dynamic fair-price check against similar cars for sale in your area, plus a full ownership cost breakdown — insurance, fuel, maintenance, depreciation — so you're comparing the real number, not the sticker." },
     ],
   },
   {

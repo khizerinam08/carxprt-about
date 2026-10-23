@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { clamp, useScrollFrame } from "@/hooks/useScroll";
 import { Icon, Logo } from "../Icons";
@@ -11,16 +11,20 @@ import s from "./Versus.module.css";
    row (compare-sources.md; rechecked 23 Oct 2026: both now have AI search, Carson and CarGurus Discover, but
    contacting, negotiating and paperwork stay manual, through lead forms). The main difference first: the whole
    thing done by talking to the AI. As the table scrolls past the middle of the screen, the CarXprt column fills
-   with lime from the top and each of its marks lights as the fill reaches it. Every row is Plus (the column
-   says so) except the person, which is Pro */
+   with lime from the top and each of its marks lights as the fill reaches it. It compares the platforms, so the
+   column is just CarXprt; a feature that needs a paid plan says which in its own cell. The user (24 Oct 2026):
+   all of these are on the free plan except the AI negotiator and keeping your number from dealers (Plus) and
+   the advisor (Pro).
+   On phones (the user's reference: a pricing table with plan tabs) it's one card: the site's switch for the two
+   sides at the top, held while the rows pass, then each row: its feature and the chosen side's answer */
 
 type Kind = "yes" | "part" | "no";
-const ROWS: { label: string; cx: Kind; plan?: "Pro"; them: Kind; note?: string }[] = [
+const ROWS: { label: string; cx: Kind; plan?: "Plus" | "Pro"; them: Kind; note?: string }[] = [
   { label: "Do all of it just by talking to AI", cx: "yes", them: "part", note: "Search only" },
   { label: "Dynamic fair-price check", cx: "yes", them: "yes" },
   { label: "The full cost to own", cx: "yes", them: "no" },
-  { label: "AI that negotiates with the dealer", cx: "yes", them: "no" },
-  { label: "Dealers never get your number", cx: "yes", them: "no" },
+  { label: "AI that negotiates with the dealer", cx: "yes", plan: "Plus", them: "no" },
+  { label: "Dealers never get your number", cx: "yes", plan: "Plus", them: "no" },
   { label: "The out-the-door price before you go", cx: "yes", them: "part", note: "Fees, not tax" },
   { label: "A person to run the deal", cx: "yes", plan: "Pro", them: "no" },
 ];
@@ -43,6 +47,8 @@ function Mark({ kind }: { kind: Kind }) {
 export function Versus() {
   const grid = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
+  // phones: which side's answers the card shows
+  const [side, setSide] = useState<"cx" | "them">("cx");
 
   // the fill: 0 as the table's top crosses 70% of the screen, 1 as its foot does
   useScrollFrame(({ vh }) => {
@@ -59,15 +65,22 @@ export function Versus() {
           <h2 className="h2" id="versus-title">Why not just use a listings site?</h2>
           <p className={s.lead}>Listing sites help you find a car, and the rest is forms, calls and haggling. With CarXprt you just talk: it finds the car, works out what it really costs and negotiates the price, and your number stays yours.</p>
         </div>
-        <div className={s.grid} ref={grid} role="table" aria-labelledby="versus-title" style={FULL}>
+        <div className={s.card}>
+        {/* phones only: the site's switch (as the bento's Compare cell) */}
+        <div className={s.phoneHead}>
+          <div className={s.segment} role="radiogroup" aria-label="Show the answers for">
+            <button type="button" role="radio" aria-checked={side === "cx"} onClick={() => setSide("cx")}>CarXprt</button>
+            <button type="button" role="radio" aria-checked={side === "them"} onClick={() => setSide("them")}>Listing sites</button>
+          </div>
+        </div>
+        <div className={s.grid} ref={grid} role="table" aria-labelledby="versus-title" style={FULL} data-side={side}>
           <i className={s.panel} aria-hidden="true" />
-          <div className={s.row} role="row" style={{ "--r": 1 } as React.CSSProperties}>
+          <div className={`${s.row} ${s.headRow}`} role="row" style={{ "--r": 1 } as React.CSSProperties}>
             <span role="columnheader"><span className="sr-only">Feature</span></span>
             <span role="columnheader" className={s.cxHead}>
               <Logo className={s.logo} />
               <svg className={s.markOnly} viewBox="0 0 15.68 15.68" aria-hidden="true"><use href="#mark" /></svg>
               <span className="sr-only">CarXprt</span>
-              <em className={s.headPlan}>Plus</em>
             </span>
             <span role="columnheader" className={s.themHead}>Listing sites<small>Cars.com, CarGurus</small></span>
           </div>
@@ -78,9 +91,15 @@ export function Versus() {
                 <Mark kind={r.cx} />
                 {r.plan && <em className={`${s.side} ${s.plan}`}>{r.plan}</em>}
               </span>
-              <span role="cell" className={s.them}><Mark kind={r.them} />{r.note && <small className={s.side}>{r.note}</small>}</span>
+              <span role="cell" className={s.them}>
+                <Mark kind={r.them} />
+                {r.note && <small className={s.side}>{r.note}</small>}
+                {/* phones say "not offered" in words, as the reference's values are words */}
+                {r.them === "no" && <small className={s.say} aria-hidden="true">{SAY.no}</small>}
+              </span>
             </div>
           ))}
+        </div>
         </div>
       </div>
     </section>
