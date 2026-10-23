@@ -1,0 +1,54 @@
+/* --lift (Problem.tsx, useLift) centres the content on tall screens: it moves the grid down and comes off the
+   top margin, so the title still arrives one section gap after the bridge */
+.problem { position: relative; height: 320vh; margin-top: calc(var(--section-gap) - 112px - var(--lift, 0px)); scroll-margin-top: 104px; }
+.sticky { position: sticky; top: 0; height: 100vh; overflow: hidden; padding-top: 112px; padding-bottom: 32px; }
+.grid { height: 100%; transform: translateY(var(--lift, 0px)); display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); grid-template-rows: auto minmax(0, 1fr); gap: 32px 48px; }
+.title { grid-column: 1 / -1; max-width: 900px; text-wrap: balance; }
+.copy { display: flex; flex-direction: column; gap: 48px; min-height: 0; }
+
+/* steps not in play stay readable (grey, not faded); spacing separates them, not rules */
+.steps { display: grid; gap: 4px; }
+.step { padding: 12px 0; }
+.step h3 { font-size: 20px; font-weight: 500; letter-spacing: -.02em; color: var(--sub); transition: color .4s; }
+.on h3 { color: var(--ink); }
+/* the step in play opens to its one-line body and the sub-steps it's made of */
+.more { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .4s var(--ease); }
+.more > div { min-height: 0; overflow: hidden; }
+.on .more { grid-template-rows: 1fr; padding-top: 4px; }
+.step p { max-width: 420px; font-size: 16px; color: var(--sub); }
+.points { display: grid; grid-template-columns: repeat(2, minmax(0, max-content)); gap: 2px 24px; max-width: 460px; margin-top: 6px; list-style: none; font-size: 15px; line-height: 20px; color: var(--ink); }
+.points li { display: flex; align-items: center; gap: 10px; }
+.points li::before { content: ""; flex: none; width: 5px; height: 5px; border-radius: 50%; background: var(--lime-dot); }
+
+/* pinned: Problem.tsx places each step level with its receipt line (top), and gives the list its height */
+.problem[data-aligned] .steps { position: relative; display: block; }
+.problem[data-aligned] .step { position: absolute; left: 0; right: 0; padding: 0; }
+
+/* the receipt fills its column */
+.visual { position: relative; display: flex; align-items: flex-start; min-height: 0; }
+.step:first-child { padding-top: 0; }
+
+@media (max-width: 1100px) {
+  .grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+}
+@media (max-height: 820px) {
+  .title { font-size: 44px; }
+  .points { font-size: 14px; line-height: 18px; }
+}
+/* short laptops: the open step's sub-steps run on as one wrapped line, so it stays close to its bill line */
+@media (max-height: 720px) {
+  .grid { row-gap: 20px; }
+  .step h3 { line-height: 24px; }
+  .step p { font-size: 14px; line-height: 18px; }
+  .points { display: flex; flex-wrap: wrap; gap: 2px 18px; }
+}
+@media (max-width: 720px), (max-height: 650px) {
+  .problem { height: auto; margin-top: var(--section-gap); }
+  .sticky { position: relative; height: auto; overflow: visible; padding: 0; }
+  .grid { display: block; }
+  .title { margin-bottom: 40px; }
+  .copy { display: none; }
+}
+@media (max-width: 720px) {
+  .title { font-size: 28px; }
+}

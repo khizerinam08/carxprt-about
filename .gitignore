@@ -1,0 +1,23 @@
+# dependencies and builds
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+
+# private: Vercel link and its token
+web/.vercel/
+web/.env*
+
+# local tooling, working notes and scratch files (not part of the site)
+.claude/
+.impeccable/
+.taste-skill/
+SKILL.md
+HANDOFF.md
+review-desktop.png
+home-v2-truth-pass.jpg
+
+# the original static prototype, superseded by web/
+/index.html
+/car.webp
+/assets/

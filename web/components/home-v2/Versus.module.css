@@ -1,0 +1,77 @@
+/* the short comparison: a centred heading, then a three-column table (feature, CarXprt, listing sites). The
+   CarXprt column sits on a raised panel that fills with lime from the top as --fill (0 → 1) runs; each row's
+   mark lights as the fill passes its middle (--t). No bottom padding: the bento's own top gap follows */
+.versus { padding-bottom: 0; }
+.head { display: grid; justify-items: center; gap: 20px; max-width: 760px; margin: 0 auto 56px; text-align: center; }
+.head :global(.h2) { text-wrap: balance; }
+.lead { max-width: 52ch; font-size: 18px; line-height: 1.45; color: var(--sub); text-wrap: pretty; }
+
+/* the header row, then the seven feature rows (explicit, so the panel can span them all) */
+.grid { --head: 96px; position: relative; display: grid; grid-template-columns: minmax(0, 1fr) 200px 200px; grid-template-rows: var(--head) repeat(7, 72px);
+  max-width: 920px; margin: 0 auto; }
+.row { display: contents; }
+/* every cell is placed by hand (row --r, columns 1–3): the panel holds column 2 in every row, so automatic
+   placement would push the cells along */
+.row > * { grid-row: var(--r); position: relative; z-index: 1; display: flex; align-items: center; }
+.row > :nth-child(1) { grid-column: 1; }
+.row > :nth-child(2) { grid-column: 2; }
+.row > :nth-child(3) { grid-column: 3; }
+/* the hairline under each feature row runs across all three columns */
+.row + .row > * { border-top: 1px solid var(--line); }
+
+/* the panel behind the CarXprt column, and its lime fill growing down */
+.panel { grid-column: 2; grid-row: 1 / -1; position: relative; border-radius: 24px; background: var(--surface); overflow: hidden;
+  box-shadow: 0 0 0 1px var(--line), 0 24px 48px -32px rgba(0, 0, 0, .25); }
+/* the header is always on lime (the logo reads in both themes); the rows fill in under it */
+.panel::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: calc(var(--head) + var(--fill) * (100% - var(--head))); background: var(--lime); }
+
+.label { padding-right: 24px; font-size: 18px; line-height: 1.3; letter-spacing: -.01em; }
+.cx, .them, .cxHead, .themHead { justify-content: center; }
+/* every mark sits dead centre in its column; a plan chip or a note hangs off to its right, out of the flow */
+.side { position: absolute; left: calc(50% + 22px); top: 50%; translate: 0 -50%; white-space: nowrap; }
+.them .side { font-size: 12px; line-height: 1.2; color: var(--sub); }
+.cxHead { flex-direction: column; gap: 8px; }
+.cxHead .logo { width: 116px; height: 25px; color: var(--ink); }
+.headPlan { padding: 2px 10px; border-radius: 999px; background: #1A1A1A; color: var(--lime); font-size: 12px; font-style: normal; font-weight: 500; }
+.cxHead .markOnly { display: none; width: 30px; height: 30px; }
+.themHead { flex-direction: column; justify-content: center; gap: 2px; font-size: 16px; font-weight: 500; }
+.themHead small { font-size: 13px; font-weight: 400; color: var(--sub); }
+
+/* marks: a check, a dash or a half circle in a round chip */
+.mk { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; }
+.mk :global(.i), .mk svg { width: 18px; height: 18px; stroke-width: 2.2; }
+.mk svg { fill: none; stroke: currentColor; stroke-width: 1.8; }
+.mk svg path { fill: currentColor; stroke: none; }
+.them .mk { color: var(--sub); background: var(--bg); }
+.them .no { color: #9E9E9E; }
+/* CarXprt's marks wait faintly, then turn ink as the lime reaches them */
+.cx .mk { --on: clamp(0, (var(--fill) - var(--t) + .04) / .06, 1);
+  color: #1A1A1A; background: rgba(26, 26, 26, calc(var(--on) * .08)); opacity: calc(.25 + var(--on) * .75); scale: calc(.85 + var(--on) * .15); }
+.plan { padding: 2px 8px; border-radius: 999px; background: #1A1A1A; color: var(--lime); font-size: 12px; font-style: normal; font-weight: 500;
+  opacity: clamp(0, (var(--fill) - var(--t) + .04) / .06, 1); }
+/* on the lime, the CarXprt column's logo is always ink, dark mode too */
+.cxHead .logo { color: #1A1A1A; --logo-x: #1A1A1A; }
+
+
+@media (max-width: 860px) {
+  .grid { grid-template-columns: minmax(0, 1fr) 120px 120px; grid-template-rows: var(--head) repeat(7, 80px); }
+  .label { font-size: 16px; }
+  /* narrower columns: the chip or note hangs under the mark instead */
+  .side { left: 50%; top: calc(50% + 18px); translate: -50% 0; }
+  .them .side { font-size: 11px; }
+}
+@media (max-width: 720px) {
+  .head { margin-bottom: 56px; }
+  .lead { font-size: 16px; }
+  .grid { --head: 88px; grid-template-columns: minmax(0, 1fr) 76px 92px; grid-template-rows: var(--head) repeat(7, auto); }
+  .row > * { min-height: 88px; padding-top: 22px; padding-bottom: 22px; }
+  .side { top: calc(50% + 16px); }
+  .label { padding-right: 16px; font-size: 15px; line-height: 1.35; }
+  .cxHead .logo { display: none; }
+  .cxHead .markOnly { display: block; }
+  .themHead { font-size: 14px; text-align: center; }
+  .themHead small { font-size: 12px; }
+  .panel { border-radius: 18px; }
+  .mk { width: 28px; height: 28px; }
+  .plan { font-size: 11px; padding: 1px 6px; }
+}

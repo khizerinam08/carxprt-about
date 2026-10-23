@@ -1,0 +1,111 @@
+/* Figma design system: Surface/Default card with the car card's 0.3px neutral/500 edge. Type steps:
+   H4 24/28 title, H5 20/24 lines, Body Large 16/22 detail, Body Default 14/18 labels, H2 40/44 totals.
+   Danger is red/500; small red text uses a darker step so it stays legible (4.5:1). */
+.receipt {
+  --tint: #F9FFD6; --chip: #EEEEEE; --subtle: #F5F5F5; --track: #E0E0E0; --rule: rgba(74,85,85,.2);
+  --danger: #FF0000; --danger-text: #D10000; --danger-tint: rgba(255,0,0,.08);
+  display: flex; flex-direction: column; gap: 20px; width: 100%; padding: 28px;
+  border: .3px solid #9E9E9E; border-radius: 16px; background: var(--surface); color: var(--ink); box-shadow: 0 0 1.55px rgba(0,0,0,.25);
+}
+[data-theme="dark"] .receipt {
+  --tint: rgba(231,248,82,.12); --chip: #2D2D2D; --subtle: #232323; --track: #3A3A3A; --rule: var(--line-2);
+  --danger: #FF5C5C; --danger-text: #FF7A7A; --danger-tint: rgba(255,0,0,.16);
+}
+
+.head { display: grid; gap: 4px; padding-bottom: 16px; border-bottom: .5px solid var(--rule); }
+.title { font-size: 24px; line-height: 28px; font-weight: 500; letter-spacing: -.02em; }
+.sub { font-size: 16px; line-height: 22px; color: var(--sub); }
+
+/* the four lines are printed on the form from the start; a line fills in (time, money, detail) when its
+   step is reached, and the line in play is tinted lime with its clock running */
+.rows { display: grid; gap: 2px; }
+/* the same fixed time and money columns on every line, so figures and dashes stack in one column */
+.line { display: grid; grid-template-columns: 36px minmax(0, 1fr) 84px 96px; align-items: center; column-gap: 14px; margin: 0 -12px; padding: 10px 12px; border-radius: 12px; color: var(--sub); transition: background .35s ease, color .35s ease; }
+.in .line { color: var(--ink); }
+.now .line { background: var(--tint); }
+.icon { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--chip); color: var(--sub); transition: background .35s, color .35s; }
+.icon :global(.i) { width: 18px; height: 18px; }
+.in .icon { color: var(--ink); }
+.now .icon { background: var(--lime); color: #1A1A1A; }
+.label { font-size: 20px; line-height: 24px; font-weight: 500; letter-spacing: -.01em; }
+.time { font-size: 20px; line-height: 24px; font-variant-numeric: tabular-nums; text-align: right; }
+.add { justify-self: end; padding: 2px 10px; border-radius: 999px; background: var(--danger-tint); color: var(--danger-text); font-size: 14px; line-height: 20px; font-weight: 500; font-variant-numeric: tabular-nums; opacity: 0; transform: scale(.85); transition: opacity .3s ease, transform .35s var(--ease); }
+.in .add { opacity: 1; transform: none; }
+/* what the step puts on the bill, like the modifiers under an item on a till receipt; each line prints
+   when the line's progress (--f) passes its place in the list (--j). Two columns, so the dealership's four
+   lines stay as short as the step beside them and the bill still fits the stage. */
+.detail { grid-column: 2 / -1; display: grid; grid-template-rows: 0fr; opacity: 0; font-size: 16px; line-height: 22px; color: var(--sub); transition: grid-template-rows .45s var(--ease), opacity .35s ease; }
+.detail > div { min-height: 0; overflow: hidden; }
+.detail ul { list-style: none; }
+.bill { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 32px; }
+.bill li { display: flex; justify-content: space-between; gap: 16px; opacity: clamp(0, calc((var(--f, 1) - var(--j)) * 10), 1); transform: translateY(calc((1 - clamp(0, calc((var(--f, 1) - var(--j)) * 10), 1)) * 4px)); }
+/* a lone line runs the full width, so its amount sits under the money column */
+.bill li:only-child { grid-column: 1 / -1; padding-right: 10px; }
+.bill b { font-weight: 500; font-variant-numeric: tabular-nums; }
+.plus { color: var(--danger-text); }
+.now .detail { grid-template-rows: 1fr; opacity: 1; padding-top: 6px; }
+.now .bill li { color: var(--ink); }
+/* the sub-steps only show here where the step list is hidden (phones, short screens) */
+.points { display: none; flex-wrap: wrap; gap: 4px 14px; }
+.points li { display: flex; align-items: center; gap: 10px; }
+.points li::before { content: ""; flex: none; width: 5px; height: 5px; border-radius: 50%; background: currentColor; opacity: .5; }
+
+/* the totals are the largest type on the card: time against ~14h, and what you actually sign for */
+.totals { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.total { display: grid; align-content: start; gap: 6px; padding: 18px 20px; border-radius: 12px; background: var(--subtle); }
+.k { font-size: 14px; line-height: 18px; color: var(--sub); }
+.v { font-size: 40px; line-height: 44px; font-weight: 500; letter-spacing: -.03em; font-variant-numeric: tabular-nums; transition: color .3s; }
+.up { color: var(--danger); }
+.track { height: 4px; margin-top: 6px; border-radius: 2px; background: var(--track); overflow: hidden; }
+.fill { display: block; height: 100%; background: var(--lime-dot); transform: scaleX(var(--t, 1)); transform-origin: left; }
+.note { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; min-height: 22px; font-size: 14px; line-height: 18px; color: var(--sub); }
+.delta { padding: 2px 8px; border-radius: 999px; background: var(--danger-tint); color: var(--danger-text); font-weight: 500; font-variant-numeric: tabular-nums; }
+
+/* shorter laptop screens: the same bill a step smaller, so it fits the pinned stage */
+@media (max-height: 820px) {
+  .receipt { gap: 14px; padding: 20px; }
+  .line { grid-template-columns: 32px minmax(0, 1fr) 76px 92px; }
+  .head { padding-bottom: 12px; }
+  .title { font-size: 20px; line-height: 24px; }
+  /* the open step beside the bill pushes the next line down; the subtitle makes room for it */
+  .sub { display: none; }
+  .line { padding: 6px 12px; }
+  .label, .time { font-size: 18px; line-height: 22px; }
+  .detail { font-size: 14px; line-height: 18px; }
+  .bill { gap: 2px 24px; }
+  .total { padding: 12px 16px; }
+  .v { font-size: 32px; line-height: 36px; }
+}
+
+@media (max-height: 720px) {
+  .receipt { gap: 10px; padding: 16px 20px; }
+  .head { padding-bottom: 8px; }
+  .line { padding: 4px 12px; }
+  .icon { width: 30px; height: 30px; }
+  .v { font-size: 28px; line-height: 32px; }
+}
+
+/* phones and short screens (Problem in normal flow, no step list): the finished bill, every line with its
+   sub-steps, and the pill for what it added */
+@media (max-width: 720px), (max-height: 650px) {
+  .receipt { max-width: none; }
+  .detail { grid-template-rows: 1fr; opacity: 1; padding-top: 4px; }
+  .bill { display: none; }
+  .points { display: flex; }
+  .now .line { background: none; }
+  .now .icon { background: var(--chip); color: var(--ink); }
+}
+@media (max-width: 720px) {
+  .receipt { padding: 18px; gap: 16px; }
+  .title { font-size: 20px; line-height: 24px; }
+  .sub { font-size: 14px; line-height: 18px; }
+  .line { grid-template-columns: 30px minmax(0, 1fr) auto; column-gap: 10px; padding: 8px 12px; }
+  .icon { width: 30px; height: 30px; }
+  .icon :global(.i) { width: 15px; height: 15px; }
+  .label, .time { font-size: 16px; line-height: 22px; }
+  .detail { grid-row: 2; font-size: 14px; line-height: 18px; }
+  .add { grid-column: 2; grid-row: 3; justify-self: start; margin-top: 6px; }
+  .none { display: none; }
+  .totals { grid-template-columns: 1fr; }
+  .v { font-size: 32px; line-height: 36px; }
+}

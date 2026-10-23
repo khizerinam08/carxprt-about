@@ -1,0 +1,10 @@
+/* normal flow, centred; each word fades from 18% to 100% with scroll (--k is 0..1 per word) */
+.bridge { padding-top: var(--section-gap); }
+/* a statement, not a headline: three lines at statement size */
+.text { max-width: 900px; margin: 0 auto; text-align: center; font-size: 36px; font-weight: 500; letter-spacing: -.03em; line-height: 1.3; text-wrap: pretty; }
+.w { opacity: calc(.18 + .82 * var(--k, 0)); }
+
+@media (max-width: 1100px) { .text { font-size: 32px; } }
+@media (max-width: 720px) {
+  .text { font-size: 24px; line-height: 1.3; }
+}

@@ -1,0 +1,49 @@
+.head { margin-bottom: 48px; }
+
+/* one white strip with a Border/Subtle edge; the summary cell stays put, the quotes slide under the
+   viewport's clip. Rules between cells, as in the reference. */
+.strip { display: grid; grid-template-columns: 312px minmax(0, 1fr); border: 1px solid var(--line); border-radius: 16px; background: var(--surface); overflow: hidden; }
+.summary { display: grid; align-content: center; justify-items: center; gap: 12px; padding: 40px 28px; text-align: center; box-shadow: 1px 0 0 var(--line); position: relative; z-index: 1; background: var(--surface); }
+.score { font-size: 96px; line-height: 1; font-weight: 500; letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
+.count { font-size: 16px; color: var(--sub); }
+
+/* Trustpilot wordmark (green star box + name) */
+.brand { display: inline-flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 500; letter-spacing: -.02em; color: var(--sub); }
+.brandStar { width: 20px; height: 20px; display: grid; place-items: center; background: #00B67A; color: #fff; }
+.brandStar :global(.i) { width: 13px; height: 13px; fill: currentColor; stroke: none; }
+
+/* Trustpilot star boxes */
+.stars { display: flex; gap: 3px; }
+.stars span { width: 24px; height: 24px; display: grid; place-items: center; background: #DCDCE6; color: #fff; }
+.stars .on { background: #00B67A; }
+.stars :global(.i) { width: 15px; height: 15px; fill: currentColor; stroke: none; }
+.small span { width: 18px; height: 18px; }
+.small :global(.i) { width: 12px; height: 12px; }
+
+.viewport { min-width: 0; overflow: hidden; outline-offset: -4px; touch-action: pan-y; }
+.track { display: flex; width: max-content; height: 100%; cursor: grab; user-select: none; }
+.track:active { cursor: grabbing; }
+
+.cell { flex: none; width: 312px; display: flex; flex-direction: column; align-items: flex-start; gap: 20px; padding: 40px 28px 32px; box-shadow: 1px 0 0 var(--line); }
+.quote { flex: 1; font-size: 22px; line-height: 1.3; letter-spacing: -.015em; display: -webkit-box; -webkit-line-clamp: 7; -webkit-box-orient: vertical; overflow: hidden; }
+.who { display: grid; gap: 2px; font-size: 14px; line-height: 18px; }
+.who b { font-size: 16px; line-height: 20px; font-weight: 500; letter-spacing: -.01em; }
+.who span { color: var(--sub); }
+
+/* arrows under the strip, left-aligned */
+.nav { display: flex; gap: 12px; margin-top: 24px; }
+.navBtn { width: 52px; height: 52px; border-radius: 12px; display: grid; place-items: center; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); transition: transform 100ms ease-out, opacity .2s, background .2s; }
+.navBtn:first-child :global(.i) { transform: scaleX(-1); }
+.navBtn:hover:not(:disabled) { background: var(--bg); }
+.navBtn:active { transform: scale(.94); }
+.navBtn:disabled { opacity: .35; cursor: default; }
+.navBtn :global(.i) { width: 20px; height: 20px; }
+
+@media (max-width: 720px) {
+  .head { margin-bottom: 32px; }
+  .strip { grid-template-columns: 1fr; }
+  .summary { grid-template-columns: auto 1fr; justify-items: start; text-align: left; gap: 4px 20px; padding: 24px 20px; box-shadow: 0 1px 0 var(--line); }
+  .score { grid-row: span 3; font-size: 64px; align-self: center; }
+  .cell { width: min(300px, 82vw); padding: 28px 20px 24px; }
+  .quote { font-size: 19px; }
+}

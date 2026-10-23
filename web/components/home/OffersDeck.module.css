@@ -1,0 +1,88 @@
+/* an ink field straight after the map: the heading, the deck, the one action */
+.offers { position: relative; background: var(--night); color: #fff; }
+.stage { display: flex; flex-direction: column; align-items: center; padding: 0 var(--pad); text-align: center; }
+.head { display: grid; justify-items: center; gap: 16px; }
+.head :global(.h2) { max-width: 13em; text-wrap: balance; }
+.lead { max-width: 48ch; font-size: 20px; line-height: 1.4; color: rgba(255, 255, 255, .72); }
+.cta { margin-top: 32px; }
+.cta :global(.i) { width: 16px; height: 16px; }
+
+/* ---------- pinned version: 1 screen, then three quarters of a screen for each card that lands ---------- */
+.live { height: calc(100vh + (var(--n) - 1) * 75vh); }
+.live .stage { position: sticky; top: 0; height: 100vh; height: 100svh; justify-content: center; overflow: hidden; padding-top: 72px; padding-bottom: 40px; }
+/* room above the deck for the stepped-back cards' top edges */
+.live .deck { position: relative; width: min(960px, 100%); height: clamp(340px, calc(100svh - 360px), 520px); margin-top: 72px; }
+.live .card {
+  position: absolute; inset: 0; transform-origin: 50% 0;
+  translate: 0 calc((1 - var(--y, 1)) * 110vh - min(var(--d, 0), 3) * var(--step, 22px));
+  scale: calc(1 - min(var(--d, 0), 3) * .05);
+  rotate: calc((1 - var(--y, 1)) * var(--tilt));
+  opacity: clamp(0, calc(4 - var(--d, 0)), 1);
+}
+.live .card[data-under] .body, .live .card[data-under] .expiry, .live .card[data-under] .index { visibility: hidden; }
+/* cards further back sit in shadow, so the one on top reads first */
+.live .card::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: #000; opacity: calc(min(var(--d, 0), 3) * .14); pointer-events: none; }
+
+/* ---------- list version: reduced motion, short screens ---------- */
+.rest { padding: var(--section-gap) 0; }
+.rest .deck { display: grid; gap: 24px; width: min(960px, 100%); margin-top: 48px; }
+.rest .card { min-height: 440px; }
+
+/* ---------- the card: the Cashback Card (Figma 990:2132) at deck size, in a thick frame ---------- */
+.card { --frame: var(--lime); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); border: 8px solid var(--frame); border-radius: 30px; background: #fff; color: #1A1A1A; text-align: left; overflow: hidden; box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .6); }
+.card:nth-child(3n + 2) { --frame: #fff; }
+.card:nth-child(3n + 3) { --frame: #8A8A8A; }
+
+.media { position: relative; min-height: 0; overflow: hidden; }
+.media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.expiry { position: absolute; top: 16px; right: 16px; display: inline-flex; align-items: center; gap: 6px; padding: 8px 12px; border-radius: 999px; background: rgba(0, 0, 0, .6); color: #fff; font-size: 13px; font-weight: 500; }
+.expiry :global(.i) { width: 14px; height: 14px; }
+.index { position: absolute; left: 16px; bottom: 16px; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: #fff; font-size: 13px; }
+
+.body { display: flex; flex-direction: column; justify-content: space-between; gap: 16px; min-width: 0; padding: 32px; }
+.title { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; font-size: 20px; line-height: 1.25; letter-spacing: -.02em; color: #484848; }
+.pill { flex: none; padding: 6px 14px; border-radius: 999px; background: var(--lime); color: #1A1A1A; font-size: 14px; font-weight: 500; letter-spacing: 0; }
+.value { display: grid; gap: 8px; }
+.amount { display: flex; align-items: baseline; gap: 8px; font-size: 24px; color: #5C5C5C; letter-spacing: -.01em; }
+.amount b { font-size: clamp(56px, 6.4vw, 88px); font-weight: 500; line-height: 1; letter-spacing: -.04em; color: #1A1A1A; font-variant-numeric: tabular-nums; }
+.terms { font-size: 16px; color: #5C5C5C; }
+/* the card's own divider sits above the terms line, as in the component */
+.valid { padding-top: 16px; box-shadow: inset 0 1px 0 #E4E5E7; font-size: 17px; letter-spacing: -.01em; }
+.source { display: flex; align-items: center; gap: 12px; padding: 12px 14px 12px 12px; border-radius: 16px; background: #F5F5F7; }
+.avatar { display: grid; place-items: center; width: 44px; height: 44px; flex: none; border-radius: 50%; background: #E4E5E7; font-size: 14px; font-weight: 500; }
+.brand { display: grid; flex: 1; min-width: 0; }
+.brand b { font-size: 17px; font-weight: 500; letter-spacing: -.01em; }
+.brand small { font-size: 14px; color: #5C5C5C; }
+.pin { display: grid; place-items: center; width: 40px; height: 40px; flex: none; border-radius: 50%; background: #fff; box-shadow: inset 0 0 0 1px #E4E5E7; }
+.pin :global(.i) { width: 18px; height: 18px; }
+
+@media (max-height: 820px) {
+  .live .stage { padding-top: 64px; }
+  .live .deck { margin-top: 56px; }
+  .cta { margin-top: 24px; }
+  .body { padding: 24px; gap: 12px; }
+  .valid { padding-top: 12px; }
+}
+
+/* phones: the photo on top, the card's words under it */
+@media (max-width: 720px) {
+  .lead { font-size: 16px; }
+  .card { grid-template-columns: 1fr; grid-template-rows: minmax(0, 38%) minmax(0, 1fr); border-width: 6px; border-radius: 24px; }
+  .rest .card { grid-template-rows: 200px auto; min-height: 0; }
+  /* a smaller step, so the stack stays clear of the lead */
+  .live .deck { --step: 13px; height: calc(100svh - 300px); margin-top: 52px; }
+  .body { padding: 18px; gap: 10px; }
+  .title { font-size: 16px; }
+  .pill { padding: 4px 10px; font-size: 13px; }
+  .amount { font-size: 18px; }
+  .amount b { font-size: 48px; }
+  .terms { font-size: 14px; }
+  .valid { padding-top: 10px; font-size: 15px; }
+  .source { padding: 8px 10px 8px 8px; }
+  .avatar { width: 36px; height: 36px; font-size: 13px; }
+  .brand b { font-size: 15px; }
+  .brand small { font-size: 13px; }
+  .pin { width: 36px; height: 36px; }
+  .expiry { top: 12px; right: 12px; padding: 6px 10px; }
+  .index { left: 12px; bottom: 12px; width: 32px; height: 32px; }
+}

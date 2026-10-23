@@ -1,0 +1,59 @@
+/* the board: grey land, white streets, the ink highway from the hero's stripes, lime only for CarXprt's routes */
+.map {
+  --land: #ECECEF; --street: #FFFFFF; --edge: #DEDFE3; --water: #D8DBE1; --park: #E2E4DF; --highway: #1A1A1A;
+  --place: rgba(26, 26, 26, .34);
+  position: absolute; inset: 0; overflow: hidden; background: var(--land); contain: strict;
+}
+:global([data-theme="dark"]) .map {
+  --land: #131313; --street: #262626; --edge: #0E0E0E; --water: #0A0A0A; --park: #181A16; --highway: #E9E9EC;
+  --place: rgba(255, 255, 255, .28);
+}
+.world { position: absolute; left: 0; top: 0; width: 2400px; height: 1500px; transform-origin: 0 0; }
+.board { width: 2400px; height: 1500px; max-width: none; overflow: visible; }
+
+.streets { fill: none; stroke: var(--street); stroke-width: 5; }
+.park { fill: var(--park); }
+.water { fill: none; stroke: var(--water); stroke-width: 84; stroke-linecap: round; }
+.edge { fill: none; stroke: var(--edge); stroke-width: 22; }
+.avenue { fill: none; stroke: var(--street); stroke-width: 16; }
+.highway { fill: none; stroke: var(--highway); stroke-width: 20; }
+.place { fill: var(--place); font-size: 30px; font-weight: 500; letter-spacing: -.01em; }
+
+/* a route draws from you to the dealer as --d runs 0 → 1 */
+/* (in px: a unitless calc() is valid only in Chrome; elsewhere it was dropped and the routes showed in full) */
+.route path { fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1px 1px; stroke-dashoffset: calc((1 - var(--d, 0)) * 1px); }
+.casing { stroke: #1A1A1A; stroke-width: 13; }
+.lime { stroke: var(--lime); stroke-width: 7; }
+.car { opacity: 0; }
+
+/* pins keep their size whatever the zoom; the parent places them with a transform */
+.pin { position: absolute; left: 0; top: 0; transition: opacity .3s; }
+.dot { position: absolute; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; background: #1A1A1A; box-shadow: 0 0 0 3px #fff; }
+.tag { position: absolute; left: 14px; top: -16px; display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px; border-radius: 999px; background: #1A1A1A; color: #fff; font-size: 13px; line-height: 1; white-space: nowrap; transition: background .3s, color .3s; }
+.tag b { font-weight: 500; }
+.tag em { font-style: normal; color: rgba(255, 255, 255, .72); font-variant-numeric: tabular-nums; }
+.tag em:empty { display: none; }
+.left .tag { left: auto; right: 14px; }
+.pin[data-win] .tag { background: var(--lime); color: #1A1A1A; }
+.pin[data-win] .tag em { color: rgba(26, 26, 26, .72); }
+
+/* you: a lime dot in an ink ring, with a slow halo */
+.you .dot { width: 20px; height: 20px; margin: -10px 0 0 -10px; background: var(--lime); box-shadow: 0 0 0 3px #1A1A1A; }
+.you .dot::after { content: ""; position: absolute; inset: -14px; border-radius: 50%; background: var(--lime); opacity: 0; animation: halo 2.6s ease-out infinite; }
+.you .tag { left: 18px; background: #fff; color: #1A1A1A; box-shadow: inset 0 0 0 1px var(--line); }
+.you .tag em { color: #6E6E6E; }
+@keyframes halo { from { transform: scale(.4); opacity: .55; } to { transform: scale(1.4); opacity: 0; } }
+
+/* dark: the pins turn white so they stand off the dark board; the winner stays lime */
+:global([data-theme="dark"]) .dot { background: #fff; box-shadow: 0 0 0 3px #131313; }
+:global([data-theme="dark"]) .tag { background: #fff; color: #1A1A1A; }
+:global([data-theme="dark"]) .tag em { color: rgba(26, 26, 26, .62); }
+:global([data-theme="dark"]) .you .dot { background: var(--lime); box-shadow: 0 0 0 3px #131313; }
+:global([data-theme="dark"]) .pin[data-win] .tag { background: var(--lime); }
+
+/* small frames: only the winner and you keep their tags */
+.compact .pin:not(.focus):not(.you) .tag { display: none; }
+
+@media (max-width: 720px) {
+  .tag { height: 28px; top: -14px; padding: 0 10px; }
+}

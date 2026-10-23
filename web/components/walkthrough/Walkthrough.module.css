@@ -1,0 +1,114 @@
+/* --fw: width of one product screen; the track shows the current screen and the start of the next */
+/* --lift (useLift) centres the pinned steps and screens on tall screens: it moves the grid down and comes off
+   the top margin, so the heading still arrives one section gap after Meet CarXprt */
+.walk { --fw: clamp(500px, 40vw, 600px); --gap: 32px; position: relative; margin-top: calc(var(--section-gap) - var(--lift, 0px)); scroll-margin-top: 104px; }
+
+.head { display: grid; gap: 16px; }
+.head :global(.h2) { max-width: 10em; text-wrap: balance; }
+.lead { max-width: 440px; font-size: 20px; line-height: 1.35; color: var(--sub); }
+.note { margin-top: 8px; font-size: 14px; color: var(--sub); }
+
+/* ---------- pinned version ---------- */
+.live { height: 620vh; }
+.stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; padding: 112px 0 40px; }
+.grid { height: 100%; transform: translateY(var(--lift, 0px)); display: grid; grid-template-columns: minmax(0, 1fr) calc(var(--fw) + 80px); column-gap: clamp(40px, 5vw, 88px); }
+.copy { display: flex; flex-direction: column; gap: 40px; min-height: 0; opacity: calc(1 - var(--g, 0)); }
+
+/* RothFinder's step list: the step in play gets a lime pill and opens; the rest stay readable */
+.steps { display: grid; gap: 6px; justify-items: start; }
+.step h3 { display: inline-flex; align-items: center; height: 40px; padding: 0 16px; margin-left: -16px; border-radius: 999px; font-size: 22px; font-weight: 500; letter-spacing: -.02em; color: var(--sub); transition: background .35s var(--ease), color .35s; }
+.step.on h3 { background: var(--lime); color: #1A1A1A; }
+.body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .45s var(--ease); }
+.body > div { min-height: 0; overflow: hidden; }
+.body p:first-child { max-width: 400px; padding-top: 6px; font-size: 16px; line-height: 1.5; }
+.on .body { grid-template-rows: 1fr; padding-bottom: 10px; }
+
+/* clipped on the left only: screens that have passed slide out of view instead of over the steps */
+.port { position: relative; width: var(--fw); height: min(100%, 680px); align-self: start; clip-path: inset(-80px -100vw -80px 0); }
+.track { display: flex; align-items: flex-start; gap: var(--gap); height: 100%; transform: translateX(calc(var(--seg, 0) * -1 * (var(--fw) + var(--gap)))); }
+/* each screen keeps its own height; the deal screen fills the stage so its thread has room */
+.frame { flex: none; width: var(--fw); opacity: var(--o, 1); transform: scale(calc(.94 + .06 * var(--o, 1))); transform-origin: left top; }
+.frame:last-child { height: 100%; }
+
+/* the deal screen opens into the whole stage: clip from the screen's box (--ct/--cr/--cb/--cl) to full */
+.finale { position: absolute; inset: 0; display: grid; align-items: center; padding-top: 72px; background: var(--lime); color: #1A1A1A; opacity: clamp(0, calc(var(--g, 0) * 6), 1);
+  clip-path: inset(calc(var(--ct, 0px) * (1 - var(--g, 0))) calc(var(--cr, 0px) * (1 - var(--g, 0))) calc(var(--cb, 0px) * (1 - var(--g, 0))) calc(var(--cl, 0px) * (1 - var(--g, 0))) round calc(24px * (1 - var(--g, 0)))); }
+/* the time and money screens share one cell; the money screen takes over as --m runs 0 → 1 */
+.finale > :global(.wrap) { width: 100%; display: grid; }
+.finale .end { grid-area: 1 / 1; align-self: center; }
+.live .time { opacity: calc(clamp(0, calc(var(--g, 1) * 8 - 7), 1) * clamp(0, calc(1 - var(--m, 0) * 1.6), 1)); transform: translateY(calc(var(--m, 0) * -48px)); }
+.live .cash { visibility: hidden; opacity: clamp(0, calc(var(--m, 0) * 1.6 - .6), 1); transform: translateY(calc((1 - var(--m, 0)) * 48px)); }
+.walk[data-cash] .cash { visibility: visible; }
+.walk[data-cash-full] .time { visibility: hidden; }
+.walk[data-end] .copy, .walk[data-end] .port { visibility: hidden; }
+
+/* ---------- the time back (shared by both versions) ---------- */
+/* the two rows of a screen draw one after the other as --e runs 0 → 1; the money screen runs on its own --me */
+.cash { --e: var(--me, 1); }
+.end { --e1: clamp(0, calc(var(--e, 1) * 1.8), 1); --e2: clamp(0, calc(var(--e, 1) * 1.8 - .8), 1); display: grid; gap: 28px; }
+.big { font-size: clamp(44px, 9.5vw, 152px); font-weight: 500; letter-spacing: -.05em; line-height: .9; font-variant-numeric: tabular-nums; }
+.endLine { max-width: 640px; font-size: 20px; line-height: 1.4; }
+.bars { display: grid; gap: 14px; margin-top: 16px; }
+.row { display: grid; grid-template-columns: 150px minmax(0, 1fr) 104px; align-items: center; gap: 20px; }
+.rowName { font-size: 16px; font-weight: 500; }
+.rowTotal { font-size: 22px; font-weight: 500; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+.bar { display: flex; gap: 4px; height: 64px; }
+/* flex-basis 0, so segment widths are exactly proportional to their values, whatever their labels */
+.bar > span { flex-basis: 0; display: grid; align-content: center; min-width: 0; padding: 0 14px; border-radius: 12px; background: #1A1A1A; color: #fff; font-size: 14px; white-space: nowrap; overflow: hidden; font-variant-numeric: tabular-nums; }
+.bar b { font-weight: 500; }
+.usual { clip-path: inset(0 calc((1 - var(--e1)) * 100%) 0 0); }
+/* the clip reaches 48px past the bar once it's drawn, so the time-back bar's glow isn't cut off */
+.ours { clip-path: inset(-48px calc((1 - var(--e2)) * (100% + 48px) - 48px) -48px -48px); }
+/* the time back: the chat bar's treatment turned inside out for the lime field (a white bar with a bright
+   edge and a soft halo), so it's the brightest thing on the field instead of a faint tint */
+.ours > .back { background: #fff; color: #1A1A1A; font-weight: 500; opacity: clamp(0, calc(var(--e2) * 2 - 1), 1);
+  box-shadow: 0 0 0 1.5px rgba(255,255,255,.95), 0 0 0 6px rgba(255,255,255,.4), 0 0 44px 6px rgba(255,255,255,.75), 0 14px 30px -16px rgba(26,26,26,.35); }
+/* money screen: the $2,400 is a short bar at the quote's scale, just wide enough for its figure */
+.bar small { display: block; font-size: 13px; line-height: 1.3; white-space: normal; }
+/* the ink bars sit above the halo, so it brightens the field around the white bar but never smears them */
+.usual { position: relative; z-index: 2; }
+.ours, .ours > span:first-child { position: relative; z-index: 1; }
+.src { max-width: 640px; font-size: 14px; line-height: 1.45; color: rgba(26,26,26,.72); }
+
+/* shorter laptop screens: the finale screens a step smaller so the money screen's three rows fit the stage */
+@media (max-height: 800px) {
+  .live .end { gap: 20px; }
+  .live .big { font-size: clamp(44px, 7.5vw, 120px); }
+  .live .bar { height: 52px; }
+}
+
+/* ---------- list version: phones, short screens, reduced motion ---------- */
+.rest .head { margin-bottom: 56px; }
+.list { display: grid; gap: 72px; }
+.restStep { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 48px; align-items: center; }
+.restCopy { display: grid; gap: 8px; align-content: start; }
+.restCopy h3 { justify-self: start; display: inline-flex; align-items: center; height: 40px; padding: 0 16px; margin-left: -16px; border-radius: 999px; background: var(--lime); color: #1A1A1A; font-size: 22px; font-weight: 500; letter-spacing: -.02em; }
+.restCopy p:not(.note) { max-width: 420px; font-size: 18px; line-height: 1.5; }
+.restFrame { min-width: 0; }
+.restEnd { grid-column: 1 / -1; padding: 56px 48px; border-radius: 24px; background: var(--lime); color: #1A1A1A; }
+
+@media (max-width: 1100px) {
+  .row { grid-template-columns: 120px minmax(0, 1fr) 92px; gap: 14px; }
+}
+@media (max-width: 720px) {
+  .lead { font-size: 18px; }
+  .list { gap: 56px; }
+  .restStep { grid-template-columns: 1fr; gap: 20px; }
+  .restCopy h3 { margin-left: 0; }
+  .restCopy p:not(.note) { font-size: 16px; }
+  .restEnd { padding: 32px 20px; }
+  .end { gap: 20px; }
+  .endLine { font-size: 16px; }
+  .row { grid-template-columns: 1fr auto; gap: 8px 12px; }
+  .rowName { grid-column: 1; }
+  .rowTotal { grid-column: 2; grid-row: 1; font-size: 18px; }
+  .bar { grid-column: 1 / -1; height: 52px; }
+  /* phones: segments size to their figures first, so short ones like "1–2 hrs" and "$2,400" stay readable */
+  .usual > span { flex-basis: auto; padding: 0 6px; font-size: 12px; }
+  .usual > span b, .ours > span b { display: none; }
+  /* money screen on phones: both bars keep the same split, and each slice shows just its figure */
+  .cash .bar > span { flex-basis: 0; padding: 0 10px; font-size: 14px; }
+  .cash .bar b { display: block; }
+  .cash .bar small { display: none; }
+  .bar > span { border-radius: 10px; }
+}

@@ -1,0 +1,139 @@
+.how { position: relative; margin-top: var(--section-gap); scroll-margin-top: 0; }
+/* the prototype page opens on this section */
+:global(main) > .how:first-child { margin-top: 0; }
+:global(main) > .rest:first-child { padding-top: 140px; }
+/* straight after the hero: no gap, and the hero's floor (its grey band over the dots) carries on into the
+   map and fades out, so there's no seam. It sits at the section's top, so it scrolls away once the stage pins */
+.joined.live { margin-top: 0; }
+.joined.live::before {
+  content: ""; position: absolute; z-index: 2; top: 0; left: 0; right: 0; height: 160px; pointer-events: none;
+  background-color: var(--bg);
+  background-image: linear-gradient(90deg, rgba(222, 222, 222, .2), rgba(132, 132, 132, .2) 50%, rgba(222, 222, 222, .2)),
+    radial-gradient(circle at 2px 2px, rgba(158, 158, 158, .1) 2px, transparent 2.4px);
+  background-size: auto, 20px 20px;
+  -webkit-mask-image: linear-gradient(#000, transparent); mask-image: linear-gradient(#000, transparent);
+}
+:global([data-theme="dark"]) .joined.live::before { background-image: linear-gradient(90deg, rgba(222, 222, 222, .2), rgba(132, 132, 132, .2) 50%, rgba(222, 222, 222, .2)), radial-gradient(circle at 2px 2px, rgba(255, 255, 255, .05) 2px, transparent 2.4px); }
+
+/* /home-v2: pulled up a screen over the hero bridge's held line, and above it (the bridge's lime band is z 3).
+   Its own ground covers the line; the bridge clips its top edge to a dome while it rises */
+.curtain { z-index: 4; margin-top: -100vh; margin-top: -100svh; background: var(--bg); }
+@media (prefers-reduced-motion: reduce) { .curtain { margin-top: 0; } }
+/* the list version (phones, tablets, short screens) has no top space of its own (it used the section gap) */
+.curtain.rest { padding-top: clamp(64px, 11vw, 112px); }
+/* and in /home-v2 it reads as a heading over a set of cards: the title and lead centred, each chapter (its
+   words, its map, its product card) on its own white card */
+.curtain.rest .head { justify-items: center; margin-inline: auto; text-align: center; }
+.curtain.rest .head .lead { margin-inline: auto; }
+.curtain.rest .list { gap: 16px; }
+.curtain.rest .restCh { padding: 32px; border-radius: 28px; background: var(--surface); }
+.curtain.rest .frame { border-radius: 20px; }
+@media (max-width: 720px) {
+  .curtain.rest .list { gap: 40px; }
+  .curtain.rest .restCh { gap: 32px; padding: 32px 20px 20px; border-radius: 28px; }
+  .curtain.rest .chap { padding: 0 4px; }
+  .curtain.rest .frame { border-radius: 16px; }
+}
+
+.line { display: block; }
+.lead { margin-top: 18px; max-width: 34ch; font-size: 20px; line-height: 1.4; color: var(--sub); }
+.note { margin-top: 10px; font-size: 14px; color: var(--sub); }
+
+/* ---------- pinned version ---------- */
+.live { height: 600vh; }
+.stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+
+/* a scrim in the land's own colour under the words, so they read over the streets */
+.scrim { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(70% 75% at 0% 100%, rgba(236,236,239,.97) 0%, rgba(236,236,239,.9) 38%, rgba(236,236,239,0) 72%); }
+:global([data-theme="dark"]) .scrim { background: radial-gradient(70% 75% at 0% 100%, rgba(19,19,19,.97) 0%, rgba(19,19,19,.9) 38%, rgba(19,19,19,0) 72%); }
+
+/* the words: the title, then one chapter at a time, all in the same place (bottom left) */
+.copy { position: absolute; left: max(var(--pad), calc((100vw - var(--max)) / 2 + var(--pad))); bottom: clamp(40px, 8vh, 80px); width: min(460px, 36vw); display: grid; }
+/* the chapters not in play are hidden, not only transparent, so nothing lies under the one that is */
+.copy > * { grid-area: 1 / 1; align-self: end; opacity: 0; visibility: hidden; transform: translateY(18px); transition: opacity .4s var(--ease), transform .6s var(--ease), visibility 0s .6s; }
+.chap h3 { font-size: clamp(34px, 3.3vw, 48px); font-weight: 500; letter-spacing: -.035em; line-height: 1.02; text-wrap: balance; }
+.chap p:not(.note) { margin-top: 14px; max-width: 38ch; font-size: 17px; line-height: 1.5; }
+
+/* the product card floats right of centre, left of the chapter list */
+.cards { position: absolute; right: calc(var(--pad) + 196px); bottom: clamp(40px, 8vh, 80px); width: 384px; display: grid; }
+.cards > * { grid-area: 1 / 1; align-self: end; opacity: 0; visibility: hidden; transform: translateY(24px) scale(.98); transition: opacity .4s var(--ease), transform .6s var(--ease), visibility 0s .6s; }
+
+.how[data-ch="-1"] [data-c="-1"],
+.how[data-ch="0"] [data-c="0"],
+.how[data-ch="1"] [data-c="1"],
+.how[data-ch="2"] [data-c="2"],
+.how[data-ch="3"] [data-c="3"] { opacity: 1; visibility: visible; transform: none; transition-delay: .12s, .12s, 0s; }
+
+/* the chapter list: a floating panel, the chapter in play in lime */
+.rail { position: absolute; right: var(--pad); top: 50%; transform: translateY(-50%); display: grid; gap: 4px; min-width: 164px; padding: 8px; border-radius: 26px; background: var(--surface); box-shadow: 0 0 0 1px var(--line), var(--shadow); }
+.rail button { display: flex; align-items: center; gap: 10px; height: 42px; padding: 0 16px 0 14px; border-radius: 999px; font-size: 15px; color: var(--sub); transition: background .3s, color .3s; }
+.rail button:not(.next)::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; opacity: .45; transition: opacity .3s; }
+.rail button:hover { color: var(--ink); }
+.rail button[aria-current] { background: var(--lime); color: #1A1A1A; }
+.rail button[aria-current]::before { opacity: 1; }
+.rail .next { justify-content: space-between; margin-top: 6px; background: var(--ink); color: var(--bg); }
+.rail .next:hover { color: var(--bg); }
+.rail .next :global(.i) { width: 16px; height: 16px; }
+.rail button:active { transform: scale(.97); transition: transform 100ms ease-out; }
+
+@media (max-width: 1320px) {
+  .cards { right: calc(var(--pad) + 180px); width: 340px; }
+  .rail { min-width: 148px; }
+}
+
+/* ---------- pinned version on phones: stacked. Progress bars and the words at the top (the scrim fades the
+   map under them), the card full width at the foot, the map between (lib/howMap's CAM_PHONE frames each
+   chapter's pins in that gap) ---------- */
+.phone .scrim { background: linear-gradient(to bottom, rgba(236,236,239,.98) 0%, rgba(236,236,239,.94) 22%, rgba(236,236,239,0) 34%); }
+:global([data-theme="dark"]) .phone .scrim { background: linear-gradient(to bottom, rgba(19,19,19,.98) 0%, rgba(19,19,19,.94) 22%, rgba(19,19,19,0) 34%); }
+.phone .copy { left: var(--pad); right: var(--pad); top: calc(env(safe-area-inset-top) + 44px); bottom: auto; width: auto; }
+.phone .copy > * { align-self: start; transform: translateY(-12px); }
+.phone .title :global(.h2) { font-size: 36px; }
+.phone .title .lead { margin-top: 12px; font-size: 16px; }
+.phone .chap h3 { font-size: 28px; }
+.phone .chap p:not(.note) { margin-top: 10px; font-size: 15px; line-height: 1.45; }
+.phone .note { margin-top: 8px; font-size: 13px; }
+.phone .cards { left: var(--pad); right: var(--pad); bottom: calc(env(safe-area-inset-bottom) + 16px); width: auto; }
+/* the chapter list becomes four progress bars; a bar fills ink once its chapter is reached */
+.phone .rail { top: calc(env(safe-area-inset-top) + 16px); left: var(--pad); right: var(--pad); transform: none; display: flex; gap: 6px; min-width: 0; padding: 0;
+  border-radius: 0; background: none; box-shadow: none; }
+.phone .rail button { flex: 1; height: 18px; padding: 0; border-radius: 0; font-size: 0; }
+.phone .rail button:not(.next)::before { width: 100%; height: 3px; border-radius: 2px; background: rgba(26, 26, 26, .16); opacity: 1; transition: background .3s; }
+.phone .rail button[aria-current] { background: none; }
+.phone[data-ch="0"] .rail button:nth-child(-n + 1)::before,
+.phone[data-ch="1"] .rail button:nth-child(-n + 2)::before,
+.phone[data-ch="2"] .rail button:nth-child(-n + 3)::before,
+.phone[data-ch="3"] .rail button:nth-child(-n + 4)::before { background: #1A1A1A; }
+:global([data-theme="dark"]) .phone .rail button:not(.next)::before { background: rgba(255, 255, 255, .2); }
+:global([data-theme="dark"]) .phone[data-ch="0"] .rail button:nth-child(-n + 1)::before,
+:global([data-theme="dark"]) .phone[data-ch="1"] .rail button:nth-child(-n + 2)::before,
+:global([data-theme="dark"]) .phone[data-ch="2"] .rail button:nth-child(-n + 3)::before,
+:global([data-theme="dark"]) .phone[data-ch="3"] .rail button:nth-child(-n + 4)::before { background: #fff; }
+.phone .rail .next { display: none; }
+/* short phones: the chapter's heading and its plan note only */
+@media (max-height: 740px) {
+  .phone .chap p:not(.note) { display: none; }
+}
+
+/* ---------- list version: phones, short screens, reduced motion ---------- */
+.head { display: grid; max-width: 760px; margin-bottom: 64px; }
+.list { display: grid; grid-template-columns: minmax(0, 1fr); gap: 96px; }
+.restCh { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: 56px; align-items: center; }
+/* the card sits under its map, overlapping the bottom edge (the map keeps its pins clear of it) */
+.fig { display: grid; justify-items: end; }
+.frame { position: relative; justify-self: stretch; aspect-ratio: 16 / 10; border-radius: 28px; overflow: hidden; }
+.figCard { position: relative; width: min(380px, calc(100% - 32px)); margin: -64px 16px 0 0; }
+
+@media (max-width: 900px) {
+  .restCh { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+}
+@media (max-width: 720px) {
+  .lead { font-size: 17px; }
+  .head { margin-bottom: 40px; }
+  .list { gap: 64px; }
+  .chap h3 { font-size: 30px; }
+  .chap p:not(.note) { font-size: 16px; }
+  .frame { aspect-ratio: 1 / 1; border-radius: 22px; }
+  .fig { justify-items: stretch; }
+  .figCard { width: auto; margin: -64px 12px 0; }
+}

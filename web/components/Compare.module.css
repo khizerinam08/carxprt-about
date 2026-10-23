@@ -1,0 +1,47 @@
+.head { max-width: none; }
+
+/* labels once, icons centred under each company. CarXprt's column is one raised panel from the logo to
+   the last row (a step in surface tone, as in the DM-02 reference); rows are separated by space, not rules.
+   The horizontal border-spacing insets the panel from its neighbours; the negative margin keeps the
+   table's outer edges on the page grid. */
+.cmp { width: calc(100% + 32px); margin: 0 -16px; border-collapse: separate; border-spacing: 16px 0; table-layout: fixed; }
+.cmp th, .cmp td { padding: 14px 8px; font-weight: 400; }
+.cmp thead th { padding: 0 8px 24px; font-size: 22px; font-weight: 500; letter-spacing: -.03em; line-height: 28px; text-align: center; vertical-align: bottom; }
+.cmp thead th:first-child { width: 30%; }
+.cmp .cx { background: var(--surface); }
+.cmp thead .cx { padding-top: 32px; border-radius: 20px 20px 0 0; }
+.cmp tbody tr:last-child .cx { padding-bottom: 28px; border-radius: 0 0 20px 20px; }
+.full { margin: 0 auto; }
+.mark { display: none; width: 24px; height: 24px; margin: 0 auto; }
+
+.cmp tbody th { padding-left: 0; text-align: left; font-size: 16px; line-height: 24px; letter-spacing: -.01em; }
+.cmp tbody td { text-align: center; }
+.cmp tbody tr:first-child > * { padding-top: 4px; }
+
+.mk { width: 20px; height: 20px; margin: 0 auto; border-radius: 50%; display: grid; place-items: center; }
+.mk :global(.i) { width: 12px; height: 12px; stroke-width: 2.6; }
+.yes { background: var(--ink); color: var(--bg); }
+/* CarXprt's ticks: lime on ink, so they read stronger than the competitors', not weaker */
+.cx .yes { background: var(--ink); color: var(--lime); }
+[data-theme="dark"] .cx .yes { background: var(--lime); color: #1A1A1A; }
+.paid { box-shadow: inset 0 0 0 1.5px var(--ink); color: var(--ink); }
+.part { box-shadow: inset 0 0 0 1.5px var(--ink); background: linear-gradient(90deg, var(--ink) 50%, transparent 50%); }
+.no { color: var(--hint); opacity: .7; }
+.no :global(.i) { stroke-width: 2; }
+
+.legend { margin-top: 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; font-size: 13px; color: var(--sub); }
+.legend > span { display: inline-flex; align-items: center; gap: 8px; }
+.legend .mk { width: 16px; height: 16px; margin: 0; }
+.legend .mk :global(.i) { width: 10px; height: 10px; }
+
+@media (max-width: 720px) {
+  .cmp { width: calc(100% + 8px); margin: 0 -4px; border-spacing: 4px 0; }
+  .cmp thead th { padding: 0 2px 16px; font-size: 12px; letter-spacing: -.02em; line-height: 24px; }
+  .cmp thead th:first-child { width: 32%; }
+  .cmp thead .cx { padding-top: 18px; border-radius: 14px 14px 0 0; }
+  .cmp tbody tr:last-child .cx { padding-bottom: 18px; border-radius: 0 0 14px 14px; }
+  .full { display: none; }
+  .mark { display: block; }
+  .cmp th, .cmp td { padding: 12px 2px; }
+  .cmp tbody th { padding-right: 8px; font-size: 14px; line-height: 1.25; }
+}

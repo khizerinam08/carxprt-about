@@ -1,0 +1,35 @@
+/* the hero, then its foot fading into the page (its dots and floor run out softly instead of stopping at an
+   edge), then the line, which holds while the walkthrough comes up over it behind a curved lime band */
+.bridge { position: relative; }
+.hero { --u: min(calc(100vw / 1440), 1.2px); position: relative; }
+/* only the floor under the car's shadow (the hero's last ~95 Figma px), so the stripes and wheels stay crisp */
+.fade { position: absolute; left: 0; right: 0; bottom: 0; height: calc(var(--u) * 95); pointer-events: none;
+  background: linear-gradient(to bottom, transparent, var(--bg)); }
+
+/* the run: the line, then the hold. The walkthrough is pulled up a screen (HowItWorks .curtain), so the hold is
+   where it rises over the line: the extra 60vh keeps the lime (up to 35vh ahead of the map) out of sight until
+   the line has finished revealing and settled, a little under a third of the way down */
+.run { position: relative; }
+.hold { display: block; height: 160vh; height: 160svh; }
+
+/* the line: the full logo as the sentence's subject. With the scroll (--q) the logo slides in from a little to
+   the left, then each word (--t) goes faint to sharp; then it holds (sticky) under the coming walkthrough */
+.line { position: sticky; top: 28vh; top: 28svh; max-width: 22em; margin: 0 auto; padding: clamp(24px, 3vw, 48px) var(--pad) 0;
+  font-size: clamp(30px, 3.9vw, 56px); font-weight: 500; line-height: 1.1; letter-spacing: -.04em; color: var(--ink); text-align: center; text-wrap: balance; }
+.logo { display: inline-block; width: 4.46em; height: .96em; margin-right: .12em; vertical-align: -.16em; color: var(--ink);
+  opacity: clamp(0, var(--q) / .12, 1); translate: calc((1 - clamp(0, var(--q) / .16, 1)) * -.8em) 0; }
+.word { display: inline-block; opacity: max(.14, clamp(0, (var(--q) - var(--t)) / .08, 1)); filter: blur(calc((1 - clamp(0, (var(--q) - var(--t)) / .08, 1)) * 5px)); }
+
+/* the lime rim round the arch: over the line, under the walkthrough (z 3 < its 4); placed and drawn by the script */
+.lime { position: absolute; z-index: 3; left: 0; top: 0; width: 100%; height: 0; pointer-events: none; fill: none; stroke: var(--lime); }
+
+@media (max-width: 720px) {
+  .hero { --u: calc(100vw / 1150); }
+  .line { top: 22vh; top: 22svh; }
+}
+/* no motion: no hold and no overlap; the line sits whole under the hero and the walkthrough follows it */
+@media (prefers-reduced-motion: reduce) {
+  .hold, .lime { display: none; }
+  .line { position: static; padding-bottom: clamp(96px, 11vw, 168px); }
+  .logo, .word { opacity: 1; translate: none; filter: none; }
+}

@@ -1,0 +1,80 @@
+/* Figma 192:12102 at 1440 × 1000: the words from 137px down, the car stage from 560px (36px under them).
+   --u is one Figma pixel: it follows the page width and stops growing at 1.2× on wide screens. */
+/* the dot grid: 4px #9E9E9E dots every 20px, at the frame's faint ~10% */
+.hero {
+  --u: min(calc(100vw / 1440), 1.2px);
+  --hero-dot: rgba(158, 158, 158, .1);
+  position: relative; overflow: hidden; padding-top: 137px;
+  background-color: var(--bg);
+  background-image: radial-gradient(circle at 2px 2px, var(--hero-dot) 2px, transparent 2.4px);
+  background-size: 20px 20px;
+}
+:global([data-theme="dark"]) .hero { --hero-dot: rgba(255, 255, 255, .05); }
+
+.copy { display: flex; flex-direction: column; align-items: center; padding: 0 var(--pad); text-align: center; }
+/* H1 72 / 62, −4%; Subtext 20 / 24 */
+.title { max-width: 738px; font-size: clamp(32px, 5vw, 72px); font-weight: 500; line-height: .861; letter-spacing: -.04em; color: var(--ink); }
+/* one sentence per line, as drawn */
+.title span { display: block; }
+.sub { max-width: 552px; margin-top: 20px; font-size: 20px; line-height: 1.2; letter-spacing: -.01em; color: var(--sub); }
+
+/* (input rules carry .hero: the bar's own .bar .field outranks a single class) */
+/* the search bar is the redesign's ChatBar (Figma 192:15894), set to the hero's drawn size: a 576 × 99 group
+   whose white field is 571 × 92, 4px down and 3px in; 16px placeholder line, a 34px row of 30px pills */
+.search { position: relative; width: min(576px, 100%); margin-top: 32px; padding: 4px 2px 3px 3px; text-align: left; }
+.search > form { position: relative; z-index: 1; gap: 16px; height: 92px; padding: 16px 12px 10px; }
+.hero .search > form > input { min-height: 16px; font-size: 14px; line-height: 16px; letter-spacing: -.01em; }
+.hero .search > form > input::placeholder { color: #9E9E9E; }
+/* the glow is Figma's, not the bar's own: a lime-to-green field behind the white box (81%), once sharp and once
+   blurred 11.65px; the white box itself gets the 1px #ECECEC edge and a 2px drop */
+.search > form, .search > form:focus-within { box-shadow: inset 0 0 0 1px #ECECEC, 0 2px 4px rgba(0, 0, 0, .12); }
+.search::before, .search::after {
+  content: ""; position: absolute; inset: 0; border-radius: 16px; opacity: .81; pointer-events: none; transition: opacity .25s;
+  background: radial-gradient(549px 94px at 77px 49px, #E7F852 0%, #E7F852 1%, rgba(193, 240, 41, .81) 16%, rgba(174, 236, 21, .715) 23%, rgba(155, 232, 0, .62) 31%, rgba(148, 238, 15, .715) 42%, rgba(142, 244, 31, .81) 52%, #81FF3D 74%, #B4FC48 87%, #E7F852 100%);
+}
+.search::after { filter: blur(11.65px); }
+.search:focus-within::before, .search:focus-within::after { opacity: 1; }
+.search > form > div { height: 34px; padding: 2px 0; }
+.search > form > div > * { height: 30px; }
+
+/* "Try Voice Mode": the hand-drawn arrow under the voice pill, placed as in Figma (bar at 432, 361) */
+.voice { position: absolute; left: 528px; top: 106px; width: 140px; height: 36.421px; font-size: 14px; line-height: 16px; letter-spacing: -.01em; color: var(--ink); white-space: nowrap; }
+.voiceText { position: absolute; left: 45px; top: 16px; }
+.arrow { position: absolute; left: 0; top: 0; display: flex; align-items: center; justify-content: center; width: 36.421px; height: 36.421px; }
+.arrow > span { position: relative; width: 18.499px; height: 33.008px; flex: none; rotate: 135deg; scale: 1 -1; }
+.arrow img { position: absolute; inset: -3.03% 10.96% -2.83% -1.93%; width: auto; height: auto; max-width: none; }
+:global([data-theme="dark"]) .arrow img { filter: invert(1); }
+
+.unsure { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 32px; font-size: 14px; line-height: 16px; letter-spacing: -.01em; color: var(--sub); }
+.xprt { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 999px; background: #fff; color: #1A1A1A; box-shadow: inset 0 0 0 1px #9BE800, 0 1px 5.5px rgba(0, 0, 0, .25); font-size: 13px; white-space: nowrap; transition: box-shadow .25s, transform .25s var(--ease); }
+.xprt:hover { box-shadow: inset 0 0 0 1px #9BE800, 0 0 24px rgba(231, 248, 82, .9); }
+.xprt:active { transform: scale(.97); transition: transform 100ms ease-out; }
+
+/* the stage: Figma y 560 → 1000, everything in Figma pixels from its top and from the page's centre line */
+.stage { position: relative; height: calc(var(--u) * 440); margin-top: 36px; }
+.stage > * { position: absolute; }
+.floor { left: 0; right: 0; top: calc(var(--u) * 340); height: calc(var(--u) * 168); background: linear-gradient(90deg, rgba(222, 222, 222, .2), rgba(132, 132, 132, .2) 50%, rgba(222, 222, 222, .2)); }
+.ink, .lime { left: 0; right: 0; height: calc(var(--u) * 52); box-shadow: 0 4px 9.2px rgba(0, 0, 0, .16); }
+.ink { top: calc(var(--u) * 189); background: var(--stripe); }
+.lime { top: calc(var(--u) * 264); background: var(--lime); }
+.reflection { left: calc(50% + var(--u) * (172.51 - 720)); top: 0; width: calc(var(--u) * 1076.497); height: calc(var(--u) * 430.49); max-width: none; object-fit: cover; filter: blur(4.7px); opacity: .27; }
+.car { left: calc(50% + var(--u) * (197.53 - 720)); top: calc(var(--u) * 2.82); width: calc(var(--u) * 1070.946); height: calc(var(--u) * 381.279); max-width: none; object-fit: cover; }
+/* the ground shadow under the wheels: the exported ellipse carries its blur margin (−86.77% / −1.34%) */
+.shadow { left: calc(50% + var(--u) * (311.72 - 720 - 11.2)); top: calc(var(--u) * (347.36 - 11.2)); width: calc(var(--u) * 859.43); height: calc(var(--u) * 35.31); max-width: none; }
+
+/* the arrow needs room beside the bar */
+@media (max-width: 1100px) {
+  .voice { display: none; }
+}
+@media (max-width: 720px) {
+  /* phones: the stage scales up so the car nearly fills the width */
+  .hero { --u: calc(100vw / 1150); padding-top: 112px; }
+  .title { line-height: .95; }
+  .sub { margin-top: 16px; font-size: 17px; line-height: 1.35; }
+  .search { margin-top: 28px; }
+  /* phones keep the bar's own sizes: a 16px field doesn't zoom on focus */
+  .search > form { height: auto; padding: 16px 12px 12px 16px; }
+  .hero .search > form > input { min-height: 24px; font-size: 16px; line-height: 1.5; }
+  .unsure { flex-wrap: wrap; margin-top: 24px; }
+  .stage { margin-top: 32px; }
+}
