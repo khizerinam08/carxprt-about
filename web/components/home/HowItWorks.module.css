@@ -64,6 +64,14 @@
   .cards { right: calc(var(--pad) + 180px); width: 340px; }
   .rail { min-width: 148px; }
 }
+/* shorter or narrower wide screens (laptops at 125-150% scaling, small windows): the words, card and chapter
+   list are drawn smaller, so the map keeps room for its pins */
+@media (max-height: 800px), (max-width: 1199px) {
+  .live:not(.phone) :is(.copy, .cards, .rail) { zoom: .86; }
+}
+@media (max-height: 660px) {
+  .live:not(.phone) :is(.copy, .cards, .rail) { zoom: .74; }
+}
 
 /* ---------- pinned version on phones: stacked. Progress bars and the words at the top (the scrim fades the
    map under them), the card full width at the foot, the map between (lib/howMap's CAM_PHONE frames each
@@ -94,6 +102,9 @@
 :global([data-theme="dark"]) .phone[data-ch="2"] .rail button:nth-child(-n + 3)::before,
 :global([data-theme="dark"]) .phone[data-ch="3"] .rail button:nth-child(-n + 4)::before { background: #fff; }
 .phone .rail .next { display: none; }
+/* portrait tablets: the same stack, the words and the card kept to a readable width */
+.phone .copy { max-width: 560px; }
+.phone .cards { max-width: 440px; }
 /* short phones: the chapter's heading and its plan note only */
 @media (max-height: 740px) {
   .phone .chap p:not(.note) { display: none; }

@@ -14,12 +14,14 @@ import s from "./HowItWorks.module.css";
 /* How it works on the home page (townhouse.dev's walkthrough): one pinned stage over a map of the dealers
    around the buyer's ZIP. The camera moves to a new spot for each chapter (Ask, Compare, Negotiate,
    Approve); the chapter's words sit bottom left, the product card floats over the map, and the chapter
-   list on the right jumps between them. Phones get the same pinned stage, stacked: progress bars and the
-   words at the top, the card at the foot, the map between with cameras of its own. Tablets, short screens
-   and reduced motion get the same chapters as a list, each with its map and card at the finished state. */
+   list on the right jumps between them; on shorter or narrower screens the words, card and list are drawn
+   smaller. Phones and portrait tablets get the same pinned stage, stacked: progress bars and the words at the
+   top, the card at the foot, the map between with cameras of its own. Very short screens and reduced motion
+   get the same chapters as a list, each with its map and card at the finished state.
+   (Laptops at 125-150% scaling have viewports around 1280 × 600: they get the wide stage, scaled.) */
 
-const PIN = "(min-width: 1200px) and (min-height: 700px)";
-const PIN_PHONE = "(max-width: 720px) and (min-height: 600px)";
+const PIN = "(min-width: 960px) and (min-height: 520px)";
+const PIN_PHONE = "(max-width: 959px) and (min-height: 560px)";
 const CARDS = [AskCard, CompareCard, NegotiateCard, ApproveCard];
 const EMPTY = "Describe the car you want";
 /* where the camera's point lands in the stage (lib/howMap's cameras are found for these anchors) */
@@ -77,16 +79,20 @@ export function HowItWorks({ curtain = false }: { curtain?: boolean }) {
   const [chapter, setChapter] = useState(-1);
   // which pinned stage plays: the wide one, the phone one, or none (the list)
   const [mode, setMode] = useState<"" | "wide" | "phone">("");
+  // narrow screens (phones, and the wide stage under 1200px): only Riverside and you keep their tags
+  const [compact, setCompact] = useState(false);
   const live = mode !== "", phone = mode === "phone";
   const reduce = useReducedMotion();
 
   useEffect(() => {
-    const wide = matchMedia(PIN), small = matchMedia(PIN_PHONE);
-    const on = () => setMode(reduce ? "" : wide.matches ? "wide" : small.matches ? "phone" : "");
+    const wide = matchMedia(PIN), small = matchMedia(PIN_PHONE), roomy = matchMedia("(min-width: 1200px)");
+    const on = () => {
+      setMode(reduce ? "" : wide.matches ? "wide" : small.matches ? "phone" : "");
+      setCompact(!roomy.matches);
+    };
     on();
-    wide.addEventListener("change", on);
-    small.addEventListener("change", on);
-    return () => { wide.removeEventListener("change", on); small.removeEventListener("change", on); };
+    [wide, small, roomy].forEach((m) => m.addEventListener("change", on));
+    return () => [wide, small, roomy].forEach((m) => m.removeEventListener("change", on));
   }, [reduce]);
 
   // entering the pinned version: start from the current scroll; leaving it: the list shows finished cards
@@ -143,8 +149,8 @@ export function HowItWorks({ curtain = false }: { curtain?: boolean }) {
           <ol>{CHAPTERS.map((c) => <li key={c.id}><h3>{c.head}</h3><p>{c.body}</p>{c.note && <p>{c.note}</p>}</li>)}</ol>
         </div>
         <div className={s.stage}>
-          {/* on phones only Riverside and you keep their tags; the rest are dots */}
-          <DealerMap ref={map} anchor={phone ? ANCHOR_PHONE : ANCHOR} compact={phone} />
+          {/* on narrow screens only Riverside and you keep their tags; the rest are dots */}
+          <DealerMap ref={map} anchor={phone ? ANCHOR_PHONE : ANCHOR} compact={compact} />
           <div className={s.scrim} />
           <div className={s.copy} aria-hidden="true">
             <div className={s.title} data-c="-1">
