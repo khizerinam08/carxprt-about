@@ -1,27 +1,11 @@
 .how { position: relative; margin-top: var(--section-gap); scroll-margin-top: 0; }
-/* the prototype page opens on this section */
-:global(main) > .how:first-child { margin-top: 0; }
-:global(main) > .rest:first-child { padding-top: 140px; }
-/* straight after the hero: no gap, and the hero's floor (its grey band over the dots) carries on into the
-   map and fades out, so there's no seam. It sits at the section's top, so it scrolls away once the stage pins */
-.joined.live { margin-top: 0; }
-.joined.live::before {
-  content: ""; position: absolute; z-index: 2; top: 0; left: 0; right: 0; height: 160px; pointer-events: none;
-  background-color: var(--bg);
-  background-image: linear-gradient(90deg, rgba(222, 222, 222, .2), rgba(132, 132, 132, .2) 50%, rgba(222, 222, 222, .2)),
-    radial-gradient(circle at 2px 2px, rgba(158, 158, 158, .1) 2px, transparent 2.4px);
-  background-size: auto, 20px 20px;
-  -webkit-mask-image: linear-gradient(#000, transparent); mask-image: linear-gradient(#000, transparent);
-}
-:global([data-theme="dark"]) .joined.live::before { background-image: linear-gradient(90deg, rgba(222, 222, 222, .2), rgba(132, 132, 132, .2) 50%, rgba(222, 222, 222, .2)), radial-gradient(circle at 2px 2px, rgba(255, 255, 255, .05) 2px, transparent 2.4px); }
-
-/* /home-v2: pulled up a screen over the hero bridge's held line, and above it (the bridge's lime band is z 3).
+/* the home page: pulled up a screen over the hero bridge's held line, and above it (the bridge's lime band is z 3).
    Its own ground covers the line; the bridge clips its top edge to a dome while it rises */
 .curtain { z-index: 4; margin-top: -100vh; margin-top: -100svh; background: var(--bg); }
 @media (prefers-reduced-motion: reduce) { .curtain { margin-top: 0; } }
 /* the list version (phones, tablets, short screens) has no top space of its own (it used the section gap) */
 .curtain.rest { padding-top: clamp(64px, 11vw, 112px); }
-/* and in /home-v2 it reads as a heading over a set of cards: the title and lead centred, each chapter (its
+/* and on the home page it reads as a heading over a set of cards: the title and lead centred, each chapter (its
    words, its map, its product card) on its own white card */
 .curtain.rest .head { justify-items: center; margin-inline: auto; text-align: center; }
 .curtain.rest .head .lead { margin-inline: auto; }

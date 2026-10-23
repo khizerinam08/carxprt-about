@@ -1,3 +1,4 @@
+import { app } from "@/lib/links";
 import { Icon } from "./Icons";
 import s from "./ChatBar.module.css";
 
@@ -37,7 +38,7 @@ export function ChatBar({ typed, caret = false, sending = false, name, id = name
 
   if (name) {
     return (
-      <form className={s.bar} data-ui="" action="/search" method="get" role="search">
+      <form className={s.bar} data-ui="" action={app("/search")} method="get" role="search">
         <label className="sr-only" htmlFor={id}>Describe the car you want</label>
         <input className={s.field} id={id} name={name} type="text" placeholder={placeholder} autoComplete="off" ref={inputRef} />
         <input type="hidden" name="zip" value={ZIP} />

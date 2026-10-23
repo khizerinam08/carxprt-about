@@ -99,7 +99,7 @@ export const BEATS = {
   type: [0.1, 0.18],
   reply: [0.18, 0.21],
   pins: [0.2, 0.27],
-  // the routes out to the cars you compare, as Compare opens; /home-v2 (the user's Figma: no lines on the
+  // the routes out to the cars you compare, as Compare opens; the home page (the user's Figma: no lines on the
   // title screen) draws them at the end of Ask instead, once the matches are in
   routes: [0.34, 0.39],
   routesEarly: [0.23, 0.27],
@@ -148,7 +148,7 @@ export function camAt(p: number, cams: Cam[] = CAM): Cam {
 }
 
 /* everything the map and the cards show at scroll progress p; at p = 1 every chapter has played.
-   `early` (/home-v2): the route lines draw during Ask instead of Compare. `cams`: the phone cameras */
+   `early` (the home page): the route lines draw during Ask instead of Compare. `cams`: the phone cameras */
 export function frameAt(p: number, early = false, cams: Cam[] = CAM) {
   const compare = enter(p, 1);
   const negotiate = enter(p, 2);
@@ -192,7 +192,7 @@ export type Frame = ReturnType<typeof frameAt>;
 console.assert(
   frameAt(CH[0], true).routes.every((r) => r === 0) && frameAt(CH[1] + 0.01, true).routes.every((r) => r === 1) &&
   frameAt(CH[1] + 0.01).routes.every((r) => r === 0) && frameAt(CH[2]).routes.every((r) => r === 1),
-  "howMap: the routes draw within Ask on /home-v2, as Compare opens on /home",
+  "howMap: the routes draw within Ask early, otherwise as Compare opens",
 );
 
 /* the finished state of chapter i, for the list version, and the pins its map frames */

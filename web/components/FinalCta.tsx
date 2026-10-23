@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { Icon } from "./Icons";
 import { useInView } from "@/hooks/useInView";
+import { PLANS, app } from "@/lib/links";
 import s from "./FinalCta.module.css";
 
 /* Full-width closer built like the redesign Home hero (Figma 192:12102): big centred headline,
@@ -15,8 +16,8 @@ export function FinalCta() {
         <h2 className={s.title} id="final-title">Ready to find your next&nbsp;car?</h2>
         <p className={s.sub}>Real inventory, honest pricing, and an AI that does the heavy lifting.</p>
         <div className={s.actions}>
-          <a className="btn btn-lime" href="/search">Start browsing <Icon name="arrow" /></a>
-          <a className={`btn ${s.ghost}`} href="/pricing">See pricing</a>
+          <a className="btn btn-lime" href={app("/search")}>Start browsing <Icon name="arrow" /></a>
+          <a className={`btn ${s.ghost}`} href={PLANS}>See pricing</a>
         </div>
       </div>
       <div className={s.road} ref={ref} aria-hidden="true">

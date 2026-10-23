@@ -1,19 +1,19 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { clamp, useScrollFrame } from "@/hooks/useScroll";
+import { app } from "@/lib/links";
 import { POPULAR } from "@/lib/popular";
 import { ChatBar } from "../ChatBar";
 import s from "./HomeClose.module.css";
 
-/* home-v2 close: the v1 "finish the sentence" lime band, centred, with no figures. It arrives the way Augment's
+/* The home page's close: the first version's "finish the sentence" lime band, centred, with no figures. It arrives the way Augment's
    hero does (the user's video): as it scrolls in, soft lime glows rise from its foot and swell until the screen
    is lime, then the words come in. The glows only live during the bloom; at rest the band is flat lime (the
    user rules out gradient backgrounds). "Find me a…" completes itself with real requests; a click on the line
    puts that request in the search bar, and whatever the visitor types in the bar becomes the headline. Then the
-   live site's "Popular on CarXprt" links on the light ground (no ink band in v2), into the footer. */
+   live site's "Popular on CarXprt" links on the light ground (no ink band), into the footer. */
 
 const REQUESTS = ["family SUV under $40k", "hybrid with a third row", "AWD SUV for the snow", "first car under $15k"];
 // server render and no JS: the bloom at its end (flat lime, everything in); the scroll loop takes over from here
@@ -111,7 +111,7 @@ export function HomeClose() {
             {POPULAR.map((g) => (
               <nav key={g.name} className={s.group} aria-label={g.name}>
                 <h3>{g.name}</h3>
-                <ul>{g.links.map(([label, href]) => <li key={label}><Link href={href}>{label}</Link></li>)}</ul>
+                <ul>{g.links.map(([label, href]) => <li key={label}><a href={app(href)}>{label}</a></li>)}</ul>
               </nav>
             ))}
           </div>

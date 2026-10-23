@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "About us · CarXprt",
-  description: "Why CarXprt exists, how it fixes car buying, and how it compares.",
+  title: "CarXprt",
+  description: "Find the car, compare what’s nearby, and let CarXprt negotiate the price for you.",
 };
 
 // Runs before paint so the saved theme never flashes.

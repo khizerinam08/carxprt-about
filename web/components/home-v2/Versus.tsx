@@ -6,7 +6,7 @@ import { clamp, useScrollFrame } from "@/hooks/useScroll";
 import { Icon, Logo } from "../Icons";
 import s from "./Versus.module.css";
 
-/* /home-v2, in place of the offers deck: a short comparison with the usual way (the review's missing "why
+/* The home page, in place of the first version's offers deck: a short comparison with the usual way (the review's missing "why
    switch"). CarXprt Plus against listing sites, i.e. Cars.com and CarGurus, which come out the same on every
    row (compare-sources.md; rechecked 23 Oct 2026: both now have AI search, Carson and CarGurus Discover, but
    contacting, negotiating and paperwork stay manual, through lead forms). The main difference first: the whole

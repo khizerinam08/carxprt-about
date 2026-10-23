@@ -9,9 +9,9 @@ import { Icon } from "../Icons";
 import { BentoCell } from "../home/Bento";
 import s from "./Bento.module.css";
 
-/* home-v2 bento, as the user laid it out in Figma (CarXprt-Redesign 1103:3095): a row of four tilted cards
+/* The home page's bento, as the user laid it out in Figma (CarXprt-Redesign 1103:3095): a row of four tilted cards
    (the "chaos" reference): ~14 hrs, a drive, ~$2,500, a lone car in its bay. Then the grid:
-   - Talk to it and Your number stays yours: /home's own cells (BentoCell), their pieces assembling on view
+   - Talk to it and Your number stays yours: the shared cells (BentoCell), their pieces assembling on view
    - Compare up to three, two columns wide under them, with its Price / 5-year cost / Reliability switch
    - a tall cell on the right: a dealer's quote, uploaded and picked apart (the sample deal's own lines)
    The boards' dots are at 12% here (--board-dot), as in the Figma. */

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { XPRT_SEARCH } from "@/lib/links";
 import { ChatBar } from "../ChatBar";
 import s from "./HomeHero.module.css";
 
@@ -22,7 +23,7 @@ export function HomeHero() {
         </div>
         <p className={s.unsure}>
           Not sure what car works for you?
-          <Link className={s.xprt} href="/Xprt_Search">
+          <Link className={s.xprt} href={XPRT_SEARCH}>
             <Image src="/home/binoculars.svg" alt="" width={14} height={14} unoptimized />
             Try Xprt Search
           </Link>

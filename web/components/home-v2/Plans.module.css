@@ -1,6 +1,6 @@
-/* v2: no ink panel. One rounded white card on the page ground (like the v2 close), split like mailerbot's tabbed
+/* The plans: no ink panel. One rounded white card on the page ground (like the close), split like mailerbot's tabbed
    features: the plans on the left, the dotted board with what you get inset on the right */
-.plans { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 16px; width: calc(100% - 2 * var(--pad)); max-width: calc(var(--max) - 2 * var(--pad));
+.plans { scroll-margin-top: 96px; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 16px; width: calc(100% - 2 * var(--pad)); max-width: calc(var(--max) - 2 * var(--pad));
   min-height: 600px; margin: 0 auto; padding: 14px; border-radius: 32px; background: var(--surface); }
 
 .panel { color: var(--ink); }

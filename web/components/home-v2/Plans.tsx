@@ -6,13 +6,14 @@ import { useRef, useState } from "react";
 import { PLANS, type Plan } from "@/lib/plans";
 import { CARS, OTD_FINAL, OTD_FIRST, PROMPT } from "@/lib/walkthrough";
 import { DEALERS, MATCHES, WINNER } from "@/lib/howMap";
+import { app } from "@/lib/links";
 import { fmtUSD } from "@/lib/problemMath";
 import { ChatBar } from "../ChatBar";
 import { Icon } from "../Icons";
 import { CompareCard, NegotiateCard } from "../home/HowCards";
 import s from "./Plans.module.css";
 
-/* home-v2: light, one rounded card (no ink panel); the styles say how.
+/* The home page's plans: light, one rounded card (no ink panel); the styles say how.
    The plans, as mailerbot.com's tabbed features: a panel on the left lists Free, Plus and Pro, and the
    board on the right (the hero's dot grid) shows what the selected plan gives you. Switching tabs rebuilds the
    board, piece by piece. The boards add no new visuals: they're made of pieces the visitor has already met
@@ -101,7 +102,7 @@ export function Plans() {
   };
 
   return (
-    <section className={s.plans} aria-labelledby="plans-title">
+    <section id="plans" className={s.plans} aria-labelledby="plans-title">
       <div className={s.panel}>
         <div className={s.inner}>
           <h2 className="h2" id="plans-title">Start free. Upgrade when it counts.</h2>
@@ -124,7 +125,7 @@ export function Plans() {
                     <li key={f.text}><span className={s.fIcon}><Icon name={f.icon} /></span>{f.text}</li>
                   ))}
                 </ul>
-                <Link className={`${s.ctaBtn} ${s[p.id]}`} href={`/pricing?plan=${p.id}`}>
+                <Link className={`${s.ctaBtn} ${s[p.id]}`} href={app(`/pricing?plan=${p.id}`)}>
                   {p.cta}<span className={s.ctaArrow}><Icon name="arrow" /></span>
                 </Link>
               </div>

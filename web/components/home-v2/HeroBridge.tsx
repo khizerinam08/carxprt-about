@@ -7,7 +7,7 @@ import { Logo } from "../Icons";
 import { HomeHero } from "../home/HomeHero";
 import s from "./HeroBridge.module.css";
 
-/* /home-v2: the hero, its foot fading into the page, then one line under it with the full CarXprt logo as its
+/* The home page: the hero, its foot fading into the page, then one line under it with the full CarXprt logo as its
    subject (the user's take on "Meet CarXprt", without saying it). The line plays with the scroll as it comes in
    (the logo slides in, each word goes faint to sharp); once it's read it holds still, and the walkthrough comes
    up over it through a curved arch, rimmed in lime, that widens until it's the whole map at the top.

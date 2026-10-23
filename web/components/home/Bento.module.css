@@ -1,23 +1,10 @@
-/* back on the light ground after the ink deck */
-.bento { padding-bottom: var(--section-gap); }
-.head { display: grid; gap: 16px; max-width: 760px; margin-bottom: 40px; }
-.head :global(.h2) { text-wrap: balance; }
-.lead { max-width: 46ch; font-size: 18px; line-height: 1.4; color: var(--sub); }
-
-/* wafer's grid: three cells, one wide cell, two cells; surfaces separated by space, not lines */
-/* kept compact: the whole grid reads in about a screen and a half at 1440 × 900 */
-.grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; }
-.cell { grid-column: span 2; display: flex; flex-direction: column; border-radius: 24px; background: var(--surface); overflow: hidden; }
-.cell:nth-child(n + 5) { grid-column: span 3; }
-.wide { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: center; }
-.wide .text { order: -1; padding: 32px; }
-.wide .board { height: 220px; }
+/* a bento cell: its board on top, its words under it. The home page's bento places the cells in its grid */
+.cell { display: flex; flex-direction: column; border-radius: 24px; background: var(--surface); overflow: hidden; }
 
 /* the board: the hero's dot grid on a tone step, where the piece lands. It's a picture of the product's light
    interface, so it stays light in dark mode too */
 .board { position: relative; height: 236px; margin: 8px 8px 0; border-radius: 18px; overflow: hidden; display: grid; place-items: center; padding: 12px;
   background-color: #F5F5F7; background-image: radial-gradient(circle at 2px 2px, rgba(158, 158, 158, var(--board-dot, .28)) 2px, transparent 2.4px); background-size: 20px 20px; color: #1A1A1A; }
-.wide .board { margin: 8px; }
 /* the pieces are drawn at the product's size and shown smaller on the board */
 .board > * { zoom: .78; }
 .text { display: grid; gap: 6px; align-content: start; padding: 16px 22px 22px; }
@@ -32,11 +19,6 @@
 :global(.js) .cell:not([data-in]) { translate: 0 32px; }
 .p { transition: opacity .45s var(--ease), translate .6s var(--ease), scale .6s var(--ease); transition-delay: calc(var(--k, 0) * 90ms + 250ms); }
 :global(.js) .cell:not([data-in]) .p { opacity: 0; translate: 0 -14px; scale: 1.04; }
-.seg { transform-origin: left center; transition: scale .8s var(--ease), opacity .3s; transition-delay: calc(var(--k, 0) * 140ms + 300ms); }
-:global(.js) .cell:not([data-in]) .seg { scale: 0 1; opacity: 0; }
-
-/* ---------- the pieces: the product's own surfaces ---------- */
-.p { will-change: auto; }
 
 /* voice: the pill listening, what you said, where it takes you */
 .voice { display: grid; justify-items: center; gap: 14px; }
@@ -49,102 +31,14 @@
 .result { display: inline-flex; align-items: center; gap: 8px; height: 34px; padding: 0 14px; border-radius: 999px; background: #1A1A1A; color: #fff; font-size: 13px; }
 .result :global(.i) { width: 14px; height: 14px; }
 
-/* compare: three columns drop in, then their rows fill; the best value column is ringed in lime */
-.compare { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; width: 100%; }
-.col { display: grid; gap: 5px; align-content: start; padding: 8px; border-radius: 14px; background: #fff; box-shadow: 0 0 0 1px #E4E5E7; }
-.best { box-shadow: 0 0 0 2px var(--lime), 0 0 0 1px #CFE33A; }
-.thumb { aspect-ratio: 16 / 10; border-radius: 9px; overflow: hidden; }
-.thumb img { width: 100%; height: 100%; object-fit: cover; }
-.colName { font-size: 13px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.val { display: grid; padding: 5px 7px; border-radius: 8px; background: #F5F5F7; font-size: 13px; font-weight: 500; font-variant-numeric: tabular-nums; }
-.val small { font-size: 12px; font-weight: 400; color: #5C5C5C; }
-.best .val { background: rgba(231, 248, 82, .45); }
-
-/* private: the hidden-number pill, the thread with one reply filed away, someone typing */
-.private { display: grid; gap: 10px; width: 100%; max-width: 340px; }
-.hidden { justify-self: start; display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 12px; border-radius: 999px; background: #1A1A1A; color: #fff; font-size: 13px; }
-.hidden :global(.i) { width: 14px; height: 14px; }
-.inbox { display: grid; gap: 6px; }
-.inbox li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0 8px; padding: 9px 12px; border-radius: 12px; background: #fff; box-shadow: 0 0 0 1px #E4E5E7; }
-.from { font-size: 13px; font-weight: 500; }
-.msg { grid-column: 1; font-size: 13px; color: #5C5C5C; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.tag { grid-column: 2; grid-row: 1 / 3; align-self: center; padding: 4px 9px; border-radius: 999px; background: var(--lime); font-size: 12px; font-weight: 500; }
-.filtered .from, .filtered .msg { opacity: .45; text-decoration: line-through; }
-.typing { display: inline-flex; align-items: center; gap: 3px; font-size: 13px; color: #5C5C5C; }
-.typing i { width: 4px; height: 4px; margin-left: 1px; border-radius: 50%; background: currentColor; animation: dot 1.2s infinite; animation-play-state: paused; }
-.typing i:nth-child(2) { animation-delay: .2s; }
-.typing i:nth-child(3) { animation-delay: .4s; }
-.cell[data-live] .typing i { animation-play-state: running; }
-@keyframes dot { 0%, 60%, 100% { opacity: .25; } 30% { opacity: 1; } }
-
-/* cost to own: the sticker, then five years of costs filling the bar one part at a time */
-.cost { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: end; gap: 20px; width: 100%; }
-.sticker, .ownHead { display: grid; gap: 2px; }
-.sticker { padding: 14px 16px; border-radius: 16px; background: #fff; box-shadow: 0 0 0 1px #E4E5E7; }
-.sticker small, .ownHead small { font-size: 13px; color: #5C5C5C; }
-.sticker b { font-size: 26px; font-weight: 500; letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
-.own { display: grid; gap: 12px; }
-.ownHead b { font-size: 40px; font-weight: 500; letter-spacing: -.04em; line-height: 1; font-variant-numeric: tabular-nums; }
-.stack { display: flex; gap: 4px; height: 76px; }
-.seg { flex-basis: 0; display: grid; align-content: center; min-width: 0; padding: 0 12px; border-radius: 12px; background: #1A1A1A; color: #fff; font-size: 13px; white-space: nowrap; overflow: hidden; }
-.seg:first-child { background: var(--lime); color: #1A1A1A; }
-.seg b { font-size: 15px; font-weight: 500; font-variant-numeric: tabular-nums; }
-
-/* quote: the dealer's quote lands, its lines fill, two get flagged, and off it goes */
-.quote { display: grid; justify-items: center; gap: 10px; width: 100%; max-width: 360px; }
-.doc { width: 100%; padding: 12px 14px; border-radius: 14px; background: #fff; box-shadow: 0 0 0 1px #E4E5E7; }
-.docHead { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; font-size: 13px; font-weight: 500; }
-.docHead :global(.i) { width: 15px; height: 15px; }
-.doc li { display: flex; align-items: center; gap: 8px; padding: 3px 0; font-size: 13px; }
-.doc li > span:first-child { color: #5C5C5C; }
-.usd { margin-left: auto; font-variant-numeric: tabular-nums; }
-.flag { padding: 2px 8px; border-radius: 999px; background: var(--lime); font-size: 12px; font-weight: 500; }
-.total { margin-top: 4px; padding-top: 6px !important; box-shadow: inset 0 1px 0 #E4E5E7; font-weight: 500; }
-.total > span:first-child { color: #1A1A1A !important; }
-.sent { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 999px; background: #1A1A1A; color: #fff; font-size: 13px; }
-.sent :global(.i) { width: 14px; height: 14px; color: var(--lime); }
-
-/* advisor: the person, their message, your one-tap answer */
-.advisor { display: grid; gap: 10px; width: 100%; max-width: 360px; }
-.person { display: flex; align-items: center; gap: 10px; }
-.face { display: grid; place-items: center; width: 40px; height: 40px; flex: none; border-radius: 50%; background: var(--lime); }
-.face :global(.i) { width: 20px; height: 20px; }
-.who { display: grid; }
-.who b { font-size: 14px; font-weight: 500; }
-.who small { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: #5C5C5C; }
-.who small i { width: 7px; height: 7px; border-radius: 50%; background: #9BE800; }
-.bubble { padding: 12px 14px; border-radius: 4px 16px 16px 16px; background: #fff; font-size: 14px; line-height: 1.4; box-shadow: 0 0 0 1px #E4E5E7; }
-.reply { justify-self: end; padding: 10px 14px; border-radius: 16px 16px 4px 16px; background: #1A1A1A; color: #fff; font-size: 14px; }
-
-@media (max-width: 1100px) {
-  .cell, .cell:nth-child(n + 5) { grid-column: span 3; }
-  .cell:nth-child(3) { grid-column: 1 / -1; }
-  .wide { grid-column: 1 / -1; grid-template-columns: 1fr; }
-  .wide .text { order: 0; padding: 16px 22px 22px; }
-  .wide .board { height: 236px; margin: 8px 8px 0; }
-}
 @media (max-width: 720px) {
-  .lead { font-size: 16px; }
-  .head { margin-bottom: 32px; }
-  .grid { grid-template-columns: 1fr; gap: 12px; }
-  .cell, .cell:nth-child(n + 5), .cell:nth-child(3), .wide { grid-column: auto; }
-  .wide { grid-template-columns: 1fr; }
-  .wide .text { order: 0; padding: 16px 20px 20px; }
   /* phones: cells stack, so each board takes the height its piece needs, at a slightly larger zoom */
-  .board, .wide .board { height: auto; min-height: 200px; margin: 8px 8px 0; padding: 16px 12px; }
+  .board { height: auto; min-height: 200px; padding: 16px 12px; }
   .board > * { zoom: .9; }
   .text { padding: 16px 20px 20px; }
   .text h3 { font-size: 18px; }
-  .cost { grid-template-columns: 1fr; gap: 12px; }
-  .sticker { display: none; }
-  .ownHead b { font-size: 32px; }
-  /* phones: the four parts as a 2 × 2 grid, so each label fits */
-  .stack { display: grid; grid-template-columns: 1fr 1fr; height: auto; }
-  .seg { height: 52px; padding: 0 10px; font-size: 12px; }
-  .seg b { font-size: 14px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   :global(.js) .cell:not([data-in]), :global(.js) .cell:not([data-in]) .p { opacity: 1; translate: none; scale: none; }
-  :global(.js) .cell:not([data-in]) .seg { opacity: 1; scale: 1 1; }
 }

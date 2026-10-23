@@ -4,14 +4,9 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { Icon, Logo } from "./Icons";
 import { useScrollFrame } from "@/hooks/useScroll";
+import { NAV as LINKS, SIGN_IN } from "@/lib/links";
 import s from "./Nav.module.css";
 
-const LINKS = [
-  { href: "/search", label: "Discovery Hub" },
-  { href: "/offers", label: "Offers" },
-  { href: "/pricing", label: "Pricing" },
-  { href: "/about", label: "About us" },
-];
 
 function ThemeToggle({ className = "" }: { className?: string }) {
   const [dark, setDark] = useState(false);
@@ -65,7 +60,7 @@ export function Nav({ current = "/about" }: { current?: string }) {
       </div>
       <div className={s.right}>
         <ThemeToggle className={s.desktopOnly} />
-        <Link className={`btn btn-lime ${s.signin}`} href="/signin">Sign In</Link>
+        <Link className={`btn btn-lime ${s.signin}`} href={SIGN_IN}>Sign In</Link>
         <button className={s.menuBtn} type="button" aria-expanded={open} aria-controls="nav-sheet" aria-label="Menu" onClick={() => setOpen(!open)}>
           <Icon name="menu" />
         </button>

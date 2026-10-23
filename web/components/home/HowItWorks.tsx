@@ -66,10 +66,9 @@ function RestChapter({ c, i, early }: { c: Chapter; i: number; early: boolean })
   );
 }
 
-/* `joined`: it follows the hero directly, so the map starts where the hero's floor ends (no section gap).
-   `curtain` (/home-v2): it follows the hero bridge with no gap, whose curved lime band rises over its top; its
-   list version gets room at the top, a centred heading and each chapter on a card */
-export function HowItWorks({ joined = false, curtain = false }: { joined?: boolean; curtain?: boolean }) {
+/* `curtain` (the home page): it follows the hero bridge with no gap, whose curved lime band rises over its top;
+   its list version gets room at the top, a centred heading and each chapter on a card */
+export function HowItWorks({ curtain = false }: { curtain?: boolean }) {
   const root = useRef<HTMLElement>(null);
   const map = useRef<MapHandle>(null);
   const textRef = useRef<HTMLSpanElement>(null);
@@ -102,7 +101,7 @@ export function HowItWorks({ joined = false, curtain = false }: { joined?: boole
     if (!live || !el) return;
     const r = el.getBoundingClientRect();
     const p = clamp(-r.top / (r.height - vh));
-    // /home-v2 (`curtain`): the route lines draw at the end of Ask, as in the user's Figma
+    // the home page (`curtain`): the route lines draw at the end of Ask, as in the user's Figma
     const f = frameAt(p, curtain, phone ? CAM_PHONE : CAM);
     map.current?.apply(f);
     el.dataset.ch = String(f.chapter);
@@ -135,7 +134,7 @@ export function HowItWorks({ joined = false, curtain = false }: { joined?: boole
   };
 
   return (
-    <section ref={root} id="how-it-works" className={`${s.how} ${live ? s.live : s.rest} ${phone ? s.phone : ""} ${joined ? s.joined : ""} ${curtain ? s.curtain : ""}`} aria-labelledby="how-title" data-ch="-1">
+    <section ref={root} id="how-it-works" className={`${s.how} ${live ? s.live : s.rest} ${phone ? s.phone : ""} ${curtain ? s.curtain : ""}`} aria-labelledby="how-title" data-ch="-1">
       {live ? (<>
         {/* the words, once, for screen readers (outside the pinned stage); the stage shows one chapter at a time */}
         <div className="sr-only">
