@@ -89,7 +89,7 @@
   :global([data-stage]) .cmpPrice { font-size: 16px; }
   :global([data-stage]) .msgs li { font-size: 13px; }
 }
-/* short phones, in the pinned stage: the chat's last two lines only, so it leaves the map room */
-@media (max-width: 720px) and (max-height: 760px) {
+/* short phones and tablets, in the stacked stage: the chat's last two lines only, so it leaves the map room */
+@media (max-width: 959px) and (max-height: 760px) {
   :global([data-stage]) .msgs li:nth-child(-n + 2) { display: none; }
 }

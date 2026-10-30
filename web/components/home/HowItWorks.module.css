@@ -109,6 +109,16 @@
 @media (max-height: 740px) {
   .phone .chap p:not(.note) { display: none; }
 }
+/* short screens (a phone with its browser bars showing, a small window): the card is drawn smaller, from its
+   bottom left corner, so the map between keeps room for its pins; it still spans the same width */
+@media (max-height: 620px) {
+  .phone .cards { --cz: .84; right: auto; width: calc((100% - 2 * var(--pad)) / var(--cz)); max-width: calc(380px / var(--cz)); transform: scale(var(--cz)); transform-origin: 0 100%; }
+  .phone .title .lead { font-size: 15px; }
+}
+@media (max-height: 500px) {
+  .phone .cards { --cz: .74; }
+  .phone .title :global(.h2) { font-size: 30px; }
+}
 
 /* ---------- list version: phones, short screens, reduced motion ---------- */
 .head { display: grid; max-width: 760px; margin-bottom: 64px; }

@@ -16,12 +16,13 @@ import s from "./HowItWorks.module.css";
    Approve); the chapter's words sit bottom left, the product card floats over the map, and the chapter
    list on the right jumps between them; on shorter or narrower screens the words, card and list are drawn
    smaller. Phones and portrait tablets get the same pinned stage, stacked: progress bars and the words at the
-   top, the card at the foot, the map between with cameras of its own. Very short screens and reduced motion
-   get the same chapters as a list, each with its map and card at the finished state.
+   top, the card at the foot, the map between with cameras of its own; down to 420px tall (a phone with its
+   browser bars showing, a small window), with the card drawn smaller under 620px. Very short screens (phones
+   in landscape) and reduced motion get the same chapters as a list, each with its map and card at the finished state.
    (Laptops at 125-150% scaling have viewports around 1280 × 600: they get the wide stage, scaled.) */
 
 const PIN = "(min-width: 960px) and (min-height: 520px)";
-const PIN_PHONE = "(max-width: 959px) and (min-height: 560px)";
+const PIN_PHONE = "(max-width: 959px) and (min-height: 420px)";
 const CARDS = [AskCard, CompareCard, NegotiateCard, ApproveCard];
 const EMPTY = "Describe the car you want";
 /* where the camera's point lands in the stage (lib/howMap's cameras are found for these anchors) */
