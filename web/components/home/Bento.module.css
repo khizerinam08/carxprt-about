@@ -20,16 +20,31 @@
 .p { transition: opacity .45s var(--ease), translate .6s var(--ease), scale .6s var(--ease); transition-delay: calc(var(--k, 0) * 90ms + 250ms); }
 :global(.js) .cell:not([data-in]) .p { opacity: 0; translate: 0 -14px; scale: 1.04; }
 
-/* voice: the pill listening, what you said, where it takes you */
-.voice { display: grid; justify-items: center; gap: 14px; }
-.listen { display: inline-flex; align-items: center; gap: 10px; height: 44px; padding: 0 18px 0 14px; border-radius: 999px; background: var(--lime); font-size: 15px; font-weight: 500; box-shadow: 0 0 0 1px #CFE33A, 0 0 32px rgba(231, 248, 82, .8); }
-.bars { display: inline-flex; align-items: center; gap: 3px; height: 20px; }
-.bars i { width: 3px; height: 100%; border-radius: 2px; background: #1A1A1A; scale: 1 .4; animation: wave 1s ease-in-out infinite; animation-delay: calc(var(--b) * -.14s); animation-play-state: paused; }
-.cell[data-live] .bars i { animation-play-state: running; }
-@keyframes wave { 0%, 100% { scale: 1 .35; } 50% { scale: 1 1; } }
-.said { padding: 12px 16px; border-radius: 16px 16px 4px 16px; background: #fff; font-size: 16px; box-shadow: 0 0 0 1px #E4E5E7; }
-.result { display: inline-flex; align-items: center; gap: 8px; height: 34px; padding: 0 14px; border-radius: 999px; background: #1A1A1A; color: #fff; font-size: 13px; }
-.result :global(.i) { width: 14px; height: 14px; }
+/* voice: the live session pill (from Figma 1561:22583, at its own sizes), what you said, and the agent's reply */
+/* the board's column is held to the board, so the bar's 100% is the board's width, not the bar's own natural width */
+.board:has(> .voice) { grid-template-columns: minmax(0, 1fr); }
+.voice { display: grid; grid-template-columns: minmax(0, 1fr); justify-items: center; gap: 12px; width: 100%; }
+.session { flex: none; display: flex; align-items: center; gap: 17px; height: 36px; padding-left: 12px; border-radius: 48px; background: linear-gradient(51deg, #E7F852 1.6%, #F0FE75 98.4%);
+  box-shadow: inset 0 0 0 1px #9BE800, inset 11px 9px 3.5px -4px rgba(255, 255, 255, .25), 0 2px 4px rgba(0, 0, 0, .12), 0 0 45.6px 2px #E7F852; }
+.wave { display: flex; align-items: center; gap: 1.96px; height: 22px; }
+.wave i { width: 1.96px; height: var(--h); border-radius: 14.7px; background: #000; animation: talk 1.2s ease-in-out infinite; animation-delay: calc(var(--b) * -.11s); animation-play-state: paused; }
+.cell[data-live] .wave i { animation-play-state: running; }
+@keyframes talk { 0%, 100% { scale: 1 1; } 50% { scale: 1 .45; } }
+.ctrls { display: flex; gap: 3px; width: 129px; height: 29px; padding-right: 4px; }
+.mic, .end, .exp { display: grid; place-items: center; height: 100%; border-radius: 44.1px; }
+.mic, .end { flex: 1; }
+.mic { background: rgba(197, 219, 0, .62); color: #000; }
+.mic :global(.i) { width: 11.9px; height: 11.9px; stroke-width: .9; }
+.end { background: #F00; color: #fff; }
+.end :global(.i) { width: 9px; height: 9px; stroke-width: .8; }
+.exp { flex: none; width: 36px; color: #000; }
+.exp :global(.i) { width: 13px; height: 13px; stroke-width: 1; }
+.said { justify-self: end; max-width: 88%; padding: 12px 16px; border-radius: 16px 16px 4px 16px; background: #fff; font-size: 16px; line-height: 1.4; text-align: left; box-shadow: 0 0 0 1px #E4E5E7; }
+/* the agent answers, with the CarXprt mark as its avatar (as in the walkthrough's Ask card) */
+.agent { justify-self: start; display: flex; align-items: flex-end; gap: 8px; max-width: 88%; text-align: left; }
+.avatar { flex: none; width: 30px; height: 30px; }
+.avatar svg { width: 100%; height: 100%; }
+.reply { padding: 12px 16px; border-radius: 16px 16px 16px 4px; background: #E9E9EC; color: #1A1A1A; font-size: 16px; line-height: 1.4; }
 
 @media (max-width: 720px) {
   /* phones: cells stack, so each board takes the height its piece needs, at a slightly larger zoom */

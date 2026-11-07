@@ -15,11 +15,21 @@
 .speak { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px 0 16px; border-radius: 999px; background: linear-gradient(180deg, #EEFB7A, #E7F852); box-shadow: inset 0 0 0 1px #CFE33A, 0 4px 14px -6px rgba(190,212,4,.9); font-size: 13px; font-weight: 500; color: #1A1A1A; white-space: nowrap; transition: transform 100ms ease-out, box-shadow .2s; }
 .speak :global(.i) { width: 16px; height: 16px; stroke-width: 2; }
 button.speak:hover { box-shadow: inset 0 0 0 1px #BED404, 0 0 24px rgba(231,248,82,.9); }
-/* "Speak to CarXprt" until there is text, then "Send" */
+/* "Speak to CarXprt" until there is text, then the Send state as Figma 360:32 draws it: a lime pill with only the
+   voice icon, and Send ↑ on its own white pill beside it */
+.actions { display: inline-flex; align-items: center; gap: 8px; }
 .idle, .send { display: inline-flex; align-items: center; gap: 8px; }
 .send { display: none; }
+.voice { display: none; place-items: center; height: 32px; padding: 0 13px; border-radius: 999px; background: linear-gradient(82deg, #E7F852 1.6%, #F0FE75 98.4%);
+  box-shadow: inset 0 0 0 1px #9BE800, inset 11px 9px 3.5px -4px rgba(255,255,255,.25), 0 2px 4px rgba(0,0,0,.12), 0 0 45.6px 2px #E7F852; }
+.voice :global(.i) { width: 14px; height: 14px; stroke-width: 1.2; }
 .bar[data-typing] .idle, .bar:has(input.field:not(:placeholder-shown)) .idle { display: none; }
-.bar[data-typing] .send, .bar:has(input.field:not(:placeholder-shown)) .send { display: inline-flex; animation: swap .2s var(--ease); }
+.bar[data-typing] .send, .bar:has(input.field:not(:placeholder-shown)) .send { display: inline-flex; gap: 4px; animation: swap .2s var(--ease); }
+.bar[data-typing] .voice, .bar:has(input.field:not(:placeholder-shown)) .voice { display: grid; animation: swap .2s var(--ease); }
+.bar[data-typing] .speak, .bar:has(input.field:not(:placeholder-shown)) .speak { height: 32px; padding: 0 13px 0 16px; background: #FBFBFB; font-size: 12px; font-weight: 400;
+  box-shadow: inset 0 0 0 .5px #9E9E9E, inset 11px 9px 3.5px -4px rgba(255,255,255,.25), 0 2px 4px rgba(0,0,0,.12); }
+.bar[data-typing] .speak :global(.i), .bar:has(input.field:not(:placeholder-shown)) .speak :global(.i) { width: 14px; height: 14px; stroke-width: 1.2; }
+.bar:has(input.field:not(:placeholder-shown)) button.speak:hover { box-shadow: inset 0 0 0 1px #1A1A1A, 0 2px 4px rgba(0,0,0,.12); }
 @keyframes swap { from { opacity: 0; transform: translateY(4px); } }
 button.speak:active { transform: scale(.97); }
 

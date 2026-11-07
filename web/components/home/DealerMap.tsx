@@ -78,7 +78,7 @@ export function DealerMap({ ref, anchor = [0.5, 0.5], compact = false }: { ref?:
     } else {
       const [cx, cy] = turn([f.cam.x, f.cam.y]);
       tx = anchor[0] * w - cx * sc;
-      ty = anchor[1] * h - cy * sc;
+      ty = (anchor[1] + (f.cam.dy ?? 0)) * h - cy * sc;
     }
     world.current.style.transform = `translate(${tx.toFixed(1)}px,${ty.toFixed(1)}px) scale(${sc.toFixed(4)})`;
     const place = (el: HTMLElement, pt: Pt) => {

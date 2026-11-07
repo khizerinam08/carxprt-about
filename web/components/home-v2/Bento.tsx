@@ -118,7 +118,6 @@ function Quote() {
               <span>Out the door</span>
               <span className={s.totals}><s className={s.strike}>{fmtUSD(OTD_FIRST)}</s><b className={s.late}>{fmtUSD(OTD_FINAL)}</b></span>
             </div>
-            <p className={`${s.saved} ${s.late}`}><em className={`${s.chip} ${s.savedChip}`}>−{fmtUSD(OTD_FIRST - OTD_FINAL)} from the first quote</em></p>
           </div>
           <svg className={s.torn} viewBox="0 0 292 7" preserveAspectRatio="none">
             <path d={`M0 0${Array.from({ length: 25 }, (_, i) => ` L${i * 12 + 6} 7 L${Math.min(i * 12 + 12, 292)} 0`).join("")} Z`} />

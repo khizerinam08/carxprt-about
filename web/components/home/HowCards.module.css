@@ -19,7 +19,6 @@
 /* the card heads: an avatar, who it is, and a chip or a note at the right */
 .head { display: flex; align-items: center; gap: 10px; font-size: 15px; }
 .head b { font-weight: 500; }
-.headMeta { margin-left: auto; font-size: 13px; color: var(--sub); }
 .avatarSm svg { display: block; width: 28px; height: 28px; }
 .bolt { display: grid; place-items: center; width: 32px; height: 32px; flex: none; border-radius: 50%; background: var(--lime); color: #1A1A1A; }
 .private { display: inline-flex; align-items: center; gap: 6px; height: 28px; margin-left: auto; padding: 0 10px; border-radius: 999px; background: var(--ink); color: var(--surface); font-size: 13px; white-space: nowrap; }

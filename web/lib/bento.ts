@@ -12,7 +12,7 @@ export const CELLS: Cell[] = [
 ];
 
 /* voice: one breath, several asks (search, filters, a comparison), to show it's more than a voice remote */
-export const VOICE = { said: "Hybrid SUV under $35k, one owner, no accidents. Compare the two closest to me.", result: "Comparing the 2 closest of 4" };
+export const VOICE = { said: "Hybrid SUV under $35k, one owner, no accidents. Compare the two closest to me.", reply: "Found 4 that fit. Here are the two closest, side by side." };
 
 /* compare (the bento's cell and the walkthrough's card): the About page's three sample cars, with a
    five-year cost to own (depreciation, insurance, fuel and maintenance) and a reliability score */

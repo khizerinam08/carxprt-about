@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { ChatBar } from "../ChatBar";
 import { Icon } from "../Icons";
-import { BOOKED, CHAT, DEALERS, REPLY, WINNER, ZIP } from "@/lib/howMap";
+import { BOOKED, CHAT, DEALERS, REPLY, WINNER } from "@/lib/howMap";
 import { BEST, COMPARE } from "@/lib/bento";
 import { CARS, OTD_FINAL, OTD_FIRST, PICK, PROMPT } from "@/lib/walkthrough";
 import { fmtUSD } from "@/lib/problemMath";
@@ -45,7 +45,6 @@ export function CompareCard({ title = `Comparing ${COMPARE.length} cars`, pick =
       <p className={c.head}>
         <span className={c.avatarSm}><svg viewBox="0 0 15.68 15.68"><use href="#mark" /></svg></span>
         <b>{title}</b>
-        <small className={c.headMeta}>near {ZIP}</small>
       </p>
       <CarRow cars={cars} best={pick ? BEST : -1} />
     </div>

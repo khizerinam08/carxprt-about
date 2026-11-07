@@ -111,12 +111,14 @@ export const BEATS = {
   booked: [0.95, 0.985],
 } as const satisfies Record<string, readonly [number, number]>;
 
-export type Cam = { x: number; y: number; z: number };
+/* dy: moves where the camera's point lands, as a fraction of the stage's height (added to the map's anchor) */
+export type Cam = { x: number; y: number; z: number; dy?: number };
 /* each frames its chapter's pins clear of the words, the card and the chapter list at 1280–1920 wide */
 export const CAM: Cam[] = [
-  { x: 1360, y: 780, z: 0.55 }, // title: the whole board
-  { x: 1360, y: 780, z: 0.6 }, // ask: every dealer with a match
-  { x: 980, y: 900, z: 0.6 }, // compare: you and the three dealers with the cars you compare
+  { x: YOU[0], y: YOU[1], z: 0.55, dy: 0.1 }, // title: the whole board, you dead centre (anchor .4 + .1)
+  // ask and compare share one shot, so the camera holds between them (the dealers out of play fade back)
+  { x: 1330, y: 760, z: 0.6 }, // ask: every dealer with a match
+  { x: 1330, y: 760, z: 0.6 }, // compare: you and the three dealers with the cars you compare
   { x: 1365, y: 920, z: 1.7 }, // negotiate: closer, on you and the one dealer in the chat
   { x: 1380, y: 880, z: 1.3 }, // approve: the drive from you to the dealer
 ];
@@ -135,7 +137,8 @@ const smooth = (t: number) => t * t * (3 - 2 * t);
 function mix(a: Cam, b: Cam, t: number): Cam {
   const dist = Math.hypot(b.x - a.x, b.y - a.y);
   const dip = 1 - clamp(dist / 1500) * 0.3 * Math.sin(Math.PI * t);
-  return { x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t, z: Math.exp(Math.log(a.z) + (Math.log(b.z) - Math.log(a.z)) * t) * dip };
+  const ay = a.dy ?? 0, by = b.dy ?? 0;
+  return { x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t, z: Math.exp(Math.log(a.z) + (Math.log(b.z) - Math.log(a.z)) * t) * dip, dy: ay + (by - ay) * t };
 }
 
 export const chapterAt = (p: number) => CH.reduce((c, start, i) => (p >= start ? i : c), -1);

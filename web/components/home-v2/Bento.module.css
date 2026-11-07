@@ -63,7 +63,7 @@
 /* ---------- Your number stays yours: the two choices and Confirm, as in the user's Figma (1138:2239), at their
    own sizes; the board shows them at its usual .78 ---------- */
 .anon { display: flex; flex-direction: column; gap: 24px; width: 434px; color: #000; text-align: left; }
-.aOpt { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px; border: 1px solid rgba(158, 158, 158, .29); border-radius: 8px; background: #F5F5F5; }
+.aOpt { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px; border: 1px solid rgba(158, 158, 158, .29); border-radius: 8px; background: #fff; }
 .aOn { border: 3px solid #E7F852; }
 .aIcon { display: grid; place-items: center; width: 50px; height: 50px; flex: none; margin-right: 4px; border-radius: 36px; background: #000; }
 .aLime { background: #E7F852; }
@@ -116,8 +116,6 @@
 .totals { display: grid; justify-items: end; }
 .totals s { font-size: 12px; font-weight: 400; }
 .totals b { font-size: 26px; font-weight: 500; letter-spacing: -.035em; line-height: 1.1; font-variant-numeric: tabular-nums; }
-.saved { display: flex; justify-content: flex-end; margin-top: 8px; }
-.savedChip { background: #1A1A1A; color: var(--lime); padding: 2px 9px; }
 
 /* the struck amounts: grey, with the line drawn through them once the slip is in */
 .strike { position: relative; color: #9E9E9E; text-decoration: none; }

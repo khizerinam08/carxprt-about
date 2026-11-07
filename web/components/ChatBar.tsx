@@ -24,15 +24,19 @@ export function ChatBar({ typed, caret = false, sending = false, name, id = name
   const label = (
     <>
       <span className={s.idle}>Speak to CarXprt<Icon name="wave" /></span>
-      <span className={s.send}>Send<Icon name="up" /></span>
+      <span className={s.send}>Send<Icon name="arrow-up" /></span>
     </>
   );
   const row = (
     <div className={s.row}>
       <span className={s.zip}><Icon name="pin" />{ZIP}</span>
-      {name
-        ? <button className={s.speak} type="submit">{label}</button>
-        : <span className={s.speak}>{label}</span>}
+      <span className={s.actions}>
+        {/* the Send state (Figma 360:32): the voice control shrinks to an icon pill beside a white Send pill */}
+        <span className={s.voice} aria-hidden="true"><Icon name="audio-lines" /></span>
+        {name
+          ? <button className={s.speak} type="submit">{label}</button>
+          : <span className={s.speak}>{label}</span>}
+      </span>
     </div>
   );
 

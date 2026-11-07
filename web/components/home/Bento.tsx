@@ -14,15 +14,26 @@ import s from "./Bento.module.css";
 /* --k: the order a piece lands in */
 const k = (n: number) => ({ "--k": n }) as React.CSSProperties;
 
+/* the live voice session pill from the redesign's voice bar (Figma 1561:22583): its waveform (these bar heights),
+   mic, end call and expand; the waveform talks while the cell is on screen. Under it, what you said and the agent's reply */
+const WAVE = [15.68, 7.35, 3.43, 9.31, 15.68, 9.31, 13.23, 7.35, 4.41, 15.68, 13.23, 9.31, 13.23, 22.05, 18.13, 12.25, 8.33, 12.25, 6.37, 14.21, 11.27, 19.11, 14.21, 11.27, 18.13, 8.33, 3.43, 11.27, 19.11, 11.27];
+
 function Voice() {
   return (
     <div className={s.voice}>
-      <span className={`${s.p} ${s.listen}`} style={k(0)}>
-        <span className={s.bars}>{[0, 1, 2, 3, 4, 5, 6].map((b) => <i key={b} style={{ "--b": b } as React.CSSProperties} />)}</span>
-        Listening
+      <span className={`${s.p} ${s.session}`} style={k(0)}>
+        <span className={s.wave}>{WAVE.map((h, b) => <i key={b} style={{ "--h": `${h}px`, "--b": b } as React.CSSProperties} />)}</span>
+        <span className={s.ctrls}>
+          <span className={s.mic}><Icon name="mic" /></span>
+          <span className={s.end}><Icon name="phone-off" /></span>
+          <span className={s.exp}><Icon name="expand" /></span>
+        </span>
       </span>
       <p className={`${s.p} ${s.said}`} style={k(1)}>“{VOICE.said}”</p>
-      <span className={`${s.p} ${s.result}`} style={k(2)}><Icon name="arrow" />{VOICE.result}</span>
+      <p className={`${s.p} ${s.agent}`} style={k(2)}>
+        <span className={s.avatar}><svg viewBox="0 0 15.68 15.68"><use href="#mark" /></svg></span>
+        <span className={s.reply}>{VOICE.reply}</span>
+      </p>
     </div>
   );
 }

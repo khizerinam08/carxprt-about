@@ -39,7 +39,7 @@ console.assert(CHEAPER.every((c) => c.otd < OTD_FINAL), "plans: the advisor's fi
 function FreeBoard() {
   return (
     <>
-      <div className={s.p} style={k(0, "1 / -1")}><ChatBar typed={PROMPT} /></div>
+      <div className={s.p} style={k(0, "1 / -1")}><ChatBar typed={PROMPT} sending /></div>
       <div className={s.p} style={k(1, "1 / -1")}><CompareCard title={`${MATCHES} matches`} pick={false} /></div>
     </>
   );
