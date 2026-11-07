@@ -68,6 +68,10 @@ export function HomeClose() {
     return () => window.clearTimeout(t);
   }, [onScreen, reduce, own]);
 
+  // every request, hidden, in the line's own cell: the line keeps the height of the tallest one, so the bar under
+  // it doesn't jump as letters come and go (on phones some requests take two lines)
+  const sizers = REQUESTS.map((r) => <span key={r} className={s.sizer} aria-hidden="true">{r}</span>);
+
   // the line on show goes into the bar, ready to send
   const use = () => {
     const el = input.current;
@@ -86,11 +90,14 @@ export function HomeClose() {
           <h2 className={s.title} id="close-title">
             <span>Find me a</span>
             {own !== null
-              ? <span className={s.line}><span className={s.text}>{own}</span></span>
+              ? <span className={s.line}>{sizers}<span className={s.text}>{own}</span></span>
               : (
                 <button type="button" className={`${s.line} ${s.pick}`} onClick={use} aria-label={`Search for a ${REQUESTS[at.current.i]}`}>
-                  <span className={s.text} aria-hidden="true">{shown}</span>
-                  <i className={s.caret} aria-hidden="true" />
+                  {sizers}
+                  <span className={s.typed}>
+                    <span className={s.text} aria-hidden="true">{shown}</span>
+                    <i className={s.caret} aria-hidden="true" />
+                  </span>
                 </button>
               )}
           </h2>
