@@ -3,6 +3,7 @@ import { IconSprite } from "@/components/Icons";
 import { Nav } from "@/components/Nav";
 import { HeroBridge } from "@/components/home-v2/HeroBridge";
 import { HowItWorks } from "@/components/home/HowItWorks";
+import { Film } from "@/components/home-v2/Film";
 import { Versus } from "@/components/home-v2/Versus";
 import { Bento } from "@/components/home-v2/Bento";
 import { Plans } from "@/components/home-v2/Plans";
@@ -28,6 +29,7 @@ export default function HomePage() {
         {/* the hero fading into a line with the full logo, then a curved lime band rising into the walkthrough */}
         <HeroBridge />
         <HowItWorks curtain />
+        <Film />
         {/* in place of the cash-offers deck (removed at the user's request): CarXprt against listing sites */}
         <Versus />
         <Bento />

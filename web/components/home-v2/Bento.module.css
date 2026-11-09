@@ -32,11 +32,10 @@
 /* ---------- the grid, as drawn: Talk and Your number on top, Compare two wide under them, the quote tall on
    the right (419 · 433 · 408, 10px apart). The shared cells (components/home/Bento) bring their own rules; these win ---------- */
 .grid { display: grid; grid-template-columns: minmax(0, 419fr) minmax(0, 433fr) minmax(0, 408fr); gap: 10px; }
-.grid > :nth-child(1) { grid-column: 1 / -1; grid-row: 1; }
-.grid > :nth-child(2) { grid-column: 1; grid-row: 2; }
-.grid > :nth-child(3) { grid-column: 2; grid-row: 2; }
-.grid > :nth-child(4) { grid-column: 3; grid-row: 2 / span 2; }
-.grid > :nth-child(5) { grid-column: 1 / span 2; grid-row: 3; }
+.grid > :nth-child(1) { grid-column: 1; grid-row: 1; }
+.grid > :nth-child(2) { grid-column: 2; grid-row: 1; }
+.grid > :nth-child(3) { grid-column: 3; grid-row: 1 / span 2; }
+.grid > :nth-child(4) { grid-column: 1 / span 2; grid-row: 2; }
 
 /* the white cards (the first figure and the four grid cells) carry a .5px #9E9E9E stroke, as in the user's
    Figma; the lime card and the photos don't, nor do the cards in dark mode, where they aren't white */
@@ -46,16 +45,6 @@
   transition: translate .7s var(--ease); }
 :global(.js) .bento:not([data-on]) .card { translate: 0 28px; }
 .card h3 { max-width: 20ch; font-size: 21px; font-weight: 500; letter-spacing: -.02em; line-height: 1.2; text-wrap: balance; }
-/* the film: its words beside it, so the whole card fits a short laptop screen */
-.film { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.5fr); align-items: center; gap: 32px; padding: 12px 12px 12px 34px; }
-.filmText { display: grid; gap: 8px; }
-.filmText p { max-width: 30ch; font-size: 15px; line-height: 1.45; color: var(--sub); }
-.filmBox { position: relative; aspect-ratio: 16 / 9; border-radius: 18px; overflow: hidden; background: #1A1A1A; }
-.filmBox video { width: 100%; height: 100%; object-fit: cover; }
-.filmCtrl { position: absolute; right: 12px; bottom: 12px; display: flex; gap: 8px; }
-.filmCtrl button { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: #fff; color: #1A1A1A; box-shadow: 0 2px 8px rgba(0, 0, 0, .22); transition: scale 100ms ease-out; }
-.filmCtrl button:active { scale: .94; }
-.filmCtrl :global(.i) { width: 18px; height: 18px; }
 .compareText p { max-width: 40ch; font-size: 15px; line-height: 1.45; color: var(--sub); }
 
 /* compare: three listing photos, the figure on each set by the switch underneath */
@@ -146,11 +135,8 @@
   .stat b { font-size: 44px; }
   .statLabel { font-size: 17px; }
   .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .grid > :nth-child(2) { grid-column: 1; grid-row: 2; }
-  .grid > :nth-child(3) { grid-column: 2; grid-row: 2; }
-  .grid > :nth-child(4) { grid-column: 1 / -1; grid-row: 4; }
-  .grid > :nth-child(5) { grid-column: 1 / -1; grid-row: 3; }
-  .film { gap: 24px; padding-left: 26px; }
+  .grid > :nth-child(3) { grid-column: 1 / -1; grid-row: 3; }
+  .grid > :nth-child(4) { grid-column: 1 / -1; grid-row: 2; }
 }
 @media (max-width: 720px) {
   .lead { font-size: 16px; }
@@ -166,8 +152,6 @@
   .statLabel { font-size: 15px; padding-bottom: 6px; }
   .statLine { font-size: 12px; }
   .grid { grid-template-columns: 1fr; gap: 24px; }
-  .film { grid-template-columns: 1fr; gap: 16px; padding: 22px 12px 12px; }
-  .filmText { padding: 0 12px; }
   .grid > :nth-child(n) { grid-column: 1; grid-row: auto; }
   .card { padding: 26px 24px; }
   .card h3 { font-size: 19px; }

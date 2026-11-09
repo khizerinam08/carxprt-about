@@ -11,7 +11,6 @@ import s from "./Bento.module.css";
 
 /* The home page's bento, as the user laid it out in Figma (CarXprt-Redesign 1103:3095): a row of four tilted cards
    (the "chaos" reference): ~14 hrs, a drive, ~$2,500, a lone car in its bay. Then the grid:
-   - the product film, full width
    - Talk to it and Your number stays yours: the shared cells (BentoCell), their pieces assembling on view
    - Compare up to three, two columns wide under them, with its Price / 5-year cost / Reliability switch
    - a tall cell on the right: a dealer's quote, uploaded and picked apart (the sample deal's own lines)
@@ -47,64 +46,6 @@ function Anon() {
       </div>
       <span className={`${s.aIn} ${s.aConfirm}`} style={d(2)}>Confirm</span>
     </div>
-  );
-}
-
-/* the product film (47s, with sound), a wide cell at the top of the grid, leading into Talk to it. It plays muted
-   while it's on screen and stops off screen; turning the sound on starts it again from the top, once through.
-   Reduced motion: it waits for the play button */
-function Film() {
-  const ref = useRef<HTMLVideoElement>(null);
-  const [playing, setPlaying] = useState(false);
-  const [muted, setMuted] = useState(true);
-  // held: the visitor paused it, so scrolling doesn't restart it; heard: the sound has been turned on before
-  const held = useRef(false), heard = useRef(false);
-
-  useEffect(() => {
-    const v = ref.current;
-    if (!v || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const io = new IntersectionObserver(([e]) => {
-      if (!e.isIntersecting) v.pause();
-      else if (!held.current) v.play().catch(() => {});
-    }, { threshold: 0.4 });
-    io.observe(v);
-    return () => io.disconnect();
-  }, []);
-
-  const toggle = () => {
-    const v = ref.current;
-    if (!v) return;
-    held.current = !v.paused;
-    if (v.paused) v.play().catch(() => {});
-    else v.pause();
-  };
-  const sound = () => {
-    const v = ref.current;
-    if (!v) return;
-    if (v.muted && !heard.current) { heard.current = true; v.currentTime = 0; }
-    v.muted = !v.muted;
-    held.current = false;
-    v.play().catch(() => {});
-  };
-
-  return (
-    <article className={`${s.card} ${s.film}`}>
-      <div className={s.filmText}>
-        <h3>Watch it work</h3>
-        <p>Say what you want, narrow it down out loud, open a car and message the dealer, all by voice.</p>
-      </div>
-      <div className={s.filmBox}>
-        <video ref={ref} poster="/home/film-poster.jpg" muted loop={muted} playsInline preload="none" aria-label="CarXprt product film: finding, narrowing down and contacting a dealer about a car by voice"
-          onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onVolumeChange={(e) => setMuted(e.currentTarget.muted)}>
-          <source src="/home/film-sm.mp4" type="video/mp4" media="(max-width: 720px)" />
-          <source src="/home/film.mp4" type="video/mp4" />
-        </video>
-        <div className={s.filmCtrl}>
-          <button type="button" onClick={toggle} aria-label={playing ? "Pause the film" : "Play the film"}><Icon name={playing ? "pause" : "play"} /></button>
-          <button type="button" onClick={sound} aria-label={muted ? "Turn the sound on" : "Turn the sound off"}><Icon name={muted ? "volume-x" : "volume"} /></button>
-        </div>
-      </div>
-    </article>
   );
 }
 
@@ -233,7 +174,6 @@ export function Bento() {
         </ul>
 
         <div className={s.grid}>
-          <Film />
           <BentoCell c={cell("voice")} i={0} />
           <BentoCell c={cell("private")} i={1} piece={Anon} />
           <Quote />

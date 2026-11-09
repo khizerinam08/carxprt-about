@@ -1,0 +1,32 @@
+/* the film on the page's own ground: a centred heading, then the picture as large as the screen allows (never
+   taller than the view, so short laptops see it whole). No bottom padding: the comparison's own top gap follows */
+.film { padding-bottom: 0; }
+.head { display: grid; justify-items: center; gap: 16px; max-width: 760px; margin: 0 auto 48px; text-align: center; }
+.head :global(.h2) { text-wrap: balance; }
+.lead { max-width: 46ch; font-size: 18px; line-height: 1.45; color: var(--sub); text-wrap: balance; }
+
+/* a hairline holds the edge on the film's light frames, which are close to the page's colour */
+.frame { position: relative; width: min(100%, calc((100vh - 140px) * 16 / 9)); width: min(100%, calc((100svh - 140px) * 16 / 9)); margin: 0 auto; aspect-ratio: 16 / 9; border-radius: 24px; overflow: hidden; background: #1A1A1A;
+  box-shadow: 0 0 0 1px var(--line), 0 40px 80px -56px rgba(0, 0, 0, .4); }
+.frame video { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+/* one small ink pill in the corner: play or pause, then the sound */
+.controls { position: absolute; right: 16px; bottom: 16px; display: flex; align-items: center; height: 40px; padding: 0 4px; border-radius: 999px; background: #1A1A1A; color: #fff; box-shadow: 0 0 0 1px rgba(255, 255, 255, .14); }
+.controls i { width: 1px; height: 16px; background: rgba(255, 255, 255, .22); }
+.controls button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-width: 32px; height: 32px; padding: 0 8px; border-radius: 999px; color: inherit; font-size: 13px; white-space: nowrap; transition: background .2s, scale 100ms ease-out; }
+.controls button:hover { background: rgba(255, 255, 255, .14); }
+.controls button:active { scale: .95; }
+.controls button:focus-visible { outline-color: var(--lime); outline-offset: 1px; }
+.controls .sound { padding: 0 12px 0 8px; }
+.controls :global(.i) { width: 16px; height: 16px; }
+
+@media (max-width: 720px) {
+  .head { margin-bottom: 32px; }
+  .lead { font-size: 16px; }
+  .frame { border-radius: 16px; }
+  /* a small picture on a phone: the pill sits under it, with full-size targets, not over it */
+  .frame { overflow: visible; background: none; box-shadow: none; aspect-ratio: auto; }
+  .frame video { height: auto; aspect-ratio: 16 / 9; border-radius: 16px; background: #1A1A1A; box-shadow: 0 0 0 1px var(--line); }
+  .controls { position: static; width: fit-content; height: 48px; margin: 12px auto 0; }
+  .controls button { min-width: 44px; height: 44px; }
+}
