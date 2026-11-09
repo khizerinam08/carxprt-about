@@ -23,6 +23,11 @@ const EXTRA = [
   // the CarXprt logo icon on its own, from the redesign file (tdkZAGZd2a4B8EMYIpxLSt, node 1028:6930)
   '<symbol id="mark" viewBox="0 0 15.68 15.68"><circle cx="7.84" cy="7.84" r="7.84" fill="#E7F852"/><g fill="#000"><path d="M9.9097 8.35156L7.46784 5.4398H5.67714L8.03761 8.35156L5.35156 11.3516H7.22366L9.9097 8.35156Z"/><path d="M10.4795 5.35156L9.25854 6.76333L10.1539 7.82215L12.3516 5.4398L10.4795 5.35156Z"/><path d="M9.25854 9.85156L10.2353 8.79274L12.2702 11.3516H10.4795L9.25854 9.85156Z"/></g><path fill="#1A1A1A" d="M11.0712 12.3107C10.2428 12.9088 9.26412 13.2644 8.24496 13.3375C7.2258 13.4106 6.20644 13.1983 5.30116 12.7245C4.39588 12.2507 3.64048 11.5341 3.11967 10.655C2.59886 9.77591 2.33322 8.76913 2.35255 7.74754C2.37187 6.72595 2.67539 5.72993 3.22908 4.87118C3.78277 4.01243 4.56473 3.32489 5.48728 2.88566C6.40983 2.44643 7.4365 2.27288 8.45216 2.38445C9.46782 2.49603 10.4323 2.88833 11.2375 3.51736L10.4476 4.52847C9.83027 4.04618 9.09077 3.7454 8.31205 3.65985C7.53332 3.5743 6.74616 3.70737 6.03883 4.04413C5.3315 4.3809 4.73196 4.90804 4.30744 5.56646C3.88292 6.22488 3.6502 6.98854 3.63539 7.77181C3.62057 8.55507 3.82424 9.32699 4.22355 10.001C4.62287 10.675 5.20204 11.2244 5.89613 11.5877C6.59022 11.951 7.37179 12.1137 8.15319 12.0577C8.93459 12.0017 9.68494 11.7291 10.3201 11.2705L11.0712 12.3107Z"/></symbol>',
   // the chat bar's Send state (Figma 360:32) and the voice session bar (Figma 1561:22583), lucide as drawn there
+  // the film's controls (lucide)
+  '<symbol id="i-play" viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21 6 3"/></symbol>',
+  '<symbol id="i-pause" viewBox="0 0 24 24"><rect x="14" y="4" width="4" height="16" rx="1"/><rect x="6" y="4" width="4" height="16" rx="1"/></symbol>',
+  '<symbol id="i-volume" viewBox="0 0 24 24"><path d="M11 4.7a.7.7 0 0 0-1.2-.5L6.4 7.6A1.4 1.4 0 0 1 5.4 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.4a1.4 1.4 0 0 1 1 .4l3.4 3.4a.7.7 0 0 0 1.2-.5z"/><path d="M16 9a5 5 0 0 1 0 6"/><path d="M19.4 18.4a9 9 0 0 0 0-12.7"/></symbol>',
+  '<symbol id="i-volume-x" viewBox="0 0 24 24"><path d="M11 4.7a.7.7 0 0 0-1.2-.5L6.4 7.6A1.4 1.4 0 0 1 5.4 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.4a1.4 1.4 0 0 1 1 .4l3.4 3.4a.7.7 0 0 0 1.2-.5z"/><path d="M22 9l-6 6M16 9l6 6"/></symbol>',
   '<symbol id="i-audio-lines" viewBox="0 0 14 14"><path d="M1.16667 5.83333V7.58333M3.5 3.5V9.91667M5.83333 1.75V12.25M8.16667 4.66667V8.75M10.5 2.91667V10.5M12.8333 5.83333V7.58333"/></symbol>',
   '<symbol id="i-arrow-up" viewBox="0 0 14 14"><path d="M11.0833 7L7 2.91667L2.91667 7M7 2.91667V11.0833"/></symbol>',
   '<symbol id="i-mic" viewBox="0 0 11.9 11.9"><path d="M5.94955 9.42082V10.9083M5.94955 9.42082C6.87007 9.42082 7.75289 9.05514 8.4038 8.40423C9.0547 7.75333 9.42038 6.87051 9.42038 5.94998V4.95832M5.94955 9.42082C5.02902 9.42082 4.1462 9.05514 3.49529 8.40423C2.84439 7.75333 2.47871 6.87051 2.47871 5.94998V4.95832M5.94955 0.99165C6.77107 0.99165 7.43705 1.65763 7.43705 2.47915V5.94998C7.43705 6.77151 6.77107 7.43748 5.94955 7.43748C5.12802 7.43748 4.46204 6.77151 4.46204 5.94998V2.47915C4.46204 1.65763 5.12802 0.99165 5.94955 0.99165Z"/></symbol>',
@@ -39,7 +44,7 @@ export function IconSprite() {
 export type IconName = "sun" | "moon" | "pin" | "check" | "minus" | "arrow" | "down" | "bolt" | "chat" | "phone" | "user" | "bookmark" | "clock" | "key" | "star" | "menu" | "flag"
   | "fuel" | "gauge" | "wave" | "chevron" | "chevron-left" | "plus" | "tabs" | "doc" | "up"
   | "map-pin" | "user-round" | "hat-glasses" | "share" | "x" | "search" | "quote"
-  | "audio-lines" | "arrow-up" | "mic" | "phone-off" | "expand" | "location";
+  | "play" | "pause" | "volume" | "volume-x" | "audio-lines" | "arrow-up" | "mic" | "phone-off" | "expand" | "location";
 
 export function Icon({ name, className = "" }: { name: IconName; className?: string }) {
   return <svg className={`i ${className}`.trim()} aria-hidden="true"><use href={`#i-${name}`} /></svg>;

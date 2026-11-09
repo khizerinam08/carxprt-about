@@ -7,7 +7,7 @@ import s from "./HomeHero.module.css";
 /* Home hero, from the redesign (Figma tdkZAGZd2a4B8EMYIpxLSt, node 192:12102): the headline and the AI search
    bar on the dotted ground, then the side-view car on the ink and lime stripes. The stage under the words is
    laid out in Figma pixels and scales with the page (--u is one Figma pixel at 1440 wide). The car and its
-   reflection are the Figma images with the wheel badges painted out, as on the About page. */
+   reflection are the Figma images; the car (updated 9 Nov 2026) has plain wheel caps, and the older reflection had its badges painted out. */
 export function HomeHero() {
   return (
     <section className={s.hero} aria-labelledby="home-title">
@@ -34,7 +34,7 @@ export function HomeHero() {
         <i className={s.ink} />
         <i className={s.lime} />
         <Image className={s.reflection} src="/home/car-reflection.png" alt="" width={1983} height={793} sizes="(min-width: 1440px) 1080px, 75vw" />
-        <Image className={s.car} src="/home/car.png" alt="" width={2101} height={748} sizes="(min-width: 1440px) 1290px, 75vw" priority />
+        <Image className={s.car} src="/home/car.png" alt="" width={2100} height={749} sizes="(min-width: 1440px) 1290px, 75vw" priority />
         <Image className={s.shadow} src="/home/car-shadow.svg" alt="" width={859} height={35} unoptimized />
       </div>
     </section>

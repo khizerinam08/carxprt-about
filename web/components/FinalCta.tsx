@@ -25,8 +25,8 @@ export function FinalCta() {
         <span className={`${s.band} ${s.lime}`} />
         <span className={s.floor} />
         <div className={s.car}>
-          <Image src="/car-side.png" alt="" width={1728} height={578} sizes="(max-width: 720px) 92vw, 61vw" />
-          <Image className={s.mirror} src="/car-side.png" alt="" width={1728} height={578} sizes="(max-width: 720px) 92vw, 61vw" />
+          <Image src="/car-side.png" alt="" width={1728} height={569} sizes="(max-width: 720px) 92vw, 61vw" />
+          <Image className={s.mirror} src="/car-side.png" alt="" width={1728} height={569} sizes="(max-width: 720px) 92vw, 61vw" />
         </div>
       </div>
     </section>
