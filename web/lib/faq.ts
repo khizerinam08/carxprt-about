@@ -43,8 +43,8 @@ export const FAQ: Topic[] = [
 ];
 
 /* schema.org FAQPage, as the live home page publishes it */
-export const FAQ_SCHEMA = {
+export const faqSchema = (faq: Topic[]) => ({
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  mainEntity: FAQ.flatMap((t) => t.items).map(({ q, a }) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } })),
-};
+  mainEntity: faq.flatMap((t) => t.items).map(({ q, a }) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } })),
+});

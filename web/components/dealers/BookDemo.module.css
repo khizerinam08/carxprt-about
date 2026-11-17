@@ -1,0 +1,33 @@
+/* the close: a lime panel (the redesign's mid-page CTA colour), the pitch left and a white form right */
+.demo { padding-bottom: var(--section-gap); scroll-margin-top: 24px; }
+.panel { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 80px); align-items: center; padding: clamp(32px, 5vw, 72px); border-radius: 40px; background: var(--lime); color: #1A1A1A; }
+.copy :global(.h2) { text-wrap: balance; }
+.lead { margin-top: 20px; max-width: 40ch; font-size: 19px; line-height: 1.4; }
+.points { display: grid; gap: 12px; margin-top: 32px; }
+.points li { display: flex; align-items: center; gap: 10px; font-size: 16px; }
+.points :global(.i) { width: 18px; height: 18px; padding: 3px; border-radius: 50%; background: #1A1A1A; color: var(--lime); box-sizing: content-box; }
+
+.form { display: grid; gap: 14px; padding: 28px; border-radius: 28px; background: #fff; color: #1A1A1A; box-shadow: 0 2px 4px rgba(0, 0, 0, .06), 0 24px 48px -24px rgba(0, 0, 0, .3); }
+.field { display: grid; gap: 6px; font-size: 14px; font-weight: 500; }
+.field small { font-weight: 400; color: #6E6E6E; font-size: 13px; }
+.field input { height: 48px; padding: 0 16px; border: 0; border-radius: 14px; background: #F5F5F7; box-shadow: inset 0 0 0 1px #E4E5E7; font-size: 16px; color: #1A1A1A; transition: box-shadow .2s; }
+.field input:hover { box-shadow: inset 0 0 0 1px #C9C9CC; }
+.field input:focus { outline: none; box-shadow: inset 0 0 0 2px #1A1A1A; }
+.field input:user-invalid { box-shadow: inset 0 0 0 2px #D92D20; }
+.submit { margin-top: 6px; height: 52px; background: #1A1A1A; color: #fff; }
+.submit :global(.i) { width: 18px; height: 18px; }
+.submit:hover { box-shadow: 0 8px 24px -8px rgba(0, 0, 0, .45); }
+.note { font-size: 13px; line-height: 1.45; color: #5C5C5C; text-align: center; }
+.note a { color: #1A1A1A; text-decoration: underline; text-underline-offset: 3px; }
+
+@media (max-width: 900px) {
+  .panel { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 720px) {
+  .panel { padding: 32px 16px 16px; border-radius: 32px; }
+  .copy { padding: 0 8px; }
+  .lead { font-size: 16px; }
+  .points { margin-top: 24px; }
+  .points li { font-size: 15px; }
+  .form { padding: 20px 16px; border-radius: 22px; }
+}

@@ -1,14 +1,16 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { FAQ, FAQ_SCHEMA } from "@/lib/faq";
+import { FAQ, faqSchema, type Topic } from "@/lib/faq";
 import s from "./Questions.module.css";
 
 /* Questions, laid out like wearedirect.co: the heading and the topics stay put on the left while the answers
    scroll on the right. Each answer is a filled tile; one opens at a time (details with a shared name), and the
    open one turns lime. The live site's FAQ, word for word, with its FAQPage schema. */
 
-export function Questions() {
+/* `faq`, `title` and `lead`: another page's questions (the dealer page) */
+export function Questions({ faq = FAQ, title = "Questions, answered.", lead }: { faq?: Topic[]; title?: string; lead?: React.ReactNode }) {
+  const FAQ = faq;
   const [on, setOn] = useState(FAQ[0].id);
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
   const topic = FAQ.find((t) => t.id === on)!;
@@ -24,11 +26,11 @@ export function Questions() {
   };
 
   return (
-    <section className={`section ${s.questions}`} aria-labelledby="faq-title">
+    <section className={`section ${s.questions}`} id="faq" aria-labelledby="faq-title">
       <div className={`wrap ${s.grid}`}>
         <div className={s.side}>
-          <h2 className="h2" id="faq-title">Questions, answered.</h2>
-          <p className={s.lead}>What people ask before they start. Anything else, write to <a href="mailto:support@carxprt.com">support@carxprt.com</a>.</p>
+          <h2 className="h2" id="faq-title">{title}</h2>
+          <p className={s.lead}>{lead ?? <>What people ask before they start. Anything else, write to <a href="mailto:support@carxprt.com">support@carxprt.com</a>.</>}</p>
           <div className={s.topics} role="tablist" aria-label="Topics" aria-orientation="vertical">
             {FAQ.map((t, i) => (
               <button key={t.id} ref={(el) => { tabs.current[i] = el; }} type="button" role="tab" id={`faq-${t.id}`} aria-selected={t.id === on}
@@ -48,7 +50,7 @@ export function Questions() {
           ))}
         </div>
       </div>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_SCHEMA) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema(FAQ)) }} />
     </section>
   );
 }

@@ -1,0 +1,91 @@
+.story { position: relative; margin-top: var(--section-gap); }
+.line { display: block; }
+.lead { margin-top: 18px; max-width: 36ch; font-size: 20px; line-height: 1.4; color: var(--sub); }
+.step { margin-bottom: 14px; font-size: 13px; font-weight: 500; color: var(--sub); font-variant-numeric: tabular-nums; }
+.chap h3 { font-size: clamp(34px, 3.3vw, 48px); font-weight: 500; letter-spacing: -.035em; line-height: 1.02; text-wrap: balance; }
+.chap p:not(.step) { margin-top: 16px; max-width: 38ch; font-size: 17px; line-height: 1.5; color: var(--sub); }
+
+/* the dotted board the card sits on (the home bento's boards) */
+.board { position: relative; display: grid; place-items: center; border-radius: 32px; background-color: #EBEBEE; overflow: hidden; }
+:global([data-theme="dark"]) .board { background-color: var(--night-2); }
+.slot { width: min(480px, calc(100% - 48px)); }
+
+/* ---------- pinned ---------- */
+.live { height: 520vh; }
+/* wide: the stage brings its own room at the top (104px), so no section gap above it as well */
+.live:not(.phone) { margin-top: 0; }
+.stage { position: sticky; top: 0; height: 100vh; height: 100svh; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(32px, 5vw, 80px);
+  max-width: var(--max); margin: 0 auto; padding: 104px var(--pad) 40px; }
+.left { display: grid; grid-template-rows: minmax(0, 1fr) auto; gap: 32px; padding-bottom: 8px; }
+/* the words: the title, then one chapter at a time, stacked in one place */
+.copy { display: grid; align-self: center; }
+.copy > * { grid-area: 1 / 1; align-self: center; opacity: 0; visibility: hidden; transform: translateY(18px); transition: opacity .4s var(--ease), transform .6s var(--ease), visibility 0s .6s; }
+.live .board { height: 100%; }
+.live .slot { grid-area: 1 / 1; opacity: 0; visibility: hidden; transform: translateY(24px) scale(.98); transition: opacity .4s var(--ease), transform .6s var(--ease), visibility 0s .6s; }
+
+.story[data-ch="-1"] [data-c="-1"], .story[data-ch="-1"] .slot[data-c="0"],
+.story[data-ch="0"] [data-c="0"],
+.story[data-ch="1"] [data-c="1"],
+.story[data-ch="2"] [data-c="2"],
+.story[data-ch="3"] [data-c="3"] { opacity: 1; visibility: visible; transform: none; transition-delay: .12s, .12s, 0s; }
+
+/* the chapter switch: a row of pills, the chapter in play in lime, and a round Next */
+.rail { display: flex; align-items: center; gap: 4px; justify-self: start; padding: 6px; border-radius: 999px; background: var(--surface); box-shadow: 0 0 0 1px var(--line), var(--shadow); }
+.rail button { height: 40px; padding: 0 16px; border-radius: 999px; font-size: 15px; color: var(--sub); transition: background .3s, color .3s; }
+.rail button:hover { color: var(--ink); }
+.rail button[aria-current] { background: var(--lime); color: #1A1A1A; }
+.rail .next { display: grid; place-items: center; width: 40px; padding: 0; margin-left: 4px; background: var(--ink); color: var(--bg); }
+.rail .next:hover { color: var(--bg); }
+.rail .next :global(.i) { width: 16px; height: 16px; }
+.rail button:active { transform: scale(.97); transition: transform 100ms ease-out; }
+
+@media (max-height: 760px) {
+  .live:not(.phone) .slot { zoom: .88; }
+  .live:not(.phone) .chap h3 { font-size: 36px; }
+}
+
+/* ---------- pinned on phones and portrait tablets: the switch as progress bars, the words, then the board ---------- */
+.phone .stage { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); gap: 20px; padding: calc(env(safe-area-inset-top) + 24px) var(--pad) calc(env(safe-area-inset-bottom) + 16px); }
+.phone .left { grid-template-rows: auto auto; gap: 18px; padding: 0; }
+.phone .rail { order: -1; justify-self: stretch; gap: 6px; padding: 0; border-radius: 0; background: none; box-shadow: none; }
+.phone .rail button { flex: 1; height: 16px; padding: 0; font-size: 0; border-radius: 0; background: none; }
+.phone .rail button::before { content: ""; display: block; height: 3px; border-radius: 2px; background: rgba(26, 26, 26, .16); transition: background .3s; }
+.phone .rail .next { display: none; }
+.phone[data-ch="0"] .rail button:nth-child(-n + 1)::before,
+.phone[data-ch="1"] .rail button:nth-child(-n + 2)::before,
+.phone[data-ch="2"] .rail button:nth-child(-n + 3)::before,
+.phone[data-ch="3"] .rail button:nth-child(-n + 4)::before { background: #1A1A1A; }
+:global([data-theme="dark"]) .phone .rail button::before { background: rgba(255, 255, 255, .2); }
+:global([data-theme="dark"]) .phone[data-ch="0"] .rail button:nth-child(-n + 1)::before,
+:global([data-theme="dark"]) .phone[data-ch="1"] .rail button:nth-child(-n + 2)::before,
+:global([data-theme="dark"]) .phone[data-ch="2"] .rail button:nth-child(-n + 3)::before,
+:global([data-theme="dark"]) .phone[data-ch="3"] .rail button:nth-child(-n + 4)::before { background: #fff; }
+.phone .copy, .phone .copy > * { align-self: start; }
+.phone .title :global(.h2) { font-size: 34px; }
+.phone .title .lead { margin-top: 12px; font-size: 16px; }
+.phone .step { margin-bottom: 8px; font-size: 12px; }
+.phone .chap h3 { font-size: 26px; }
+.phone .chap p:not(.step) { margin-top: 8px; font-size: 15px; line-height: 1.45; }
+.phone .board { border-radius: 24px; }
+.phone .slot { width: min(420px, calc(100% - 24px)); }
+@media (max-height: 760px) { .phone .chap p:not(.step) { display: none; } .phone .slot { zoom: .9; } }
+@media (max-height: 660px) { .phone .slot { zoom: .8; } }
+
+/* ---------- list: short screens and reduced motion ---------- */
+.head { display: grid; justify-items: center; max-width: 760px; margin: 0 auto 64px; text-align: center; }
+.head .lead { margin-inline: auto; }
+.list { display: grid; gap: 16px; }
+.restCh { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 56px; align-items: center; padding: 32px; border-radius: 32px; background: var(--surface); }
+.restCh .board { padding: 40px 0; }
+@media (max-width: 900px) {
+  .restCh { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+}
+@media (max-width: 720px) {
+  .head { margin-bottom: 40px; }
+  .lead { font-size: 17px; }
+  .restCh { padding: 28px 16px 16px; border-radius: 28px; }
+  .restCh .chap { padding: 0 6px; }
+  .restCh .board { padding: 24px 0; border-radius: 22px; }
+  .chap h3 { font-size: 30px; }
+  .chap p:not(.step) { font-size: 16px; }
+}

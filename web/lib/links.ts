@@ -19,6 +19,17 @@ export const NAV = [
 export const SIGN_IN = app("/login");
 export const XPRT_SEARCH = app("/Xprt_Search");
 export const DEALERS = "https://dealership.carxprt.com/sign-in";
+
+/* the dealer page (/dealers): the dealer portal and its tools live on dealership.carxprt.com (checked 17 Nov 2026) */
+export const LISTER = "https://dealership.carxprt.com/lister";
+export const LISTER_CHROME = "https://chromewebstore.google.com/detail/carxprt-lightning-lister/nfpnkiknibofeiicekdehonjmpnonaeh";
+export const DEALER_MAIL = "dealership@carxprt.com";
+export const DEALER_NAV = [
+  { href: "#how-it-works", label: "How it works" },
+  { href: "#tools", label: "Tools" },
+  { href: "#faq", label: "Questions" },
+  { href: "/", label: "For shoppers" },
+];
 export const SOCIAL = [
   { label: "Instagram", short: "Ig", href: "https://www.instagram.com/carxprt" },
   { label: "LinkedIn", short: "in", href: "https://www.linkedin.com/company/carxprt" },

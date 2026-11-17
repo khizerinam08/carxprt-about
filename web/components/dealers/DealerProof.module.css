@@ -1,0 +1,16 @@
+/* the home bento's proof row (home-v2/Bento.module.css) under a centred heading; no gap of its own below */
+.proof.proof { padding-bottom: 0; }
+.head { display: grid; justify-items: center; gap: 16px; max-width: 760px; margin: 0 auto; text-align: center; }
+.head :global(.h2) { text-wrap: balance; }
+.lead { max-width: 46ch; font-size: 18px; line-height: 1.4; color: var(--sub); }
+/* a word, not a number, in the big slot ("Seconds"): a size smaller so it keeps inside the card */
+.word b { font-size: 46px !important; }
+
+@media (max-width: 720px) {
+  .lead { font-size: 16px; }
+  .word b { font-size: 32px !important; }
+}
+
+/* the last card's left edge sits under the card before it: keep its words and rule clear of that */
+.proof li:nth-child(4) > * { padding-left: 12px; }
+@media (max-width: 720px) { .proof li:nth-child(4) > * { padding-left: 0; } }

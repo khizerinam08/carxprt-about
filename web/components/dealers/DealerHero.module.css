@@ -1,0 +1,59 @@
+/* the home hero's ground: 4px dots every 20px at ~10%; the words centred (H1 72, Subtext 20) */
+.hero {
+  --hero-dot: rgba(158, 158, 158, .1);
+  position: relative; padding: 152px var(--pad) 0;
+  background-color: var(--bg);
+  background-image: radial-gradient(circle at 2px 2px, var(--hero-dot) 2px, transparent 2.4px);
+  background-size: 20px 20px;
+}
+:global([data-theme="dark"]) .hero { --hero-dot: rgba(255, 255, 255, .05); }
+
+.copy { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.kicker { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 24px; padding: 6px 14px; border-radius: 999px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); font-size: 14px; color: var(--sub); }
+.kicker::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--lime-dot); }
+.title { font-size: clamp(40px, 5.6vw, 72px); font-weight: 500; line-height: .92; letter-spacing: -.045em; }
+.title span { display: block; }
+.sub { max-width: 600px; margin-top: 24px; font-size: 20px; line-height: 1.35; color: var(--sub); text-wrap: pretty; }
+.ctas { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 32px; }
+.outline { color: var(--ink); box-shadow: inset 0 0 0 1px var(--line-2); }
+.outline:hover { box-shadow: inset 0 0 0 1px var(--ink); }
+
+/* the dashboard chat: a white window on the dots */
+.window { position: relative; width: min(760px, 100%); margin: 64px auto 0; padding: 18px 18px 16px; border-radius: 28px; background: var(--surface);
+  box-shadow: 0 0 0 1px var(--line), var(--shadow); }
+.bar { display: flex; align-items: center; gap: 10px; padding: 0 4px 14px; font-size: 15px; }
+.bar b { font-weight: 500; }
+.avatar svg { width: 30px; height: 30px; }
+.where { margin-left: auto; padding: 4px 10px; border-radius: 999px; background: var(--bg); font-size: 13px; color: var(--sub); }
+
+.msgs { display: grid; gap: 10px; padding: 18px; border-radius: 20px; background: var(--bg); }
+.msgs > li { max-width: 82%; font-size: 15px; line-height: 1.42; animation: arrive .5s var(--ease) both; animation-delay: calc(.35s + var(--k) * .55s); }
+@keyframes arrive { from { opacity: 0; translate: 0 10px; } }
+.mine { justify-self: end; padding: 10px 14px; border-radius: 16px 16px 4px 16px; background: var(--lime); color: #1A1A1A; }
+.theirs { justify-self: start; display: grid; gap: 10px; padding: 12px 14px; border-radius: 16px 16px 16px 4px; background: var(--surface); box-shadow: 0 0 0 1px var(--line); }
+.status { justify-self: start; display: inline-flex; align-items: center; gap: 6px; font-size: 13px !important; color: var(--sub); }
+.status :global(.i) { width: 14px; height: 14px; }
+
+.leads { display: grid; gap: 6px; }
+.leads li { display: flex; align-items: center; gap: 10px; padding: 6px 10px 6px 6px; border-radius: 14px; background: var(--bg); }
+.thumb { width: 44px; height: 44px; flex: none; border-radius: 10px; overflow: hidden; }
+.thumb img { width: 100%; height: 100%; object-fit: cover; }
+.who { display: grid; min-width: 0; line-height: 1.25; }
+.who b { font-size: 14px; font-weight: 500; }
+.who small { font-size: 13px; color: var(--sub); }
+.leads em { margin-left: auto; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-style: normal; font-weight: 500; }
+.hot { background: var(--lime); color: #1A1A1A; }
+.new { background: var(--surface); color: var(--ink); box-shadow: inset 0 0 0 1px var(--line); }
+
+.ask { display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 52px; margin-top: 12px; padding: 0 8px 0 18px; border-radius: 999px; box-shadow: inset 0 0 0 1px var(--line); font-size: 15px; color: var(--hint); }
+.send { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--ink); color: var(--bg); }
+.send :global(.i) { width: 16px; height: 16px; }
+
+@media (max-width: 720px) {
+  .hero { padding-top: 120px; }
+  .sub { font-size: 17px; }
+  .window { margin-top: 48px; padding: 12px 12px 10px; border-radius: 22px; }
+  .msgs { padding: 12px; }
+  .msgs > li { max-width: 92%; font-size: 14px; }
+  .where { display: none; }
+}

@@ -31,7 +31,10 @@ function ThemeToggle({ className = "" }: { className?: string }) {
 }
 
 /* `current`: the link for the page this nav sits on */
-export function Nav({ current = "/about" }: { current?: string }) {
+/* `links`, `cta` and `home`: another page's set (the dealer page has its own links and sign-in) */
+export function Nav({ current = "/about", links = LINKS, cta = { href: SIGN_IN, label: "Sign In" }, home = "/" }: {
+  current?: string; links?: { href: string; label: string }[]; cta?: { href: string; label: string }; home?: string;
+}) {
   const ref = useRef<HTMLElement>(null);
   const [open, setOpen] = useState(false);
   const lastY = useRef(0);
@@ -49,10 +52,10 @@ export function Nav({ current = "/about" }: { current?: string }) {
   return (
     <header className={s.nav} ref={ref}>
       <div className={s.left}>
-        <Link href="/" aria-label="CarXprt home"><Logo /></Link>
+        <Link href={home} aria-label="CarXprt home"><Logo /></Link>
         <nav aria-label="Main">
           <ul className={s.links}>
-            {LINKS.map((l) => (
+            {links.map((l) => (
               <li key={l.href}><Link href={l.href} aria-current={l.href === current ? "page" : undefined}>{l.label}</Link></li>
             ))}
           </ul>
@@ -60,13 +63,13 @@ export function Nav({ current = "/about" }: { current?: string }) {
       </div>
       <div className={s.right}>
         <ThemeToggle className={s.desktopOnly} />
-        <Link className={`btn btn-lime ${s.signin}`} href={SIGN_IN}>Sign In</Link>
+        <Link className={`btn btn-lime ${s.signin}`} href={cta.href}>{cta.label}</Link>
         <button className={s.menuBtn} type="button" aria-expanded={open} aria-controls="nav-sheet" aria-label="Menu" onClick={() => setOpen(!open)}>
           <Icon name="menu" />
         </button>
       </div>
       <div className={s.sheet} id="nav-sheet" hidden={!open}>
-        {LINKS.map((l) => (
+        {links.map((l) => (
           <Link key={l.href} href={l.href} aria-current={l.href === current ? "page" : undefined}>{l.label}</Link>
         ))}
         <ThemeToggle />

@@ -1,0 +1,78 @@
+/* the dealer story's cards: the home walkthrough's floating card (white, 22px, hairline and shadow) */
+.card { display: grid; gap: 14px; padding: 18px; border-radius: 22px; background: var(--surface); color: var(--ink); box-shadow: 0 0 0 1px var(--line), var(--shadow); }
+.card :global(.i) { width: 16px; height: 16px; }
+
+.head { display: flex; align-items: center; gap: 10px; font-size: 15px; }
+.thread { display: grid; min-width: 0; line-height: 1.25; }
+.thread b { font-weight: 500; }
+.thread small { font-size: 13px; color: var(--sub); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.initials { display: grid; place-items: center; width: 32px; height: 32px; flex: none; border-radius: 50%; background: var(--ink); color: var(--bg); font-size: 12px; font-weight: 500; }
+.bolt { display: grid; place-items: center; width: 32px; height: 32px; flex: none; border-radius: 50%; background: var(--lime); color: #1A1A1A; }
+.paid { display: inline-flex; align-items: center; gap: 5px; height: 28px; margin-left: auto; padding: 0 10px; border-radius: 999px; background: var(--lime); color: #1A1A1A; font-size: 12px; font-weight: 500; white-space: nowrap; }
+.paid :global(.i) { width: 13px !important; height: 13px !important; }
+
+.car { display: flex; align-items: center; gap: 12px; min-width: 0; padding: 6px; border-radius: 16px; background: var(--bg); }
+.thumb { width: 52px; height: 52px; flex: none; border-radius: 12px; overflow: hidden; }
+.thumb img { width: 100%; height: 100%; object-fit: cover; }
+.who { display: grid; min-width: 0; line-height: 1.3; }
+.who b { font-size: 15px; font-weight: 500; }
+.who small { font-size: 13px; color: var(--sub); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* 1. the profile fills in row by row (--a 0 → 1) */
+.profile { display: grid; }
+.profile > div { --on: clamp(0, var(--a, 1) * 4.4 - var(--k), 1); display: grid; grid-template-columns: 84px minmax(0, 1fr); gap: 12px; padding: 10px 4px; border-top: 1px solid var(--line);
+  opacity: calc(.15 + var(--on) * .85); }
+.profile dt { font-size: 13px; color: var(--sub); }
+.profile dd { font-size: 14px; translate: calc((1 - var(--on)) * 8px) 0; }
+
+/* 2. the chat (home/HowCards' ChatCard) and its hand-off chip, lit with the last message */
+.respond { display: grid; }
+.handoff { display: inline-flex; align-items: center; gap: 5px; height: 28px; margin-left: auto; padding: 0 10px; border-radius: 999px; background: var(--ink); color: var(--surface); font-size: 12px; font-weight: 500; white-space: nowrap;
+  opacity: clamp(0, (var(--m, 9) - 3.2) * 4, 1); }
+.handoff :global(.i) { width: 13px !important; height: 13px !important; }
+
+/* 3. the quote: the lines (--q brings them in), the out-the-door total, then shared */
+.lines { display: grid; }
+.lines li { --on: clamp(0, var(--q, 1) * 5.4 - var(--k), 1); display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 2px; border-bottom: 1px solid var(--line); font-size: 14px; font-variant-numeric: tabular-nums;
+  opacity: calc(.15 + var(--on) * .85); }
+.lines em { margin-left: 8px; padding: 2px 8px; border-radius: 999px; background: var(--bg); font-size: 11px; font-style: normal; color: var(--sub); }
+.total { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; }
+.total > span { display: grid; }
+.total small { font-size: 12px; color: var(--sub); }
+.total b { font-size: 30px; font-weight: 500; letter-spacing: -.035em; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.defaults { display: inline-flex !important; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 999px; background: var(--bg); font-size: 12px; color: var(--sub); }
+.defaults :global(.i) { width: 13px !important; height: 13px !important; }
+.share { display: grid; place-items: center; height: 46px; border-radius: 999px; background: #1A1A1A; color: #fff; font-size: 15px; font-weight: 500; transition: background .3s, color .3s; }
+:global([data-theme="dark"]) .share { background: #fff; color: #1A1A1A; }
+.share > span { grid-area: 1 / 1; display: inline-flex; align-items: center; gap: 8px; transition: opacity .25s; }
+.sent { opacity: 0; }
+/* shared once the lines are all in (--q past 1.05); by default (no scroll) it's shared */
+[data-shared] .share, .card:not([data-live] *) .share { background: var(--lime); color: #1A1A1A; }
+[data-shared] .idle, .card:not([data-live] *) .idle { opacity: 0; }
+[data-shared] .sent, .card:not([data-live] *) .sent { opacity: 1; }
+
+/* 4. analytics: the sale, the pipeline (Sold ticks up with --s), an alert */
+.sold { display: flex; align-items: center; gap: 10px; }
+.sold .car { flex: 1; }
+.soldChip { display: inline-flex; align-items: center; gap: 5px; padding: 6px 12px; border-radius: 999px; background: var(--lime); color: #1A1A1A; font-size: 13px; font-style: normal; font-weight: 500;
+  opacity: clamp(0, var(--s, 1) * 3 - .6, 1); scale: calc(.9 + clamp(0, var(--s, 1) * 3 - .6, 1) * .1); }
+.soldChip :global(.i) { width: 14px !important; height: 14px !important; }
+.pipe { display: grid; gap: 8px; padding: 14px; border-radius: 16px; background: var(--bg); }
+.pipe li { display: grid; grid-template-columns: 64px minmax(0, 1fr) 24px; align-items: center; gap: 10px; font-size: 13px; color: var(--sub); }
+.pipe i { height: 10px; border-radius: 999px; background: var(--line-2); transform-origin: 0 50%; scale: var(--w) 1; }
+.pipe .last i { background: var(--lime-dot); scale: calc(var(--w) * (.5 + clamp(0, var(--s, 1) * 2.4 - .8, 1) * .5)) 1; }
+.pipe b { justify-self: end; font-weight: 500; color: var(--ink); font-variant-numeric: tabular-nums; }
+.tick { display: inline-grid; }
+.tick > span { grid-area: 1 / 1; }
+.tick > span:first-child { opacity: calc(1 - clamp(0, var(--s, 1) * 2.4 - .8, 1)); }
+.tick > span:last-child { opacity: clamp(0, var(--s, 1) * 2.4 - .8, 1); }
+.alert { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+.alert :global(.i) { color: var(--alert); }
+.alert span { margin-left: auto; padding: 5px 12px; border-radius: 999px; box-shadow: inset 0 0 0 1px var(--line-2); font-weight: 500; }
+
+@media (max-width: 720px) {
+  .card { padding: 14px; gap: 12px; }
+  .paid { display: none; }
+  .profile > div { grid-template-columns: 72px minmax(0, 1fr); padding: 8px 2px; }
+  .total b { font-size: 26px; }
+}
