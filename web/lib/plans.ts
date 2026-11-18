@@ -16,7 +16,7 @@ export type Plan = {
 
 export const PLANS: Plan[] = [
   {
-    id: "free", name: "Free shopping", price: "$0", per: "always",
+    id: "free", name: "Free", price: "$0", per: "always",
     features: [
       { text: "Browse and search every car", icon: "search" },
       { text: "Compare cars side by side", icon: "tabs" },

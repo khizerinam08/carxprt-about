@@ -14,7 +14,7 @@ import { CompareCard, NegotiateCard } from "../home/HowCards";
 import s from "./Plans.module.css";
 
 /* The home page's plans: light, one rounded card (no ink panel); the styles say how.
-   The offers, as mailerbot.com's tabbed features: a panel on the left lists Free shopping, the Negotiator and
+   The offers, as mailerbot.com's tabbed features: a panel on the left lists Free, the Negotiator and
    Human Concierge (the user's pricing table, 18 Nov 2026), and the
    board on the right (the hero's dot grid) shows what the selected plan gives you. Switching tabs rebuilds the
    board, piece by piece. The boards add no new visuals: they're made of pieces the visitor has already met
