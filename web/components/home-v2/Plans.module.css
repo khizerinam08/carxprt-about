@@ -42,15 +42,15 @@
 .ctaArrow { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; transition: translate .3s var(--ease); }
 .ctaArrow :global(.i) { width: 18px; height: 18px; }
 .ctaBtn:hover .ctaArrow { translate: 3px 0; }
-.plus { background: var(--lime); color: #1A1A1A; }
-.plus:hover { box-shadow: var(--glow); }
-.plus .ctaArrow { background: #1A1A1A; color: var(--lime); }
-.pro { background: #1A1A1A; color: #fff; }
-.pro .ctaArrow { background: var(--lime); color: #1A1A1A; }
+.negotiator { background: var(--lime); color: #1A1A1A; }
+.negotiator:hover { box-shadow: var(--glow); }
+.negotiator .ctaArrow { background: #1A1A1A; color: var(--lime); }
+.concierge { background: #1A1A1A; color: #fff; }
+.concierge .ctaArrow { background: var(--lime); color: #1A1A1A; }
 .free { background: var(--surface); color: var(--ink); box-shadow: inset 0 0 0 1px var(--line-2); }
 .free:hover { box-shadow: inset 0 0 0 1px var(--ink); }
 .free .ctaArrow { background: var(--ink); color: var(--surface); }
-:global([data-theme="dark"]) .pro { background: #fff; color: #1A1A1A; }
+:global([data-theme="dark"]) .concierge { background: #fff; color: #1A1A1A; }
 
 /* the board: the product's light surface on the dot grid, in both themes (so the page's own cards, reused
    on it, keep their light tokens here); each plan's pieces land on it in turn */
@@ -105,7 +105,7 @@
   .lead { font-size: 16px; }
   .tab { height: 52px; padding: 0 16px; }
   .tabName { font-size: 18px; }
-  /* the tab is too narrow for the chip beside the price; Plus is the one selected anyway */
+  /* the tab is too narrow for the chip beside the price; the Negotiator is the one selected anyway */
   .popular { display: none; }
   .pieces { gap: 20px; }
   .tabs { gap: 8px; margin-top: 32px; }

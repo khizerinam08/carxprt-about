@@ -1,0 +1,31 @@
+/* the five moments: a row each, the words beside the card on a dotted board, sides alternating */
+.stops { padding-top: clamp(40px, 5vw, 72px); }
+.head { display: grid; justify-items: center; gap: 16px; max-width: 760px; margin: 0 auto 56px; text-align: center; }
+.head :global(.h2) span { display: block; }
+.lead { max-width: 44ch; font-size: 19px; line-height: 1.4; color: var(--sub); text-wrap: pretty; }
+
+.list { display: grid; gap: 16px; }
+.stop { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(32px, 5vw, 72px); align-items: center; padding: 32px; border-radius: 32px; background: var(--surface); }
+.stop:nth-child(even) .words { order: 2; }
+.words { display: grid; padding: 0 clamp(0px, 2vw, 24px); }
+.step { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; font-size: 14px; color: var(--sub); font-variant-numeric: tabular-nums; }
+.step span { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--ink); color: var(--bg); font-size: 12px; font-weight: 500; }
+.words h3 { font-size: clamp(30px, 3vw, 44px); font-weight: 500; letter-spacing: -.035em; line-height: 1.02; text-wrap: balance; }
+.words p:not(.step) { margin-top: 16px; max-width: 38ch; font-size: 17px; line-height: 1.5; color: var(--sub); }
+
+.board { display: grid; place-items: center; padding: 48px 0; border-radius: 26px; background-color: #EBEBEE; }
+:global([data-theme="dark"]) .board { background-color: var(--night-2); }
+.slot { width: min(470px, calc(100% - 48px)); }
+
+@media (max-width: 900px) {
+  .stop { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .stop:nth-child(even) .words { order: 0; }
+}
+@media (max-width: 720px) {
+  .head { margin-bottom: 40px; }
+  .lead { font-size: 16px; }
+  .stop { padding: 28px 16px 16px; border-radius: 28px; }
+  .words { padding: 0 6px; }
+  .words p:not(.step) { font-size: 16px; }
+  .board { padding: 24px 0; border-radius: 22px; }
+}

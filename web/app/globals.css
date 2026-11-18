@@ -79,6 +79,6 @@ ul, ol { list-style: none; padding: 0; }
 
 /* the dealer page: tighter rhythm between sections (the user, 17 Nov 2026); the questions don't add their own
    gap under them, so the demo panel follows at one gap, not two */
-main.dealers { --section-gap: clamp(80px, 8vw, 120px); }
-@media (max-width: 720px) { main.dealers { --section-gap: 88px; } }
-main.dealers #faq { padding-bottom: 0; }
+main.dealers, main.owners { --section-gap: clamp(80px, 8vw, 120px); }
+@media (max-width: 720px) { main.dealers, main.owners { --section-gap: 88px; } }
+main.dealers #faq, main.owners #faq { padding-bottom: 0; }

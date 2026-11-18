@@ -14,13 +14,14 @@ import { CompareCard, NegotiateCard } from "../home/HowCards";
 import s from "./Plans.module.css";
 
 /* The home page's plans: light, one rounded card (no ink panel); the styles say how.
-   The plans, as mailerbot.com's tabbed features: a panel on the left lists Free, Plus and Pro, and the
+   The offers, as mailerbot.com's tabbed features: a panel on the left lists Free shopping, the Negotiator and
+   Human Concierge (the user's pricing table, 18 Nov 2026), and the
    board on the right (the hero's dot grid) shows what the selected plan gives you. Switching tabs rebuilds the
    board, piece by piece. The boards add no new visuals: they're made of pieces the visitor has already met
    (the user asked for few, familiar pieces over new ones in every section):
    - Free: the hero's search bar, and the results under it (the walkthrough's car row, no pick)
-   - Plus: the same row with the AI's best fit, and the walkthrough's negotiator chat, its last two lines
-   - Pro: a fuller chat with your advisor (a person at CarXprt, not the dealer): the agreed price, two cheaper
+   - Negotiator: the same row with the AI's best fit, and the walkthrough's negotiator chat, its last two lines
+   - Concierge: a fuller chat with your advisor (a person at CarXprt, not the dealer): the agreed price, two cheaper
      finds nearby, your question and its answer, the message bar. The user preferred it to a trimmed one */
 
 const k = (n: number, col: string) => ({ "--k": n, gridColumn: col }) as React.CSSProperties;
@@ -28,7 +29,7 @@ const k = (n: number, col: string) => ({ "--k": n, gridColumn: col }) as React.C
 const kk = (n: number) => ({ "--k": n }) as React.CSSProperties;
 const dealer = DEALERS[WINNER].name.split(" ")[0];
 
-/* Pro: what the advisor turns up after the deal is agreed, both under it (sample listings; the photos are
+/* Concierge: what the concierge turns up after the deal is agreed, both under it (sample listings; the photos are
    the sample cars', mirrored) */
 const CHEAPER = [
   { src: CARS[0].src, name: "Hybrid SUV · 2022", meta: `${DEALERS[5].name} · 31,200 mi`, otd: 35240 },
@@ -45,7 +46,7 @@ function FreeBoard() {
   );
 }
 
-function PlusBoard() {
+function NegotiatorBoard() {
   return (
     <>
       <div className={s.p} style={k(0, "1 / span 5")}><CompareCard /></div>
@@ -54,14 +55,14 @@ function PlusBoard() {
   );
 }
 
-/* Pro (the user preferred this fuller version): the advisor's chat, the messages arriving one by one */
-function ProBoard() {
+/* Concierge (the user preferred this fuller version): the concierge's chat, the messages arriving one by one */
+function ConciergeBoard() {
   return (
     <div className={`${s.p} ${s.proChat}`} style={k(0, "1 / -1")}>
       <p className={s.proHead}>
         <span className={s.face}><Icon name="user-round" /></span>
-        <span><b>Your CarXprt advisor</b><small><i />Online now</small></span>
-        <span className={s.proChip}>Pro</span>
+        <span><b>Your CarXprt concierge</b><small><i />Online now</small></span>
+        <span className={s.proChip}>Concierge</span>
       </p>
       <ol className={s.proMsgs}>
         <li className={s.fromA} style={kk(1)}>Done. {dealer} agreed to <b>{fmtUSD(OTD_FINAL)}</b> out the door on the {CARS[0].name}, {fmtUSD(OTD_FIRST - OTD_FINAL)} under their first quote.</li>
@@ -80,15 +81,15 @@ function ProBoard() {
         <li className={s.fromYou} style={kk(3)}>Is the 2022 hybrid as good?</li>
         <li className={s.fromA} style={kk(4)}>Same trim, one owner, clean history. I’ll hold {dealer}’s price while you test-drive it on Saturday.</li>
       </ol>
-      <p className={s.composer} style={kk(5)}>Message your advisor<span><Icon name="arrow" /></span></p>
+      <p className={s.composer} style={kk(5)}>Message your concierge<span><Icon name="arrow" /></span></p>
     </div>
   );
 }
 
-const BOARDS: Record<Plan["id"], () => React.JSX.Element> = { free: FreeBoard, plus: PlusBoard, pro: ProBoard };
+const BOARDS: Record<Plan["id"], () => React.JSX.Element> = { free: FreeBoard, negotiator: NegotiatorBoard, concierge: ConciergeBoard };
 
 export function Plans() {
-  const [on, setOn] = useState<Plan["id"]>("plus");
+  const [on, setOn] = useState<Plan["id"]>("negotiator");
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
 
   // arrow keys move between the tabs, as a tab list should
@@ -105,9 +106,9 @@ export function Plans() {
     <section id="plans" className={s.plans} aria-labelledby="plans-title">
       <div className={s.panel}>
         <div className={s.inner}>
-          <h2 className="h2" id="plans-title">Start free. Upgrade when it counts.</h2>
-          <p className={s.lead}>Search for free. Plus adds the AI comparison and the Xprt Negotiator; Pro hands your deal to a person.</p>
-          <div className={s.tabs} role="tablist" aria-label="Plans">
+          <h2 className="h2" id="plans-title">Shop free. Pay only when it pays off.</h2>
+          <p className={s.lead}>Browsing, comparing and negotiating are free. The Negotiator costs $19 only after you buy and save; Human Concierge puts a person on your purchase.</p>
+          <div className={s.tabs} role="tablist" aria-label="Pricing">
             {PLANS.map((p, i) => (
               <button key={p.id} ref={(el) => { tabs.current[i] = el; }} type="button" role="tab" id={`plan-${p.id}`} aria-selected={p.id === on}
                 aria-controls={`panel-${p.id}`} tabIndex={p.id === on ? 0 : -1} className={s.tab} onClick={() => setOn(p.id)} onKeyDown={(e) => onKey(e, i)}>

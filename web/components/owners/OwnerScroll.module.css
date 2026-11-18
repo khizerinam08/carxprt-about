@@ -1,0 +1,47 @@
+/* the sideways scroll: a pinned screen, a track of full-width panels (the title, then a moment each) that slides
+   left as you scroll, and a thin line of the five moments at the foot */
+.scroll { position: relative; height: calc(var(--n) * 120vh + 100vh); }
+.stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+.track { position: absolute; inset: 0 auto 0 0; display: flex; will-change: transform; }
+.panel { flex: none; width: 100vw; height: 100%; display: grid; place-items: center; padding: 96px var(--pad) 88px; transition: opacity .45s var(--ease); }
+.panel[data-past] { opacity: .25; }
+
+.intro { display: grid; justify-items: center; gap: 18px; max-width: 760px; text-align: center; }
+.intro :global(.h2) span { display: block; }
+.lead { max-width: 44ch; font-size: 19px; line-height: 1.4; color: var(--sub); text-wrap: pretty; }
+.hint { display: inline-flex; align-items: center; gap: 6px; margin-top: 4px; font-size: 15px; color: var(--sub); }
+.hint :global(.i) { width: 16px; height: 16px; animation: nudge 1.4s ease-in-out infinite; }
+@keyframes nudge { 50% { translate: 0 3px; } }
+
+/* a moment: the words and the card side by side, centred */
+.stop { display: grid; grid-template-columns: minmax(0, 380px) minmax(0, 470px); align-items: center; gap: clamp(40px, 7vw, 120px); width: 100%; max-width: 1000px; }
+.words { display: grid; }
+.step { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; font-size: 14px; color: var(--sub); font-variant-numeric: tabular-nums; }
+.step span { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--ink); color: var(--bg); font-size: 12px; font-weight: 500; }
+.words h3 { font-size: clamp(32px, 3.2vw, 48px); font-weight: 500; letter-spacing: -.035em; line-height: 1.02; text-wrap: balance; }
+.words p:not(.step) { margin-top: 16px; max-width: 36ch; font-size: 17px; line-height: 1.5; color: var(--sub); }
+
+/* the foot: five short lines with their names, lime once reached */
+.progress { position: absolute; left: 50%; bottom: 32px; translate: -50% 0; display: flex; gap: 8px; width: min(560px, calc(100% - 2 * var(--pad))); }
+.progress li { flex: 1; display: grid; gap: 8px; font-size: 12px; color: var(--sub); text-align: center; }
+.progress li::before { content: ""; height: 3px; border-radius: 2px; background: var(--line-2); transition: background .3s; }
+.progress li[data-on]::before { background: var(--lime-dot); }
+.progress li[data-on] { color: var(--ink); }
+
+@media (max-height: 820px) {
+  .slot { zoom: .88; }
+  .words h3 { font-size: 34px; }
+}
+
+/* phones and portrait tablets: the words over the card */
+.phone .panel { place-items: start center; padding: 84px var(--pad) 72px; }
+.phone .intro { align-self: center; }
+.phone .stop { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+.phone .step { margin-bottom: 8px; }
+.phone .words h3 { font-size: 28px; }
+.phone .words p:not(.step) { margin-top: 8px; font-size: 15px; line-height: 1.45; }
+.phone .slot { zoom: .86; }
+.phone .progress { bottom: calc(env(safe-area-inset-bottom) + 20px); }
+.phone .progress span { display: none; }
+@media (max-height: 760px) { .phone .words p:not(.step) { display: none; } .phone .slot { zoom: .78; } }
+@media (prefers-reduced-motion: reduce) { .hint :global(.i) { animation: none; } }

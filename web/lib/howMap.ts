@@ -75,9 +75,9 @@ export const TITLE = {
 };
 export const CHAPTERS: Chapter[] = [
   { id: "ask", rail: "Ask", head: "Say what you want.", body: `Search and filter the usual way, or just tell CarXprt what you need. It looks at every dealer around your ZIP and brings back the cars that fit.` },
-  { id: "compare", rail: "Compare", head: "Compare what’s nearby.", body: "Line up the cars around you side by side: price, mileage, distance and what each costs to own. Ask anything about them and get a straight answer.", note: "AI comparison comes with CarXprt Plus." },
-  { id: "negotiate", rail: "Negotiate", head: "It negotiates. You stay hidden.", body: "Pick one, and the Xprt Negotiator opens a chat with that dealer, asks for the out-the-door price and talks it down. The dealer never gets your number or email.", note: "The Xprt Negotiator comes with CarXprt Plus." },
-  { id: "approve", rail: "Approve", head: "Approve the price.", body: "When the dealer agrees, you approve the deal and book the test drive. Members save around $2,500 on a typical deal." },
+  { id: "compare", rail: "Compare", head: "Compare what’s nearby.", body: "Line up the cars around you side by side: price, mileage, distance and what each costs to own. Ask anything about them and get a straight answer." },
+  { id: "negotiate", rail: "Negotiate", head: "It negotiates. You stay hidden.", body: "Pick one, and the Xprt Negotiator opens a chat with that dealer, asks for the out-the-door price and talks it down. The dealer never gets your number or email.", note: "Free to use. $19 only if you buy and save $200 or more." },
+  { id: "approve", rail: "Approve", head: "Approve the price.", body: "When the dealer agrees, you approve the deal and book the test drive. Buyers save around $2,500 on a typical deal." },
 ];
 
 /* the reply in the Ask card */

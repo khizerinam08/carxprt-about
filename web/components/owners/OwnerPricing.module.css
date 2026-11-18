@@ -1,0 +1,34 @@
+/* Owner mode's price: one white card, two columns */
+.card { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 440px); gap: clamp(32px, 6vw, 96px); align-items: center;
+  padding: clamp(28px, 5vw, 64px); border-radius: 40px; background: var(--surface); }
+.copy :global(.h2) { text-wrap: balance; }
+.features { display: grid; gap: 14px; margin-top: 32px; }
+.features li { display: flex; align-items: center; gap: 12px; font-size: 17px; }
+.features :global(.i) { width: 18px; height: 18px; flex: none; padding: 3px; border-radius: 50%; background: var(--lime); color: #1A1A1A; box-sizing: content-box; }
+
+.side { display: grid; gap: 14px; }
+.plans { display: grid; gap: 10px; }
+.plans li { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 4px 12px; padding: 18px 20px; border-radius: 22px; background: var(--bg); }
+.name { display: inline-flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 500; letter-spacing: -.02em; }
+.name em { padding: 3px 9px; border-radius: 999px; background: rgba(26, 26, 26, .1); font-size: 12px; font-style: normal; font-weight: 500; letter-spacing: 0; }
+.price { grid-row: span 2; justify-self: end; font-size: 15px; color: var(--sub); white-space: nowrap; }
+.price b { font-size: 32px; font-weight: 500; letter-spacing: -.035em; color: var(--ink); font-variant-numeric: tabular-nums; }
+.plans small { font-size: 13px; color: var(--sub); }
+/* the yearly row in lime, the better deal */
+.best { background: var(--lime) !important; color: #1A1A1A; }
+.best .price, .best small, .best .price b { color: #1A1A1A; }
+.cta { justify-content: center; height: 54px; margin-top: 4px; background: #1A1A1A; color: #fff; }
+.cta:hover { box-shadow: 0 8px 24px -8px rgba(0, 0, 0, .45); }
+:global([data-theme="dark"]) .cta { background: #fff; color: #1A1A1A; }
+.shop { font-size: 14px; line-height: 1.45; color: var(--sub); text-align: center; text-wrap: pretty; }
+
+@media (max-width: 900px) {
+  .card { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 720px) {
+  .card { padding: 32px 16px 16px; border-radius: 32px; }
+  .copy { padding: 0 8px; }
+  .features li { font-size: 15px; }
+  .plans li { padding: 16px; }
+  .price b { font-size: 28px; }
+}

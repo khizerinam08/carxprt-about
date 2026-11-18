@@ -7,26 +7,26 @@ import { Icon, Logo } from "../Icons";
 import s from "./Versus.module.css";
 
 /* The home page, in place of the first version's offers deck: a short comparison with the usual way (the review's missing "why
-   switch"). CarXprt Plus against listing sites, i.e. Cars.com and CarGurus, which come out the same on every
+   switch"). CarXprt against listing sites, i.e. Cars.com and CarGurus, which come out the same on every
    row (compare-sources.md; rechecked 23 Oct 2026: both now have AI search, Carson and CarGurus Discover, but
    contacting, negotiating and paperwork stay manual, through lead forms). The main difference first: the whole
    thing done by talking to the AI. As the table scrolls past the middle of the screen, the CarXprt column fills
    with lime from the top and each of its marks lights as the fill reaches it. It compares the platforms, so the
    column is just CarXprt; a feature that needs a paid plan says which in its own cell. The user (24 Oct 2026):
-   all of these are on the free plan except the AI negotiator and keeping your number from dealers (Plus) and
-   the advisor (Pro).
+   all of these are free except the person who runs the deal (Human Concierge). Negotiating is free to use; its
+   $19 fee comes only after a purchase that saves $200 or more (pricing, 18 Nov 2026).
    On phones (the user's reference: a pricing table with plan tabs) it's one card: the site's switch for the two
    sides at the top, held while the rows pass, then each row: its feature and the chosen side's answer */
 
 type Kind = "yes" | "part" | "no";
-const ROWS: { label: string; cx: Kind; plan?: "Plus" | "Pro"; them: Kind; note?: string }[] = [
+const ROWS: { label: string; cx: Kind; plan?: "Concierge"; them: Kind; note?: string }[] = [
   { label: "Do all of it just by talking to AI", cx: "yes", them: "part", note: "Search only" },
   { label: "Dynamic fair-price check", cx: "yes", them: "yes" },
   { label: "The full cost to own", cx: "yes", them: "no" },
-  { label: "AI that negotiates with the dealer", cx: "yes", plan: "Plus", them: "no" },
-  { label: "Dealers never get your number", cx: "yes", plan: "Plus", them: "no" },
+  { label: "AI that negotiates with the dealer", cx: "yes", them: "no" },
+  { label: "Dealers never get your number", cx: "yes", them: "no" },
   { label: "The out-the-door price before you go", cx: "yes", them: "part", note: "Fees, not tax" },
-  { label: "A person to run the deal", cx: "yes", plan: "Pro", them: "no" },
+  { label: "A person to run the deal", cx: "yes", plan: "Concierge", them: "no" },
 ];
 const SAY: Record<Kind, string> = { yes: "Yes", part: "Partly", no: "Not offered" };
 // server render and no JS: filled; the scroll loop takes over (the CSS grid has seven feature rows)

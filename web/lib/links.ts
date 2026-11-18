@@ -30,6 +30,13 @@ export const DEALER_NAV = [
   { href: "#faq", label: "Questions" },
   { href: "/", label: "For shoppers" },
 ];
+/* the owner page (/owners): its own sections, then back to the shopper's home */
+export const OWNER_NAV = [
+  { href: "#how-it-works", label: "How it works" },
+  { href: "#pricing", label: "Pricing" },
+  { href: "#faq", label: "Questions" },
+  { href: "/", label: "For shoppers" },
+];
 export const SOCIAL = [
   { label: "Instagram", short: "Ig", href: "https://www.instagram.com/carxprt" },
   { label: "LinkedIn", short: "in", href: "https://www.linkedin.com/company/carxprt" },

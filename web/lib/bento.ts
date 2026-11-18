@@ -7,8 +7,8 @@ import { CARS } from "./walkthrough";
 export type Cell = { id: string; head: string; body: string; note?: string };
 export const CELLS: Cell[] = [
   { id: "voice", head: "Talk to it", body: "Say it the way you’d tell a friend who knows cars: budget, must-haves and deal-breakers in one breath. CarXprt searches, filters and lines up the matches." },
-  { id: "private", head: "Your number stays yours", body: "Before the Xprt Negotiator writes to a dealer, you choose what they see. Stay anonymous and they get your name, ZIP and a deal ID, never your number or email.", note: "With CarXprt Plus." },
-  { id: "quote", head: "Already have a quote? Bring it", body: "Attach a photo of the dealer’s quote. The validator checks every line, and the Xprt Negotiator takes it from there.", note: "With CarXprt Plus." },
+  { id: "private", head: "Your number stays yours", body: "Before the Xprt Negotiator writes to a dealer, you choose what they see. Stay anonymous and they get your name, ZIP and a deal ID, never your number or email." },
+  { id: "quote", head: "Already have a quote? Bring it", body: "Attach a photo of the dealer’s quote. The validator checks every line, and the Xprt Negotiator takes it from there." },
 ];
 
 /* voice: one breath, several asks (search, filters, a comparison), to show it's more than a voice remote */
