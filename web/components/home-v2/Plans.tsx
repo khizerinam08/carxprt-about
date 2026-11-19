@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState } from "react";
 import { PLANS, type Plan } from "@/lib/plans";
-import { CARS, OTD_FINAL, OTD_FIRST, PROMPT, THREAD } from "@/lib/walkthrough";
+import { ADDONS, CARS, OTD_FINAL, OTD_FIRST, PACKAGE, PROMPT } from "@/lib/walkthrough";
 import { DEALERS, MATCHES, WINNER } from "@/lib/howMap";
 import { app } from "@/lib/links";
 import { fmtUSD } from "@/lib/problemMath";
@@ -48,19 +48,20 @@ function FreeBoard() {
 
 /* Xprt Negotiator, as one panel like the Concierge's (the user): what it is in a line, then the deal it ran: the
    dealer's quote with add-ons and a package, the negotiator turning them down and asking for less with a reason,
-   the dealer agreeing, and the price you approve */
+   the dealer agreeing, and the price you approve. Its own short lines (the user: lean, with room to breathe); the
+   longer thread stays on the walkthrough and the About page */
 function NegotiatorBoard() {
   return (
-    <div className={`${s.p} ${s.proChat}`} style={k(0, "1 / -1")}>
+    <div className={`${s.p} ${s.proChat} ${s.neg}`} style={k(0, "1 / -1")}>
       <p className={s.proHead}>
         <span className={s.face}><Icon name="bolt" /></span>
         <span><b>Xprt Negotiator</b><small><i />Negotiating with {DEALERS[WINNER].name}</small></span>
       </p>
-      <p className={s.explain} style={kk(1)}>It talks to the dealer for you: it drops the extras you don’t need and asks for a fair price, with a reason. You approve the final number.</p>
+      <p className={s.explain} style={kk(1)}>Talks to the dealer for you. You approve the price.</p>
       <ol className={s.proMsgs}>
-        <li className={s.fromA} style={kk(2)}>{THREAD[1].text}</li>
-        <li className={s.fromX} style={kk(3)}>{THREAD[2].text}</li>
-        <li className={s.fromA} style={kk(4)}>{THREAD[4].text}</li>
+        <li className={s.fromA} style={kk(2)}>{fmtUSD(OTD_FIRST)}, with {fmtUSD(ADDONS + PACKAGE)} in add-ons and a package.</li>
+        <li className={s.fromX} style={kk(3)}>I don’t need the extras, and similar SUVs nearby cost less. Can you do {fmtUSD(OTD_FINAL)}?</li>
+        <li className={s.fromA} style={kk(4)}>Deal. {fmtUSD(OTD_FINAL)} out the door.</li>
       </ol>
       <p className={s.result} style={kk(5)}>
         <span><small>Out the door</small><b>{fmtUSD(OTD_FINAL)}</b></span>
