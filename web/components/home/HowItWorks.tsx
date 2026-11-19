@@ -80,7 +80,7 @@ export function HowItWorks({ curtain = false }: { curtain?: boolean }) {
   const [chapter, setChapter] = useState(-1);
   // which pinned stage plays: the wide one, the phone one, or none (the list)
   const [mode, setMode] = useState<"" | "wide" | "phone">("");
-  // narrow screens (phones, and the wide stage under 1200px): only Riverside and you keep their tags
+  // narrow screens (phones, and the wide stage under 1200px): only Brindlemoor and you keep their tags
   const [compact, setCompact] = useState(false);
   const live = mode !== "", phone = mode === "phone";
   const reduce = useReducedMotion();
@@ -150,7 +150,7 @@ export function HowItWorks({ curtain = false }: { curtain?: boolean }) {
           <ol>{CHAPTERS.map((c) => <li key={c.id}><h3>{c.head}</h3><p>{c.body}</p>{c.note && <p>{c.note}</p>}</li>)}</ol>
         </div>
         <div className={s.stage}>
-          {/* on narrow screens only Riverside and you keep their tags; the rest are dots */}
+          {/* on narrow screens only Brindlemoor and you keep their tags; the rest are dots */}
           <DealerMap ref={map} anchor={phone ? ANCHOR_PHONE : ANCHOR} compact={compact} />
           <div className={s.scrim} />
           <div className={s.copy} aria-hidden="true">

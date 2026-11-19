@@ -65,7 +65,7 @@ function Finale() {
 }
 
 /* the money screen, in the same format. Both bars split the same way: the price paid either way, then the
-   $2,400 the first quote added (ink) or CarXprt kept (the white glowing bar). That slice is drawn wider than
+   $1,000 the first quote added (ink) or CarXprt kept (the white glowing bar). That slice is drawn wider than
    its share so it can say what's in it; the totals on the right carry the real figures. */
 const PAID = 1.35, SLICE = 1;
 function Kept() {

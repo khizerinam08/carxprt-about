@@ -21,13 +21,14 @@ export const PICK = 0;
 /* out-the-door quote lines: [label, first offer, negotiated]; tax is 8% of the vehicle price. The negotiator
    drops the add-on and takes the discount off the vehicle's price (the doc fee stays: dealers rarely move it) */
 const TAX = 0.08;
-const VEHICLE = [34200, 32899] as const;
+const VEHICLE = [34200, 33732] as const;
+const PACKAGE = 495; // the sample deal saves $1,000 in all (the user, 19 Nov 2026)
 export const QUOTE: [string, number, number][] = [
   ["Vehicle", VEHICLE[0], VEHICLE[1]],
   ["Sales tax (8%)", Math.round(VEHICLE[0] * TAX), Math.round(VEHICLE[1] * TAX)],
   ["Registration", 250, 250],
   ["Doc fee", 799, 799],
-  ["Protection package", 995, 0],
+  ["Protection package", PACKAGE, 0],
 ];
 export const OTD_FIRST = QUOTE.reduce((a, [, v]) => a + v, 0);
 export const OTD_FINAL = QUOTE.reduce((a, [, , v]) => a + v, 0);
@@ -37,7 +38,7 @@ export const OTD_FINAL = QUOTE.reduce((a, [, , v]) => a + v, 0);
 export type Msg = { from: "xprt" | "dealer"; text: string };
 export const THREAD: Msg[] = [
   { from: "xprt", text: "Hi, I’m interested in your Hybrid SUV, stock 4471. What’s your best total price, with tax and fees?" },
-  { from: "dealer", text: `${fmtUSD(OTD_FIRST)} total. That includes a $995 protection package.` },
+  { from: "dealer", text: `${fmtUSD(OTD_FIRST)} total. That includes a ${fmtUSD(PACKAGE)} protection package.` },
   { from: "xprt", text: `I don’t need the package, and similar cars nearby cost less. Can you do ${fmtUSD(OTD_FINAL)} total?` },
   { from: "dealer", text: "Let me check with my manager." },
   { from: "dealer", text: `Yes, ${fmtUSD(OTD_FINAL)} total, without the package. That’s ${fmtUSD(OTD_FIRST - OTD_FINAL)} less than our first price.` },
@@ -88,8 +89,8 @@ export const stepAt = (p: number) => (p < 0.202 ? 0 : p < 0.42 ? 1 : p < 0.646 ?
 
 // self-check: the sample deal and the time figures must add up
 console.assert(
-  OTD_FIRST === 38980 && OTD_FINAL === 36580 && OTD_FIRST - OTD_FINAL === 2400 &&
-  KEPT.reduce((a, k) => a + k.usd, 0) === KEPT_USD && KEPT[0].usd === 995 && KEPT[1].usd === 1405 &&
+  OTD_FIRST === 38480 && OTD_FINAL === 37480 && OTD_FIRST - OTD_FINAL === 1000 &&
+  KEPT.reduce((a, k) => a + k.usd, 0) === KEPT_USD && KEPT[0].usd === 495 && KEPT[1].usd === 505 &&
   USUAL.reduce((a, s) => a + s.min, 0) === USUAL_MIN && USUAL_MIN === 840 && CARXPRT_MIN === 200 &&
   Math.round((1 - CARXPRT_MIN / USUAL_MIN) * 100) >= 75 && (USUAL_MIN - CARXPRT_MIN) / 60 >= 10 &&
   stepAt(0) === 0 && stepAt(0.3) === 1 && stepAt(0.6) === 2 && stepAt(0.9) === 3,

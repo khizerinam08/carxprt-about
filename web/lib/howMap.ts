@@ -3,7 +3,7 @@ import { fmtUSD } from "./problemMath";
 import { CARS, FOUND, OTD_FINAL, PICK, THREAD, span } from "./walkthrough";
 
 /* Home page, How it works: one map of the dealers around the buyer's ZIP, and a camera that moves between
-   four chapters (townhouse.dev). It runs the About page's sample deal: Riverside Auto's quote is that deal,
+   four chapters (townhouse.dev). It runs the About page's sample deal: Brindlemoor Auto's quote is that deal,
    and the negotiator's chat is that page's thread, so the two pages agree. Dealer names and places are
    sample content. Map units: a 2400 × 1500 board, turned 8° so its grid doesn't sit square on screen. */
 
@@ -25,13 +25,14 @@ export type Dealer = { id: string; name: string; at: Pt; cars: number; left?: bo
 /* the first three have the cars you compare (`car`: lib/walkthrough's CARS, in order), and the first of them
    is the one the negotiator talks to. Dealers sit in a flat band across the board, so the wide shots can show
    them all above the words and the card (positions found with a search over common screen sizes) */
+/* dealer names are invented (the user: completely fictional, no real dealerships) */
 export const DEALERS: Dealer[] = [
-  { id: "riverside", name: "Riverside Auto", at: [1580, 900], cars: 6, left: true, car: 0, route: [YOU, [1580, 760], [1580, 900]] },
-  { id: "northgate", name: "Northgate Cars", at: [1980, 470], cars: 5, car: 1, route: [YOU, [1180, 470], [1980, 470]] },
-  { id: "lakeside", name: "Lakeside Motors", at: [380, 620], cars: 4, left: true, car: 2, route: [YOU, [380, 760], [380, 620]] },
-  { id: "hillcrest", name: "Hillcrest Auto Group", at: [780, 900], cars: 3, left: true },
-  { id: "southpark", name: "Southpark Motors", at: [1980, 900], cars: 3 },
-  { id: "westfield", name: "Westfield Autos", at: [780, 470], cars: 2, left: true },
+  { id: "riverside", name: "Brindlemoor Auto", at: [1580, 900], cars: 6, left: true, car: 0, route: [YOU, [1580, 760], [1580, 900]] },
+  { id: "northgate", name: "Quessaly Cars", at: [1980, 470], cars: 5, car: 1, route: [YOU, [1180, 470], [1980, 470]] },
+  { id: "lakeside", name: "Marrowind Motors", at: [380, 620], cars: 4, left: true, car: 2, route: [YOU, [380, 760], [380, 620]] },
+  { id: "hillcrest", name: "Halvetton Auto Group", at: [780, 900], cars: 3, left: true },
+  { id: "southpark", name: "Ferrowick Motors", at: [1980, 900], cars: 3 },
+  { id: "westfield", name: "Talmerin Autos", at: [780, 470], cars: 2, left: true },
 ];
 export const WINNER = 0;
 export const COMPARED = DEALERS.filter((d) => d.car !== undefined).length;
@@ -84,7 +85,7 @@ export const CHAPTERS: Chapter[] = [
 export const MATCHES = Number(FOUND.replace(/\D/g, ""));
 export const REPLY = `${MATCHES} matches at ${DEALERS.length} dealers near ${ZIP}.`;
 
-/* the negotiation card: the About page's thread with Riverside, less its two holding lines */
+/* the negotiation card: the About page's thread with Brindlemoor, less its two holding lines */
 export const CHAT = [0, 1, 2, 4].map((i) => THREAD[i]);
 
 /* the approval */
@@ -122,13 +123,13 @@ export const CAM: Cam[] = [
   { x: 1365, y: 920, z: 1.7 }, // negotiate: closer, on you and the one dealer in the chat
   { x: 1380, y: 880, z: 1.3 }, // approve: the drive from you to the dealer
 ];
-/* phones (the pinned stage stacked: words at the top, card at the foot, the map between, only Riverside and
+/* phones (the pinned stage stacked: words at the top, card at the foot, the map between, only Brindlemoor and
    you keep tags), for an anchor at [.5, .45]; found by a search over common phone sizes */
 export const CAM_PHONE: Cam[] = [
   { x: 1160, y: 670, z: 0.46 }, // title: closer in, so the streets fill the screen (pulled back for Ask)
   { x: 1160, y: 400, z: 0.28 }, // ask: every dealer
   { x: 1160, y: 400, z: 0.28 }, // compare: the same shot, the other dealers fading back
-  { x: 1460, y: 840, z: 0.66 }, // negotiate: you and Riverside
+  { x: 1460, y: 840, z: 0.66 }, // negotiate: you and Brindlemoor
   { x: 1380, y: 820, z: 1.22 }, // approve: closer, for the drive
 ];
 
@@ -208,7 +209,7 @@ export const FRAMED: { ids: number[]; you: boolean }[] = [
 ];
 
 // self-check: the counts add up to the search; the compared dealers come first (the routes are indexed so) and
-// hold the sample cars in order, Riverside's car is the one picked, and the chat ends on the sample deal
+// hold the sample cars in order, Brindlemoor's car is the one picked, and the chat ends on the sample deal
 console.assert(
   DEALERS.reduce((a, d) => a + d.cars, 0) === MATCHES && MATCHES === 23 &&
   COMPARED === CARS.length && DEALERS.every((d, i) => d.car === undefined ? !d.route : d.car === i && !!d.route) &&

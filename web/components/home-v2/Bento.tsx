@@ -96,7 +96,7 @@ function Quote() {
         </span>
         <div className={`${s.in} ${s.receipt}`} style={d(1)}>
           <div className={s.rBody}>
-            <p className={s.rHead}><Icon name="doc" />Dealer quote · Riverside Auto</p>
+            <p className={s.rHead}><Icon name="doc" />Dealer quote · Brindlemoor Auto</p>
             <p className={s.rSub}>Hybrid SUV · first offer</p>
             <ul className={s.rLines}>
               <li className={s.in} style={d(2)}>

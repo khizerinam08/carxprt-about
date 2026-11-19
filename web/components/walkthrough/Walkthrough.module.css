@@ -63,7 +63,7 @@
    edge and a soft halo), so it's the brightest thing on the field instead of a faint tint */
 .ours > .back { background: #fff; color: #1A1A1A; font-weight: 500; opacity: clamp(0, calc(var(--e2) * 2 - 1), 1);
   box-shadow: 0 0 0 1.5px rgba(255,255,255,.95), 0 0 0 6px rgba(255,255,255,.4), 0 0 44px 6px rgba(255,255,255,.75), 0 14px 30px -16px rgba(26,26,26,.35); }
-/* money screen: the $2,400 is a short bar at the quote's scale, just wide enough for its figure */
+/* money screen: the $1,000 is a short bar at the quote's scale, just wide enough for its figure */
 .bar small { display: block; font-size: 13px; line-height: 1.3; white-space: normal; }
 /* the ink bars sit above the halo, so it brightens the field around the white bar but never smears them */
 .usual { position: relative; z-index: 2; }
@@ -103,7 +103,7 @@
   .rowName { grid-column: 1; }
   .rowTotal { grid-column: 2; grid-row: 1; font-size: 18px; }
   .bar { grid-column: 1 / -1; height: 52px; }
-  /* phones: segments size to their figures first, so short ones like "1–2 hrs" and "$2,400" stay readable */
+  /* phones: segments size to their figures first, so short ones like "1–2 hrs" and "$1,000" stay readable */
   .usual > span { flex-basis: auto; padding: 0 6px; font-size: 12px; }
   .usual > span b, .ours > span b { display: none; }
   /* money screen on phones: both bars keep the same split, and each slice shows just its figure */
