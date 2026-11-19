@@ -99,4 +99,4 @@ export const DEMO = {
   points: ["A 30-minute live demo with a real dashboard", "A custom quote for your dealership the same day", "We’ll reach out within one business day"],
 };
 
-console.assert(OTD === LINES.reduce((a, l) => a + l.v, 0) && fmtUSD(OTD) === "$37,480", "dealers: the quote adds up to the home page's price");
+console.assert(OTD === LINES.reduce((a, l) => a + l.v, 0) && fmtUSD(OTD) === "$37,629", "dealers: the quote adds up to the home page's price");

@@ -4,13 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState } from "react";
 import { PLANS, type Plan } from "@/lib/plans";
-import { CARS, OTD_FINAL, OTD_FIRST, PROMPT } from "@/lib/walkthrough";
+import { CARS, OTD_FINAL, OTD_FIRST, PROMPT, THREAD } from "@/lib/walkthrough";
 import { DEALERS, MATCHES, WINNER } from "@/lib/howMap";
 import { app } from "@/lib/links";
 import { fmtUSD } from "@/lib/problemMath";
 import { ChatBar } from "../ChatBar";
 import { Icon } from "../Icons";
-import { CompareCard, NegotiateCard } from "../home/HowCards";
+import { CompareCard } from "../home/HowCards";
 import s from "./Plans.module.css";
 
 /* The home page's plans: light, one rounded card (no ink panel); the styles say how.
@@ -20,7 +20,7 @@ import s from "./Plans.module.css";
    board, piece by piece. The boards add no new visuals: they're made of pieces the visitor has already met
    (the user asked for few, familiar pieces over new ones in every section):
    - Free: the hero's search bar, and the results under it (the walkthrough's car row, no pick)
-   - Negotiator: the same row with the AI's best fit, and the walkthrough's negotiator chat, its last two lines
+   - Negotiator: one panel like the Concierge's: what it is, then its chat with the dealer and the saving
    - Concierge: a fuller chat with your advisor (a person at CarXprt, not the dealer): the agreed price, two cheaper
      finds nearby, your question and its answer, the message bar. The user preferred it to a trimmed one */
 
@@ -46,12 +46,27 @@ function FreeBoard() {
   );
 }
 
+/* Xprt Negotiator, as one panel like the Concierge's (the user): what it is in a line, then the deal it ran: the
+   dealer's quote with add-ons and a package, the negotiator turning them down and asking for less with a reason,
+   the dealer agreeing, and the price you approve */
 function NegotiatorBoard() {
   return (
-    <>
-      <div className={s.p} style={k(0, "1 / span 5")}><CompareCard /></div>
-      <div className={s.p} style={k(1, "2 / -1")}><NegotiateCard from={1} chip={false} /></div>
-    </>
+    <div className={`${s.p} ${s.proChat}`} style={k(0, "1 / -1")}>
+      <p className={s.proHead}>
+        <span className={s.face}><Icon name="bolt" /></span>
+        <span><b>Xprt Negotiator</b><small><i />Negotiating with {DEALERS[WINNER].name}</small></span>
+      </p>
+      <p className={s.explain} style={kk(1)}>It talks to the dealer for you: it drops the extras you don’t need and asks for a fair price, with a reason. You approve the final number.</p>
+      <ol className={s.proMsgs}>
+        <li className={s.fromA} style={kk(2)}>{THREAD[1].text}</li>
+        <li className={s.fromX} style={kk(3)}>{THREAD[2].text}</li>
+        <li className={s.fromA} style={kk(4)}>{THREAD[4].text}</li>
+      </ol>
+      <p className={s.result} style={kk(5)}>
+        <span><small>Out the door</small><b>{fmtUSD(OTD_FINAL)}</b></span>
+        <em>{fmtUSD(OTD_FIRST - OTD_FINAL)} saved</em>
+      </p>
+    </div>
   );
 }
 
