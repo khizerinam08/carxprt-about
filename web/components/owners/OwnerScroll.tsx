@@ -9,7 +9,7 @@ import { OWNER_CARDS } from "./OwnerCards";
 import { OwnerStops } from "./OwnerStops";
 import s from "./OwnerScroll.module.css";
 
-/* One car, its first year, as a sideways scroll: pinned, the title first, then the five moments slide in one
+/* What your car does for you, as a sideways scroll: pinned, the title first, then the five moments slide in one
    screen at a time. Each moment's card plays once it's in place (--oa, --og, --od, --ok, --os); a thin line at
    the foot fills as you go. No car and no road (the user didn't like them). Short screens and reduced motion get
    the moments as a list (OwnerStops) */
@@ -22,7 +22,7 @@ const ease = (x: number) => (x < .5 ? 2 * x * x : 1 - (-2 * x + 2) ** 2 / 2);
 function Words({ c, i }: { c: Chapter; i: number }) {
   return (
     <div className={s.words}>
-      <p className={s.step}><span>{String(i + 1).padStart(2, "0")}</span>{c.miles.toLocaleString("en-US")} mi</p>
+      <p className={s.step}><span>{String(i + 1).padStart(2, "0")}</span>{c.rail}</p>
       <h3>{c.head}</h3>
       <p>{c.body}</p>
     </div>

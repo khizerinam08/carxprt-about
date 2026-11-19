@@ -50,7 +50,7 @@ function NegotiatorBoard() {
   return (
     <>
       <div className={s.p} style={k(0, "1 / span 5")}><CompareCard /></div>
-      <div className={s.p} style={k(1, "2 / -1")}><NegotiateCard from={2} /></div>
+      <div className={s.p} style={k(1, "2 / -1")}><NegotiateCard from={1} chip={false} /></div>
     </>
   );
 }
@@ -61,8 +61,7 @@ function ConciergeBoard() {
     <div className={`${s.p} ${s.proChat}`} style={k(0, "1 / -1")}>
       <p className={s.proHead}>
         <span className={s.face}><Icon name="user-round" /></span>
-        <span><b>Your CarXprt concierge</b><small><i />Online now</small></span>
-        <span className={s.proChip}>Concierge</span>
+        <span><b>Your CarXprt advisor</b><small><i />Online now</small></span>
       </p>
       <ol className={s.proMsgs}>
         <li className={s.fromA} style={kk(1)}>Done. {dealer} agreed to <b>{fmtUSD(OTD_FINAL)}</b> out the door on the {CARS[0].name}, {fmtUSD(OTD_FIRST - OTD_FINAL)} under their first quote.</li>
@@ -81,7 +80,7 @@ function ConciergeBoard() {
         <li className={s.fromYou} style={kk(3)}>Is the 2022 hybrid as good?</li>
         <li className={s.fromA} style={kk(4)}>Same trim, one owner, clean history. I’ll hold {dealer}’s price while you test-drive it on Saturday.</li>
       </ol>
-      <p className={s.composer} style={kk(5)}>Message your concierge<span><Icon name="arrow" /></span></p>
+      <p className={s.composer} style={kk(5)}>Message your advisor<span><Icon name="arrow" /></span></p>
     </div>
   );
 }
@@ -107,7 +106,7 @@ export function Plans() {
       <div className={s.panel}>
         <div className={s.inner}>
           <h2 className="h2" id="plans-title">Shop free. Pay only when it pays off.</h2>
-          <p className={s.lead}>Browsing, comparing and negotiating are free. The Negotiator costs $19 only after you buy and save; Human Concierge puts a person on your purchase.</p>
+          <p className={s.lead}>Searching, browsing and comparing cars are free. The Xprt Negotiator costs $19, only when it gets you a discount; Human Concierge puts a person on your purchase.</p>
           <div className={s.tabs} role="tablist" aria-label="Pricing">
             {PLANS.map((p, i) => (
               <button key={p.id} ref={(el) => { tabs.current[i] = el; }} type="button" role="tab" id={`plan-${p.id}`} aria-selected={p.id === on}
@@ -123,7 +122,7 @@ export function Plans() {
               <div key={p.id} className={`${s.detail} ${p.id === on ? s.shown : ""}`} role="tabpanel" id={`panel-${p.id}`} aria-labelledby={`plan-${p.id}`} hidden={p.id !== on}>
                 <ul className={s.features}>
                   {p.features.map((f) => (
-                    <li key={f.text}><span className={s.fIcon}><Icon name={f.icon} /></span>{f.text}</li>
+                    <li key={f.text}><span className={s.fIcon}><Icon name={f.icon} /></span><span className={s.fText}>{f.text}</span></li>
                   ))}
                 </ul>
                 <Link className={`${s.ctaBtn} ${s[p.id]}`} href={app(`/pricing?plan=${p.id}`)}>

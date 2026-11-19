@@ -36,11 +36,11 @@ export const OTD_FINAL = QUOTE.reduce((a, [, , v]) => a + v, 0);
    person (it never claims to be a person), the rest are the dealer's sales rep */
 export type Msg = { from: "xprt" | "dealer"; text: string };
 export const THREAD: Msg[] = [
-  { from: "xprt", text: "Hi, I’m interested in your Hybrid SUV, stock 4471. What’s your best out-the-door price?" },
-  { from: "dealer", text: `${fmtUSD(OTD_FIRST)} out the door. That includes our $995 protection package.` },
-  { from: "xprt", text: "I don’t need the package, and similar cars nearby list for less. Can you do $32,899 on the vehicle?" },
+  { from: "xprt", text: "Hi, I’m interested in your Hybrid SUV, stock 4471. What’s your best total price, with tax and fees?" },
+  { from: "dealer", text: `${fmtUSD(OTD_FIRST)} total. That includes a $995 protection package.` },
+  { from: "xprt", text: `I don’t need the package, and similar cars nearby cost less. Can you do ${fmtUSD(OTD_FINAL)} total?` },
   { from: "dealer", text: "Let me check with my manager." },
-  { from: "dealer", text: `We can do it. ${fmtUSD(OTD_FINAL)} out the door.` },
+  { from: "dealer", text: `Yes, ${fmtUSD(OTD_FINAL)} total, without the package. That’s ${fmtUSD(OTD_FIRST - OTD_FINAL)} less than our first price.` },
   { from: "xprt", text: "That works for me. I’ll confirm shortly." },
 ];
 

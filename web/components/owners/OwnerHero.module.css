@@ -18,14 +18,15 @@
 
 /* the stage: the car as big as the screen allows under the words (whole, above the fold; about 820px wide on a
    1440 by 900 screen), its body across the two stripes, its wheels on the floor */
-.stage { --w: clamp(320px, min(1040px, 92vw, (100svh - 410px) * 1460 / 826), 1040px); --h: calc(var(--w) * 826 / 1460); position: relative; height: calc(var(--h) + 24px); margin-top: clamp(12px, 3vw, 40px); }
+.stage { --w: clamp(320px, min(880px, 92vw, (100svh - 410px) * 1460 / 826), 880px); --h: calc(var(--w) * 826 / 1460); position: relative; height: calc(var(--h) + 24px); margin-top: clamp(12px, 3vw, 40px); }
 .stage > * { position: absolute; }
 .floor { left: 0; right: 0; top: calc(var(--h) * .78); height: calc(var(--h) * .3);
   background: linear-gradient(90deg, rgba(222, 222, 222, .2), rgba(132, 132, 132, .2) 50%, rgba(222, 222, 222, .2));
   -webkit-mask-image: linear-gradient(#000 35%, transparent); mask-image: linear-gradient(#000 35%, transparent); }
-.ink, .lime { left: 0; right: 0; height: calc(var(--h) * .085); box-shadow: 0 4px 9.2px rgba(0, 0, 0, .16); transform-origin: var(--from) 50%; animation: run 1.1s var(--ease) both; }
-.ink { --from: 0%; top: calc(var(--h) * .42); background: var(--stripe); }
-.lime { --from: 100%; top: calc(var(--h) * .57); background: var(--lime); animation-delay: .12s; }
+/* stripes as thick as the home hero's (52px with a 23px gap at 1440 by 900, where the car is 820 wide) */
+.ink, .lime { left: 0; right: 0; height: calc(var(--h) * .112); box-shadow: 0 4px 9.2px rgba(0, 0, 0, .16); transform-origin: var(--from) 50%; animation: run 1.1s var(--ease) both; }
+.ink { --from: 0%; top: calc(var(--h) * .4); background: var(--stripe); }
+.lime { --from: 100%; top: calc(var(--h) * .562); background: var(--lime); animation-delay: .12s; }
 @keyframes run { from { scale: 0 1; } }
 .shadow { left: 50%; top: calc(var(--h) * .9); width: calc(var(--w) * .86); height: calc(var(--h) * .08); translate: -50% 0; border-radius: 50%; background: rgba(0, 0, 0, .35); filter: blur(18px); }
 .car { left: 50%; top: 0; width: var(--w); height: auto; max-width: none; translate: -50% 0; animation: settle 1s var(--ease) .25s both; }

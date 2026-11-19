@@ -27,7 +27,6 @@ export function OwnerPricing() {
               ))}
             </ul>
             <a className={`btn ${s.cta}`} href={SIGN_IN}>Sign in to Owner mode</a>
-            <p className={s.shop}>{PRICE.shop}</p>
           </div>
         </div>
       </div>

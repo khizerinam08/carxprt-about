@@ -9,8 +9,8 @@ export function OwnerHero() {
   return (
     <section className={s.hero} aria-labelledby="owner-title">
       <div className={s.copy}>
-        <h1 className={s.title} id="owner-title"><span>You Bought the Car.</span> <span>We’ll Handle the Rest.</span></h1>
-        <p className={s.sub}>Your AI agent keeps track of what’s due, books the service and finds parts that fit, from the day you drive it home.</p>
+        <h1 className={s.title} id="owner-title"><span>Manage Your Car</span> <span>Without the Hassle.</span></h1>
+        <p className={s.sub}>Talk to your car. It keeps track of service, renewals and repairs, so you don’t have to.</p>
         <a className={`btn btn-lime ${s.cta}`} href={SIGN_IN}>Sign in to Owner mode</a>
       </div>
       <div className={s.stage} aria-hidden="true">

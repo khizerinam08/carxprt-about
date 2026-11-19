@@ -89,12 +89,12 @@ export function ChatCard({ icon, title, sub, chip, lines }: { icon: React.ReactN
 
 /* negotiate: the Xprt Negotiator's chat with the one dealer (it writes as the buyer; the dealer's rep answers).
    The status turns to agreed with the last message. `from` drops the opening lines (the plans board) */
-export function NegotiateCard({ from = 0 }: { from?: number }) {
+export function NegotiateCard({ from = 0, chip = true }: { from?: number; chip?: boolean }) {
   return (
     <ChatCard
       icon={<Icon name="bolt" />} title="Xprt Negotiator"
       sub={<>with {dealer.name} · <span className={c.status}><span>Negotiating</span><span>Deal agreed</span></span></>}
-      chip={<span className={c.private}><Icon name="hat-glasses" />Private</span>}
+      chip={chip ? <span className={c.private}><Icon name="hat-glasses" />Private</span> : undefined}
       lines={CHAT.slice(from).map((m) => ({ mine: m.from === "xprt", text: m.text }))}
     />
   );

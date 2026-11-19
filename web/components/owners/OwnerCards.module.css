@@ -62,7 +62,7 @@
 .wear small { grid-column: 2 / -1; font-size: 11px; color: var(--sub); }
 .wear li:not(.warn) i { background: var(--lime-dot); }
 
-/* 4. Ask Xprt */
+/* 4. Talk to car */
 .ask :global(svg:not(.i)) { width: 32px; height: 32px; }
 .chat { display: grid; gap: 8px; padding: 12px; border-radius: 18px; background: var(--bg); }
 .chat > li { --on: clamp(0, var(--ok, 1) * 5 - var(--k) * 1.2, 1); font-size: 14px; line-height: 1.4; opacity: var(--on); translate: 0 calc((1 - var(--on)) * 10px); }

@@ -33,8 +33,8 @@ export const FAQ: Topic[] = [
   },
   {
     id: "plans", name: "Pricing", items: [
-      { q: "What can I do for free?", a: "Browse, compare and save as many cars as you like, and negotiate on up to 3 cars at a time. Shopping on CarXprt is free." },
-      { q: "When do I pay the $19 Negotiator fee?", a: "Once, and only after you buy. You pay it when the Negotiator saved you at least $200 against a documented out-the-door quote for the same VIN. Save less, and you pay nothing." },
+      { q: "What’s included in Free?", a: "Search, browse, compare and save as many cars as you like, and ask anything about them. Free costs nothing, always." },
+      { q: "When does the Xprt Negotiator cost $19?", a: "Only when it gets you a discount of $200 or more against a documented out-the-door quote for the same VIN. No discount, no fee." },
       { q: "What does Human Concierge include?", a: "A person at CarXprt runs your purchase from start to finish. It’s $299, paid once, with 30 days of support that can be extended up to 60 days with approval." },
       { q: "Is Human Concierge worth it on one car?", a: "If it moves the price even 1%, it pays for itself on most vehicles. You’re paying for the deal, not for the software." },
     ],

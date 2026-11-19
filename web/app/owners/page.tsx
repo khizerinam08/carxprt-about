@@ -11,8 +11,8 @@ import { OWNER_FAQ } from "@/lib/ownerFaq";
 import { OWNER_NAV, SIGN_IN } from "@/lib/links";
 
 export const metadata: Metadata = {
-  title: "CarXprt Owner mode · You bought the car. We’ll handle the rest.",
-  description: "Owner mode keeps track of what’s due, books the service, finds parts that fit and answers anything about your car.",
+  title: "CarXprt Owner mode · Manage your car without the hassle.",
+  description: "Talk to your car. It keeps track of service, renewals and repairs, so you don’t have to.",
 };
 
 /* The owner page (18 Nov 2026): the car-first hero with one action, the five Owner mode moments of the car's
@@ -27,7 +27,7 @@ export default function OwnersPage() {
         <OwnerScroll />
         <OwnerPricing />
         <Questions faq={OWNER_FAQ} title="Questions from owners."
-          lead="What owners ask before they switch. Anything else, ask Xprt once you’re in." />
+          lead="What owners ask before they switch. Anything else, ask your car once you’re in." />
         <OwnerClose />
       </main>
       <Footer />

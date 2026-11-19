@@ -14,7 +14,7 @@ function Stop({ c, i }: { c: Chapter; i: number }) {
   return (
     <li ref={ref} className={`${s.stop} reveal ${inView ? "in" : ""}`}>
       <div className={s.words}>
-        <p className={s.step}><span>{String(i + 1).padStart(2, "0")}</span>{c.miles.toLocaleString("en-US")} mi</p>
+        <p className={s.step}><span>{String(i + 1).padStart(2, "0")}</span>{c.rail}</p>
         <h3>{c.head}</h3>
         <p>{c.body}</p>
       </div>

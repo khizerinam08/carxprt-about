@@ -41,11 +41,11 @@ export function AddCard() {
   );
 }
 
-/* 2. the agent's feed: three tasks come in, then the booking gets your OK */
+/* 2. your car's to-do feed (Owner mode talks as the car, not an agent: the user, 18 Nov 2026): three tasks come in, then the booking gets your OK */
 export function AgentCard() {
   return (
     <div className={`${c.card} ${o.agent}`} data-ui="" aria-hidden="true">
-      <Head icon={<Icon name="bolt" />} title="Your agent" sub="Live feed · 3 tasks" />
+      <Head icon={<Icon name="bolt" />} title="Your car" sub="Live feed · 3 tasks" />
       <ul className={o.tasks}>
         {FEED.map((t, i) => (
           <li key={t.head} style={k(i)}>
@@ -79,7 +79,7 @@ export function DueCard() {
           <text x="50" y="50">{REG.weeksLeft} wks</text>
         </svg>
       </div>
-      <p className={o.label}>Maintenance <em><Icon name="star" />AI estimate</em></p>
+      <p className={o.label}>Maintenance <em><Icon name="star" />Estimate</em></p>
       <ul className={o.wear}>
         {WEAR.map((w, i) => (
           <li key={w.k} style={{ ...k(i), "--w": w.w } as React.CSSProperties} className={w.warn ? o.warn : ""}>
@@ -94,12 +94,12 @@ export function DueCard() {
   );
 }
 
-/* 4. Ask Xprt: the question, the answer, the part that fits, what to do next */
+/* 4. talk to your car: the question, the answer, the part that fits, what to do next */
 export function AskCard() {
   const p = ASK_THREAD.part;
   return (
     <div className={`${c.card} ${o.ask}`} data-ui="" aria-hidden="true">
-      <Head icon={<svg viewBox="0 0 15.68 15.68"><use href="#mark" /></svg>} title="Ask Xprt" sub={`Chatting about your ${CAR.name}`} />
+      <Head icon={<svg viewBox="0 0 15.68 15.68"><use href="#mark" /></svg>} title={`Your ${CAR.name}`} sub="Chatting with you" />
       <ol className={o.chat}>
         <li className={o.mine} style={k(0)}>{ASK_THREAD.q}</li>
         <li className={o.theirs} style={k(1)}>{ASK_THREAD.a}</li>

@@ -20,7 +20,6 @@
 .cta { justify-content: center; height: 54px; margin-top: 4px; background: #1A1A1A; color: #fff; }
 .cta:hover { box-shadow: 0 8px 24px -8px rgba(0, 0, 0, .45); }
 :global([data-theme="dark"]) .cta { background: #fff; color: #1A1A1A; }
-.shop { font-size: 14px; line-height: 1.45; color: var(--sub); text-align: center; text-wrap: pretty; }
 
 @media (max-width: 900px) {
   .card { grid-template-columns: minmax(0, 1fr); }
