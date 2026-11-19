@@ -26,6 +26,9 @@ const TAX = 0.08;
 const VEHICLE = [34200, 33870] as const;
 export const ADDONS = 249; // window tint and nitrogen tires
 export const PACKAGE = 395; // protection package
+// the negotiator's reason for the discount: the listing sits this far above the market price for its trim and
+// mileage (CarXprt's fair-price check), and the buyer is ready to sign this week (the user: a reason dealers act on)
+export const ABOVE_MARKET = VEHICLE[0] - VEHICLE[1];
 export const QUOTE: [string, number, number][] = [
   ["Vehicle", VEHICLE[0], VEHICLE[1]],
   ["Sales tax (8%)", Math.round(VEHICLE[0] * TAX), Math.round(VEHICLE[1] * TAX)],
@@ -42,7 +45,7 @@ export type Msg = { from: "xprt" | "dealer"; text: string };
 export const THREAD: Msg[] = [
   { from: "xprt", text: "Hi, I’m interested in your Hybrid SUV, stock 4471. What’s your best total price, with tax and fees?" },
   { from: "dealer", text: `${fmtUSD(OTD_FIRST)} total. That includes ${fmtUSD(ADDONS)} in add-ons (window tint, nitrogen tires) and a ${fmtUSD(PACKAGE)} protection package.` },
-  { from: "xprt", text: `I don’t need the add-ons or the package. And two similar Hybrid SUVs within 20 miles are listed for less, so can you do ${fmtUSD(OTD_FINAL)} total?` },
+  { from: "xprt", text: `I don’t need the add-ons or the package. Your price is also ${fmtUSD(ABOVE_MARKET)} above the market for this trim and mileage. At ${fmtUSD(OTD_FINAL)} total, I can sign this week.` },
   { from: "dealer", text: "Let me check with my manager." },
   { from: "dealer", text: `Yes, ${fmtUSD(OTD_FINAL)} total, without the add-ons and the package. That’s ${fmtUSD(OTD_FIRST - OTD_FINAL)} less than our first price.` },
   { from: "xprt", text: "That works for me. I’ll confirm shortly." },

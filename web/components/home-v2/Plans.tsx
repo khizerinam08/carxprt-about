@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState } from "react";
 import { PLANS, type Plan } from "@/lib/plans";
-import { ADDONS, CARS, OTD_FINAL, OTD_FIRST, PACKAGE, PROMPT } from "@/lib/walkthrough";
+import { ABOVE_MARKET, ADDONS, CARS, OTD_FINAL, OTD_FIRST, PACKAGE, PROMPT } from "@/lib/walkthrough";
 import { DEALERS, MATCHES, WINNER } from "@/lib/howMap";
 import { app } from "@/lib/links";
 import { fmtUSD } from "@/lib/problemMath";
@@ -60,7 +60,7 @@ function NegotiatorBoard() {
       <p className={s.explain} style={kk(1)}>Talks to the dealer for you. You approve the price.</p>
       <ol className={s.proMsgs}>
         <li className={s.fromA} style={kk(2)}>{fmtUSD(OTD_FIRST)}, with {fmtUSD(ADDONS + PACKAGE)} in add-ons and a package.</li>
-        <li className={s.fromX} style={kk(3)}>I don’t need the extras, and similar SUVs nearby cost less. Can you do {fmtUSD(OTD_FINAL)}?</li>
+        <li className={s.fromX} style={kk(3)}>Please drop the extras. Your price is {fmtUSD(ABOVE_MARKET)} above market for this mileage. At {fmtUSD(OTD_FINAL)}, I’ll sign this week.</li>
         <li className={s.fromA} style={kk(4)}>Deal. {fmtUSD(OTD_FINAL)} out the door.</li>
       </ol>
       <p className={s.result} style={kk(5)}>
