@@ -2,9 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { clamp, useScrollFrame } from "@/hooks/useScroll";
-import { useInView } from "@/hooks/useInView";
-import { useReducedMotion } from "@/hooks/useReducedMotion";
-import { CAM, CAM_PHONE, CH, CHAPTERS, FRAMED, TITLE, endOf, frameAt, type Chapter } from "@/lib/howMap";
+import { CAM, CAM_PHONE, CH, CHAPTERS, TITLE, frameAt, type Chapter } from "@/lib/howMap";
 import { PROMPT } from "@/lib/walkthrough";
 import { Icon } from "../Icons";
 import { DealerMap, type MapHandle } from "./DealerMap";
@@ -17,13 +15,11 @@ import s from "./HowItWorks.module.css";
    list on the right jumps between them; on shorter or narrower screens the words, card and list are drawn
    smaller. Phones and portrait tablets get the same pinned stage, stacked: progress bars and the words at the
    top, the card at the foot, the map between with cameras of its own; down to 420px tall (a phone with its
-   browser bars showing, a small window), with the card drawn smaller under 620px. Very short screens (phones
-   in landscape) and reduced motion get the same chapters as a list, each with its map and card at the finished state.
+   browser bars showing, a small window), with the card drawn smaller under 620px. There is no list version: every
+   screen, short ones and reduced motion included, gets the pinned scroll (the user, 20 Nov 2026: no cards).
    (Laptops at 125-150% scaling have viewports around 1280 × 600: they get the wide stage, scaled.) */
 
-const PIN = "(min-width: 960px) and (min-height: 520px)";
-const PIN_PHONE = "(max-width: 959px) and (min-height: 420px)";
-const CARDS = [AskCard, CompareCard, NegotiateCard, ApproveCard];
+const NARROW = "(max-width: 959px)";
 const EMPTY = "Describe the car you want";
 /* where the camera's point lands in the stage (lib/howMap's cameras are found for these anchors) */
 const ANCHOR = [0.5, 0.4] as const;
@@ -43,34 +39,8 @@ function Title() {
   return <h2 className="h2" id="how-title">{TITLE.head.map((l) => <span key={l} className={s.line}>{l}</span>)}</h2>;
 }
 
-/* one chapter of the list version: its words, then its map as the chapter ends, with the card under it.
-   The map frames the chapter's pins itself, clear of the card's overlap; on phones the other dealers are dots */
-function RestChapter({ c, i, early }: { c: Chapter; i: number; early: boolean }) {
-  const map = useRef<MapHandle>(null);
-  const [ref, inView] = useInView<HTMLLIElement>();
-  const [compact, setCompact] = useState(false);
-  const Card = CARDS[i];
-  useEffect(() => {
-    const mq = matchMedia("(max-width: 720px)");
-    const on = () => setCompact(mq.matches);
-    on();
-    mq.addEventListener("change", on);
-    return () => mq.removeEventListener("change", on);
-  }, []);
-  useEffect(() => { map.current?.apply(frameAt(endOf(i), early), { ...FRAMED[i], inset: [24, 24, 84, 24] }); }, [i, compact, early]);
-  return (
-    <li ref={ref} className={`${s.restCh} reveal ${inView ? "in" : ""}`}>
-      <Copy c={c} i={i} />
-      <figure className={s.fig}>
-        <div className={s.frame}><DealerMap ref={map} compact={compact} /></div>
-        <div className={s.figCard}><Card /></div>
-      </figure>
-    </li>
-  );
-}
-
 /* `curtain` (the home page): it follows the hero bridge with no gap, whose curved lime band rises over its top;
-   its list version gets room at the top, a centred heading and each chapter on a card */
+   */
 export function HowItWorks({ curtain = false }: { curtain?: boolean }) {
   const root = useRef<HTMLElement>(null);
   const map = useRef<MapHandle>(null);
@@ -78,34 +48,31 @@ export function HowItWorks({ curtain = false }: { curtain?: boolean }) {
   const approveRef = useRef<HTMLDivElement>(null);
   const typed = useRef(-1);
   const [chapter, setChapter] = useState(-1);
-  // which pinned stage plays: the wide one, the phone one, or none (the list)
-  const [mode, setMode] = useState<"" | "wide" | "phone">("");
+  // which pinned stage plays: the wide one or the phone one
+  const [phone, setPhone] = useState(false);
   // narrow screens (phones, and the wide stage under 1200px): only Brindlemoor and you keep their tags
   const [compact, setCompact] = useState(false);
-  const live = mode !== "", phone = mode === "phone";
-  const reduce = useReducedMotion();
 
   useEffect(() => {
-    const wide = matchMedia(PIN), small = matchMedia(PIN_PHONE), roomy = matchMedia("(min-width: 1200px)");
+    const narrow = matchMedia(NARROW), roomy = matchMedia("(min-width: 1200px)");
     const on = () => {
-      setMode(reduce ? "" : wide.matches ? "wide" : small.matches ? "phone" : "");
+      setPhone(narrow.matches);
       setCompact(!roomy.matches);
     };
     on();
-    [wide, small, roomy].forEach((m) => m.addEventListener("change", on));
-    return () => [wide, small, roomy].forEach((m) => m.removeEventListener("change", on));
-  }, [reduce]);
+    [narrow, roomy].forEach((m) => m.addEventListener("change", on));
+    return () => [narrow, roomy].forEach((m) => m.removeEventListener("change", on));
+  }, []);
 
-  // entering the pinned version: start from the current scroll; leaving it: the list shows finished cards
+  // switching stages: start from the current scroll
   useEffect(() => {
     typed.current = -1;
-    if (live) dispatchEvent(new Event("scroll"));
-    else root.current?.removeAttribute("style");
-  }, [live, phone]);
+    dispatchEvent(new Event("scroll"));
+  }, [phone]);
 
   useScrollFrame(({ vh }) => {
     const el = root.current;
-    if (!live || !el) return;
+    if (!el) return;
     const r = el.getBoundingClientRect();
     const p = clamp(-r.top / (r.height - vh));
     // the home page (`curtain`): the route lines draw at the end of Ask, as in the user's Figma
@@ -141,8 +108,8 @@ export function HowItWorks({ curtain = false }: { curtain?: boolean }) {
   };
 
   return (
-    <section ref={root} id="how-it-works" className={`${s.how} ${live ? s.live : s.rest} ${phone ? s.phone : ""} ${curtain ? s.curtain : ""}`} aria-labelledby="how-title" data-ch="-1">
-      {live ? (<>
+    <section ref={root} id="how-it-works" className={`${s.how} ${s.live} ${phone ? s.phone : ""} ${curtain ? s.curtain : ""}`} aria-labelledby="how-title" data-ch="-1">
+      <>
         {/* the words, once, for screen readers (outside the pinned stage); the stage shows one chapter at a time */}
         <div className="sr-only">
           <Title />
@@ -176,17 +143,7 @@ export function HowItWorks({ curtain = false }: { curtain?: boolean }) {
             </button>
           </nav>
         </div>
-      </>) : (
-        <div className="wrap">
-          <div className={s.head}>
-            <Title />
-            <p className={s.lead}>{TITLE.lead}</p>
-          </div>
-          <ol className={s.list}>
-            {CHAPTERS.map((c, i) => <RestChapter key={c.id} c={c} i={i} early={curtain} />)}
-          </ol>
-        </div>
-      )}
+      </>
     </section>
   );
 }
